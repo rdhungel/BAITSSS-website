@@ -4,17 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BAITSSS</title>
-<meta name="description" content="BAITSSS hourly science and irrigation decision support.">
+<meta name="description" content="BAITSSS agricultural intelligence and irrigation decision support.">
 <style>
-*{box-sizing:border-box}html,body{margin:0;background:#f7f5ee;font-family:Arial,Helvetica,sans-serif}.site-header{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:#203d5c;color:#fff;position:sticky;top:0;z-index:100}.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;font-size:22px}.brand img{width:34px;height:38px;object-fit:contain}.primary-nav{display:flex;gap:22px;align-items:center}.primary-nav a{color:#fff;text-decoration:none;font-weight:700}.primary-nav a:hover,.primary-nav a.active{color:#c9ee82}.hero-visual{width:100%;margin:0;background:#f7f5ee}.hero-visual img{display:block;width:100%;height:auto}.fallback{padding:80px 30px;text-align:center;color:#173630}.footer{padding:22px 28px;background:#203d5c;color:#fff;font-size:14px}@media(max-width:800px){.primary-nav{gap:10px;font-size:12px}.brand{font-size:18px}.site-header{padding:0 12px}}
+*{box-sizing:border-box}html,body{margin:0;background:#07131f;font-family:Arial,Helvetica,sans-serif}.site-header{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:#203d5c;color:#fff;position:sticky;top:0;z-index:100}.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;font-size:22px}.brand img{width:34px;height:38px;object-fit:contain}.primary-nav{display:flex;gap:22px;align-items:center}.primary-nav a{color:#fff;text-decoration:none;font-weight:700}.primary-nav a:hover,.primary-nav a.active{color:#c9ee82}.hero-visual{width:100%;margin:0;background:#07131f}.hero-visual img{display:block;width:100%;height:auto;max-width:none}.footer{padding:22px 28px;background:#203d5c;color:#fff;font-size:14px}@media(max-width:800px){.primary-nav{gap:10px;font-size:12px}.brand{font-size:18px}.site-header{padding:0 12px}}
 </style>
 </head>
 <body>
 <header class="site-header"><a class="brand" href="./"><img src="assets/brand-logo.png" alt=""><span>BAITSSS</span></a><nav class="primary-nav"><a class="active" href="./">Home</a><a href="science/">Science</a><a href="software/">Software</a><a href="access-participation/">Access &amp; Participation</a><a href="contact/">Contact</a></nav></header>
-<main><section class="hero-visual"><img id="baitsss-home-visual" alt="BAITSSS hourly science, environmental inputs, model engine, irrigation decisions, and agricultural outcomes"></section></main>
+<main><section class="hero-visual"><img src="assets/baitsss_blueprint3_splash.png" alt="BAITSSS agricultural intelligence and technology support system splash visual"></section></main>
 <footer class="footer">BAITSSS · Scientific model and desktop software · Under active development</footer>
-<script>
-(async()=>{try{const parts=['assets/baitsss-home-visual.part1','assets/baitsss-home-visual.part2','assets/baitsss-home-visual.part3'];const buffers=await Promise.all(parts.map(async p=>{const r=await fetch(p,{cache:'no-store'});if(!r.ok)throw new Error(p);return new Uint8Array(await r.arrayBuffer())}));const total=buffers.reduce((n,b)=>n+b.length,0),all=new Uint8Array(total);let o=0;for(const b of buffers){all.set(b,o);o+=b.length}document.getElementById('baitsss-home-visual').src=URL.createObjectURL(new Blob([all],{type:'image/jpeg'}))}catch(e){document.querySelector('.hero-visual').innerHTML='<div class="fallback"><h1>BAITSSS</h1><p>Home visual failed to load.</p></div>'}})();
-</script>
 </body>
 </html>
