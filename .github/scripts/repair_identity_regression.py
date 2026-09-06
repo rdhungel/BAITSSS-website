@@ -24,11 +24,10 @@ start=s.rfind('<section',0,pos)
 next_section=s.find('<section',pos+len(marker))
 if start<0 or next_section<0: raise SystemExit('Research workflow boundaries missing')
 s=s[:start]+s[next_section:]
-# Renumber remaining numbered section kickers in document order.
 counter=[0]
 def renum(m):
     counter[0]+=1
-    return m.group(1)+str(counter[0])+' · '
+    return m.group(1)+f'{counter[0]:02d} · '
 s=re.sub(r'(<div class="section-kicker">)\d+ · ',renum,s)
 p.write_text(s,encoding='utf-8')
 
@@ -49,6 +48,11 @@ if pos>=0:
     end=s.find('</main>',pos)
     if start<0 or end<0: raise SystemExit('History routing boundaries missing')
     s=s[:start]+s[end:]
+counter=[0]
+def renum_history(m):
+    counter[0]+=1
+    return m.group(1)+f'{counter[0]:02d} · '
+s=re.sub(r'(<div class="section-kicker">)\d+ · ',renum_history,s)
 p.write_text(s,encoding='utf-8')
 
 # Access & Participation: keep a compact collaboration example as the target of
@@ -59,8 +63,9 @@ if 'id="mit-collaboration"' not in s:
     anchor='<section class="section"><div class="wrap"><div class="request-box">'
     idx=s.find(anchor)
     if idx<0: raise SystemExit('Access project collaboration anchor missing')
-    block='''<section class="section" id="mit-collaboration"><div class="wrap"><div class="section-head"><div class="section-kicker">Collaboration example</div><div><h2>MIT student collaboration</h2></div></div><article class="route" style="min-height:0;max-width:760px"><div class="num">UNIVERSITY RESEARCH</div><h3>Higher-resolution data for irrigation management</h3><p>A documented MIT student collaboration used BAITSSS within a university research project in Cheyenne County, Kansas.</p></article></div></section>\n'''
+    block='''<section class="section" id="mit-collaboration"><div class="wrap"><div class="section-head"><div class="section-kicker">02 · Collaboration example</div><div><h2>MIT student collaboration</h2></div></div><article class="route" style="min-height:0;max-width:760px"><div class="num">UNIVERSITY RESEARCH</div><h3>Higher-resolution data for irrigation management</h3><p>A documented MIT student collaboration used BAITSSS within a university research project in Cheyenne County, Kansas.</p></article></div></section>\n'''
     s=s[:idx]+block+s[idx:]
+s=s.replace('<div class="section-kicker">04 · Project collaboration</div>','<div class="section-kicker">03 · Project collaboration</div>',1)
 p.write_text(s,encoding='utf-8')
 
 # Acceptance checks
@@ -72,5 +77,5 @@ assert 'From field data to scientific interpretation' not in r
 assert 'MIT collaboration' in r and '../access-participation/#mit-collaboration' in r
 assert '<section class="hero">' in h and 'Research and development lineage' in h
 assert '<main>\n</main>' not in h
-assert 'id="mit-collaboration"' in a and 'Higher-resolution data for irrigation management' in a
-print('Identity regression repair PASS')
+assert 'id="mit-collaboration"' in a and '02 · Collaboration example' in a and '03 · Project collaboration' in a
+print('Identity repair and numbering PASS')
