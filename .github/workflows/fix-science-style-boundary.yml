@@ -1,0 +1,45 @@
+name: Fix Science style boundary
+
+on:
+  push:
+    branches:
+      - gh-pages
+    paths:
+      - .github/workflows/fix-science-style-boundary.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-science:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Repair Science style boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('science/index.html')
+          s = p.read_text(encoding='utf-8')
+          bad = '\n<link rel="stylesheet" href="../assets/site-header.css">'
+          good = '\n</style>\n<link rel="stylesheet" href="../assets/site-header.css">'
+          if '</style>\n<link rel="stylesheet" href="../assets/site-header.css">' not in s:
+              if bad not in s:
+                  raise SystemExit('Expected Science stylesheet marker not found')
+              s = s.replace(bad, good, 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit repair
+        run: |
+          if git diff --quiet; then
+            echo "Science page already repaired."
+            exit 0
+          fi
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add science/index.html
+          git commit -m "Repair Science page style boundary"
+          git push origin gh-pages
