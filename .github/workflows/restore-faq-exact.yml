@@ -1,0 +1,30 @@
+name: Restore FAQ exact
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/restore-faq-exact.yml'
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Restore original FAQ
+        run: |
+          git show 59c0f4cdb9f598732d48e00acb57493ba1427e0b:faq/index.html > faq/index.html
+      - name: Commit FAQ restoration
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add faq/index.html
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Restore full original FAQ"
+            git push origin gh-pages
+          fi
