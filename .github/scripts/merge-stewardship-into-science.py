@@ -25,7 +25,6 @@ if not science_hero_match:
 science_hero_inner = science_hero_match.group(1)
 sci_rest = sci_body[science_hero_match.end():]
 
-# Extract useful science hero prose without preserving a second page-level hero.
 science_lede = re.search(r'<p class="hero-lede">(.*?)</p>', science_hero_inner, flags=re.S)
 science_note = re.search(r'<p class="hero-note">(.*?)</p>', science_hero_inner, flags=re.S)
 if not science_lede or not science_note:
@@ -37,24 +36,19 @@ stew_intro = '''<section class="section" id="scientific-stewardship"><div class=
 
 science_intro = f'''<section class="section" id="baitsss-model-science"><div class="wrap"><div class="section-head"><div class="section-kicker">Part II</div><div><h2>BAITSSS Model Science</h2><p class="section-intro">{science_lede.group(1)}</p><p class="section-intro">{science_note.group(1)}</p></div></div></div></section>'''
 
-combined_main = '<main>' + shared_hero + steward_intro + stew_body + science_intro + sci_rest + '</main>'
+combined_main = '<main>' + shared_hero + stew_intro + stew_body + science_intro + sci_rest + '</main>'
 science = science[:sci_main.start()] + combined_main + science[sci_main.end():]
 
-# Update metadata to reflect both equal parts.
 science = science.replace(
     'content="The scientific structure of the BAITSSS model: coupled energy balance, soil water, vegetation, weather, and irrigation logic."',
     'content="Scientific stewardship and BAITSSS model science: evidence, interpretation, uncertainty, validation, provenance, coupled energy balance, soil water, vegetation, weather, and irrigation logic."'
 )
-
-# The combined Science page owns stewardship; remove the duplicate More-menu entry from this page.
 science = science.replace('<a href="../scientific-stewardship/">Scientific Stewardship</a>', '')
 science_path.write_text(science, encoding='utf-8')
 
-# Replace standalone stewardship page with a clean redirect into the combined Science page.
 redirect = '''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0; url=../science/#scientific-stewardship"><link rel="canonical" href="../science/#scientific-stewardship"><meta name="robots" content="noindex"><title>Scientific Stewardship | BAITSSS</title></head><body><p>Scientific Stewardship is now part of <a href="../science/#scientific-stewardship">Science</a>.</p></body></html>'''
 steward_path.write_text(redirect, encoding='utf-8')
 
-# Remove the separate stewardship item from the shared More menu across public HTML pages.
 patterns = [
     '<a href="../scientific-stewardship/">Scientific Stewardship</a>',
     '<a class="active" href="../scientific-stewardship/">Scientific Stewardship</a>',
@@ -67,7 +61,6 @@ for p in Path('.').rglob('*.html'):
     new = text
     for pat in patterns:
         new = new.replace(pat, '')
-    # Any content link that intentionally points to stewardship should now point into Science.
     new = new.replace('href="../scientific-stewardship/"', 'href="../science/#scientific-stewardship"')
     if new != text:
         p.write_text(new, encoding='utf-8')
