@@ -2,33 +2,38 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}iframe{display:block;width:100%;height:980px;border:0;background:#07131f}</style></head>
 <body>
-<iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chip"></iframe>
+<iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chips"></iframe>
 <script>
 const CHIP='/assets/worker-chip-board.webp?v=1';
 const frame=document.getElementById('preview');
 frame.addEventListener('load',()=>{
   const doc=frame.contentDocument;
-  const unit=doc && doc.querySelector('#workers .workerUnit');
-  if(!doc || !unit || doc.querySelector('.realWorkerChip')) return;
+  const units=doc && [...doc.querySelectorAll('#workers .workerUnit')];
+  if(!doc || !units || units.length!==4 || doc.querySelectorAll('.realWorkerChip').length) return;
   const NS='http://www.w3.org/2000/svg';
-  const card=unit.querySelector('.worker-card');
-  const chip=doc.createElementNS(NS,'image');
-  chip.setAttribute('class','realWorkerChip');
-  chip.setAttribute('href',CHIP);
-  chip.setAttribute('x','716'); chip.setAttribute('y','326');
-  chip.setAttribute('width','88'); chip.setAttribute('height','76');
-  chip.setAttribute('preserveAspectRatio','xMidYMid slice');
-  chip.setAttribute('style','clip-path:inset(0 round 10px);pointer-events:none');
-  if(card) unit.insertBefore(chip,card.nextSibling);
-  const label=unit.querySelector('text');
-  if(label) label.style.display='none';
-  const dot=unit.querySelector('circle.worker-dot');
-  if(dot){
-    dot.setAttribute('cx','760');
-    dot.setAttribute('cy','326');
-    dot.setAttribute('r','6');
-    unit.appendChild(dot);
-  }
+  const xs=[716,818,920,1022];
+  units.forEach((unit,i)=>{
+    const card=unit.querySelector('.worker-card');
+    const chip=doc.createElementNS(NS,'image');
+    chip.setAttribute('class','realWorkerChip');
+    chip.setAttribute('href',CHIP);
+    chip.setAttribute('x',String(xs[i]));
+    chip.setAttribute('y','326');
+    chip.setAttribute('width','88');
+    chip.setAttribute('height','76');
+    chip.setAttribute('preserveAspectRatio','xMidYMid slice');
+    chip.setAttribute('style','clip-path:inset(0 round 10px);pointer-events:none');
+    if(card) unit.insertBefore(chip,card.nextSibling);
+    const label=unit.querySelector('text');
+    if(label) label.style.display='none';
+    const dot=unit.querySelector('circle.worker-dot');
+    if(dot){
+      dot.setAttribute('cx',String(xs[i]+44));
+      dot.setAttribute('cy','326');
+      dot.setAttribute('r','6');
+      unit.appendChild(dot);
+    }
+  });
 });
 </script>
 </body></html>
