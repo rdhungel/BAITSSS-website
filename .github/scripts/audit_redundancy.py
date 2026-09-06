@@ -90,4 +90,4 @@ for p,b in pages.items():
         if c: vals.append(f'{topic}:{c}')
     print('TOPIC\t'+p+'\t'+' '.join(vals))
 
-print('\nAUDIT_PASS\tfinal')
+print('\nAUDIT_PASS\tpost-final-cleanup')
