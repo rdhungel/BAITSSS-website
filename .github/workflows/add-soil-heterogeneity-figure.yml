@@ -1,0 +1,63 @@
+name: Add soil heterogeneity figure
+
+on:
+  push:
+    branches:
+      - gh-pages
+    paths:
+      - .github/workflows/add-soil-heterogeneity-figure.yml
+
+permissions:
+  contents: write
+
+jobs:
+  add-figure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Add soil heterogeneity study block
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('published-science/index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<!-- soil-heterogeneity-study -->'
+          if marker in s:
+              raise SystemExit(0)
+          block = '''
+<section class="section" id="soil-heterogeneity"><div class="wrap">
+  <div class="section-head"><h2>Soil heterogeneity and irrigation response</h2><p class="section-copy">BAITSSS can be used to examine how different soil representations influence soil-water behavior, evapotranspiration components, and modeled irrigation at the same location.</p></div>
+  <!-- soil-heterogeneity-study -->
+  <article class="study" style="grid-column:1/-1;overflow:hidden">
+    <a href="../assets/published-science/Soil%20Hetero.png" style="display:block;background:var(--soft);border-bottom:1px solid var(--line)" aria-label="Open soil heterogeneity figure full size">
+      <img src="../assets/published-science/Soil%20Hetero.png" alt="Comparison of POLARIS and SSURGO soil representations showing NDVI and LAI, evapotranspiration components, soil moisture, precipitation, and modeled irrigation through the season." style="display:block;width:100%;height:auto;object-fit:contain">
+    </a>
+    <div class="body">
+      <div class="year">Soil dataset comparison</div>
+      <h3>POLARIS and SSURGO produce different soil-water and irrigation behavior</h3>
+      <p>The vegetation trajectory is held in common while BAITSSS is evaluated with two soil representations. The comparison shows that differences in soil properties can produce substantially different root-zone water dynamics and modeled irrigation timing and frequency.</p>
+      <p>This figure is presented from the existing BAITSSS project record. The corresponding study or publication remains the authority for methods, parameterization, and interpretation.</p>
+    </div>
+  </article>
+</div></section>
+'''
+          target = '</main>'
+          if target not in s:
+              raise SystemExit('Expected </main> marker not found')
+          s = s.replace(target, block + target, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit figure integration
+        run: |
+          if git diff --quiet; then
+            echo "Soil heterogeneity figure already present."
+            exit 0
+          fi
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add published-science/index.html
+          git commit -m "Add soil heterogeneity figure to Published Science"
+          git push origin gh-pages
