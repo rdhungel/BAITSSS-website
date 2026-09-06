@@ -2,27 +2,24 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}iframe{display:block;width:100%;height:980px;border:0;background:#07131f}</style></head>
 <body>
-<iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chips"></iframe>
+<iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chip"></iframe>
 <script>
 const CHIP='data:image/webp;base64,UklGRtwEAABXRUJQVlA4INAEAADwHwCdASqwAJgAPp1KoEslpKMlJjPagLATiWduCv+794ATKQQBhb8Qkgm3IN2VP/A9NGsAPY8Lp1FQinAECa/Uwz4N1dw8HiiG0IEO6f8fsewtjwRVTveZDjVFzNE+2BWbv8SYmQQwLCFf211WM+Mz7lNQTJMcHlvtHqlNdlAD41gOcXuyKjq6/rdKAVo5HB5XCOETpfCSLXNjk0/xhU2obJvq0Bi73WrE/KxvE4yHQBtejsz34qI2zwwARBMMYovvRoUdqSbhgW9maCy2xIyiGodEBMM+M8CsQ0aqEQ5VOGpQ1bqpFvul1F4qdT254BcuqpwyMmGVVGOFUSDr8myJuGU1XgwlfkAA/vkRG9XqlD2e2fRq49UFJXBlf8vZMH0/m8RkZgETIKYVZFaP71Xw7phmZo8Mnrqv5g9IGp6nUsinoDh37WqYwSfp8jlJvFHL2nFWQgQf5ETFjzEMwReAOovYekN6oOtlrmH2dxpqy+dmNDp+vbe+pxQzD68SmtMMHD6nf1I8+9QoHRwlbhjaUqCTl1ZxzAHFctWbM3uMfZW/kgSURLDA63k5/BT99lqeUYJm98C0L/jJA4i2eR2dT+Mh0MCR+bmaM7oeFGhQQqWbSc+KkF8VzGgOaTtxnLaLrR1ZmC0tGNpm7TGgYP3vbUOVUj9J6wev/fm/uubG58dKeHdHbQvsdp8JGQIRito33x8nwBivvHVs5uI5lR4qpsOH6b/FhRPrmULVveLTfhqTlKd5HAO8RZ0S8a4B7FEMUIJmjf9lF/Zn12TiEwBynEIyZDCpme11pQkiTvcwcVwy/ZTWv/RANGmgPKJUka2JVxf4C4gS9OCth0ISqBBLflzGil3Tnx8P8WmHqWTH/HOxIBWC3ad8q1ypmbmzwdKF+9cpVHWsApCjSHGBnqiJA9diuqfOPvGz9TOwNyXSmqpRzpnoynPzrzqe+MYTDTNddZWVMc0YgI9kB76JxOGIp22H/1QjaWae0rS1UT2WlnuzYlVYJaiN5T86G5j3UNZnRqB4WzmL6GA6EGfL3zF0V63WFjtvtPKSx3BUNBtap6R737xh8jdOZ/5nKmZUF7FnT7eQic8LfCeSfKaJCo0YYs6MxkF1XthpQLByo0Tb3rIva7Vdb1436xqAPVYQwmO5p6tOyZQuqryjEB2zrDL1acRmIjjJINVY0nBiyKKA3lQDC5KrWRm+NbEWjxTeeeS1Zoza7yiMTajpguTIw2QIEDTBJAd851a4IhHR8g1av/yK5WKI2v5Jj6RT6Bj2LGfYb9sdyJg/7oBdrMPn42hM0sHAnsbq+41y2aGADv0UHvMvIScSR+r/a4KIIatyzKbgqUmJ6OMVHWP2q22AREIdNkeRXWZfAXuJqOdOFD++aS/3hluiSISVeuMqiFkUoJbnR0NcNKkhN51sgTMjEFt8wrG2+JJdyiprjI6MUunUksvUx0/wjhD71MHGxncrTFAa3WXMmYifpz0/2n2on/KJ7FxVmitGJ4H3cEHa21mjDMb4Rcc+5PLyYXppl5qy+iM+8Jw0LN2fZpxX8mzqPEY+kCMZaa7zSRL2PS3dEzaLDwQ/Cn74kt8qbKkT0DmAPFCiITELSfWUkVewmmpRx3cSATVJ4U7LhpbwKh/gAAAAAA==';
 const frame=document.getElementById('preview');
 frame.addEventListener('load',()=>{
   const doc=frame.contentDocument;
-  const units=doc && [...doc.querySelectorAll('#workers .workerUnit')];
-  if(!doc || !units || units.length!==4 || doc.querySelector('.realWorkerChip')) return;
+  const unit=doc && doc.querySelector('#workers .workerUnit');
+  if(!doc || !unit || doc.querySelector('.realWorkerChip')) return;
   const NS='http://www.w3.org/2000/svg';
-  const xs=[716,818,920,1022];
-  units.forEach((unit,i)=>{
-    const chip=doc.createElementNS(NS,'image');
-    chip.setAttribute('class','realWorkerChip');
-    chip.setAttribute('href',CHIP);
-    chip.setAttribute('x',xs[i]); chip.setAttribute('y','326');
-    chip.setAttribute('width','88'); chip.setAttribute('height','76');
-    chip.setAttribute('preserveAspectRatio','xMidYMid slice');
-    chip.setAttribute('style','clip-path:inset(0 round 10px);pointer-events:none');
-    const card=unit.querySelector('.worker-card');
-    if(card) unit.insertBefore(chip,card.nextSibling);
-  });
+  const chip=doc.createElementNS(NS,'image');
+  chip.setAttribute('class','realWorkerChip');
+  chip.setAttribute('href',CHIP);
+  chip.setAttribute('x','716'); chip.setAttribute('y','326');
+  chip.setAttribute('width','88'); chip.setAttribute('height','76');
+  chip.setAttribute('preserveAspectRatio','xMidYMid slice');
+  chip.setAttribute('style','clip-path:inset(0 round 10px);pointer-events:none');
+  const card=unit.querySelector('.worker-card');
+  if(card) unit.insertBefore(chip,card.nextSibling);
 });
 </script>
 </body></html>
