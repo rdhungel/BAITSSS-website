@@ -1,0 +1,95 @@
+name: Normalize site navigation
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/normalize-site-navigation.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  normalize-navigation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Normalize navigation across public pages
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+          main_pages = {
+              '': 'Home',
+              'software': 'Software',
+              'capabilities': 'Capabilities',
+              'science': 'Science',
+              'research-education': 'Research & Education',
+              'access-participation': 'Access & Participation',
+              'contact': 'Contact',
+          }
+
+          def link(prefix, folder, label, active=False):
+              href = prefix if folder == '' else f'{prefix}{folder}/'
+              cls = ' class="active"' if active else ''
+              return f'<a{cls} href="{href}">{label}</a>'
+
+          def canonical_nav(path):
+              rel = path.relative_to(root).as_posix()
+              folder = '' if rel == 'index.html' else rel.split('/')[0]
+              prefix = './' if folder == '' else '../'
+              parts = [
+                  link(prefix, '', 'Home', folder == ''),
+                  link(prefix, 'software', 'Software', folder == 'software'),
+                  link(prefix, 'capabilities', 'Capabilities', folder == 'capabilities'),
+                  link(prefix, 'science', 'Science', folder == 'science'),
+                  link(prefix, 'research-education', 'Research &amp; Education', folder == 'research-education'),
+                  link(prefix, 'access-participation', 'Access &amp; Participation', folder == 'access-participation'),
+                  link(prefix, 'contact', 'Contact', folder == 'contact'),
+              ]
+              more = (
+                  '<details class="more"><summary>More ▾</summary><div class="more-menu">'
+                  f'<a href="{prefix}meet-the-team/">Development &amp; History</a>'
+                  f'<a href="{prefix}published-science/">Published Science</a>'
+                  f'<a href="{prefix}research-geography/">Research Geography &amp; Timeline</a>'
+                  f'<a href="{prefix}faq/">Frequently Asked Questions</a>'
+                  f'<a href="{prefix}evidence/">Evidence</a>'
+                  f'<a href="{prefix}scientific-stewardship/">Scientific Stewardship</a>'
+                  f'<a href="{prefix}origins-publications/">Origins &amp; Publications</a>'
+                  f'<a href="{prefix}documentation/">Documentation</a>'
+                  '</div></details>'
+              )
+              return '<nav class="primary-nav" id="primaryNav" data-open="false">' + ''.join(parts) + more + '</nav>'
+
+          pattern = re.compile(r'<nav class="primary-nav" id="primaryNav" data-open="false">.*?</nav>', re.S)
+          changed = []
+          for path in sorted(root.rglob('*.html')):
+              if '.git' in path.parts or path.as_posix() == 'development-status/index.html':
+                  continue
+              text = path.read_text(encoding='utf-8')
+              if not pattern.search(text):
+                  continue
+              new = pattern.sub(canonical_nav(path), text, count=1)
+              if new != text:
+                  path.write_text(new, encoding='utf-8')
+                  changed.append(path.as_posix())
+
+          print('Normalized navigation in', len(changed), 'pages')
+          for item in changed:
+              print(item)
+      - name: Commit normalized navigation
+        run: |
+          if git diff --quiet; then
+            echo "Navigation already consistent."
+            exit 0
+          fi
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- '*.html'
+          git commit -m "Normalize navigation across website"
+          git push origin gh-pages
