@@ -26,7 +26,7 @@ Short pages are acceptable when their function is inherently compact, such as Co
 - Access & Participation: how an institution, organization, project, or collaborator can engage with BAITSSS.
 - Development & History: scientific and software development history and current development stage.
 - Origins & Publications: bibliographic publication authority and scientific lineage.
-- FAQ: clarification of genuine ambiguities only. It must not become a second Science, Software, Capabilities, Access, Research, or History page.
+- FAQ: a comprehensive practical reading list. It is intentionally allowed to restate material from other pages because visitors may come here specifically to read direct answers without navigating through the full site. Do not prune, consolidate, shorten, or rewrite the FAQ merely to reduce redundancy. Preserve the established FAQ list unless a FAQ change is specifically requested or a factual correction is necessary.
 - Documentation: navigation to user and technical reference material. It must not restate the content of the pages it indexes.
 - Example Project: one concrete end-to-end example, not a second Software or Capabilities page.
 - Scientific Stewardship: principles for scientific responsibility, interpretation, and separation of observed, supplied, and modeled quantities.
@@ -47,7 +47,7 @@ For every public heading, paragraph, card, box, example, and call to action, ask
 5. After consolidation, does the page still have enough substance to perform its own job completely?
 6. Is any visible section, card group, media area, or page body accidentally empty?
 
-Consolidate only when both identity and substance remain intact.
+Consolidate only when both identity and substance remain intact. The FAQ is the explicit exception to redundancy consolidation because its purpose is to provide complete direct answers in one place.
 
 ## Preservation of documented scientific history
 
@@ -55,4 +55,4 @@ Consolidation must never erase documented collaboration, validation, publication
 
 ## No duplication by paraphrase
 
-Changing wording does not make duplicated content unique. Two blocks that communicate the same scientific, software, access, evidence, research, or historical message count as redundancy even when the sentences are different.
+Changing wording does not make duplicated content unique. Two blocks that communicate the same scientific, software, access, evidence, research, or historical message count as redundancy even when the sentences are different. This rule does not apply to the FAQ, whose deliberate purpose is to collect direct answers in one place.
