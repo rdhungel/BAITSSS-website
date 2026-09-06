@@ -1,0 +1,29 @@
+name: Repair page substance
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - .github/workflows/repair-page-substance.yml
+      - .github/scripts/repair_page_substance.py
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Repair thin and broken pages
+        run: python .github/scripts/repair_page_substance.py
+      - name: Commit repairs
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add example-project/index.html scientific-stewardship/index.html research-geography/index.html research-map/index.html sitemap.xml '*.html' '*/index.html'
+          git commit -m "Restore substance to thin public pages"
+          git push origin gh-pages
