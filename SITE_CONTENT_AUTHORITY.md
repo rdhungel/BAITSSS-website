@@ -20,12 +20,10 @@ Short pages are acceptable when their function is inherently compact, such as Co
 - Software: how the maintained desktop product and project workflow operate.
 - Capabilities: what the maintained system can do.
 - Science: how the scientific model works.
-- Evidence: what has been verified, evaluated, compared, or demonstrated.
-- Published Science: visual scientific record and published study results.
 - Research & Education: research, teaching, student work, and academic use.
 - Access & Participation: how an institution, organization, project, or collaborator can engage with BAITSSS.
 - Software Development & History: software lineage only, beginning with the transition from research code to the maintained desktop system; desktop architecture, testing, recovery, packaging, release preparation, and current software status belong here.
-- Scientific History & Publications: scientific model history only; origin, institutions, research evolution, documented collaborations in the scientific record, and peer-reviewed publications belong here.
+- Scientific History & Publications: scientific origin, institutional research lineage, peer-reviewed publications, published study results and figures, documented research geography and timeline, and evidence categories.
 - FAQ: a comprehensive practical reading list. It is intentionally allowed to restate material from other pages because visitors may come here specifically to read direct answers without navigating through the full site. Do not prune, consolidate, shorten, or rewrite the FAQ merely to reduce redundancy. Preserve the established FAQ list unless a FAQ change is specifically requested or a factual correction is necessary.
 - Documentation: navigation to user and technical reference material. It must not restate the content of the pages it indexes.
 - Example Project: one concrete end-to-end example, not a second Software or Capabilities page.
