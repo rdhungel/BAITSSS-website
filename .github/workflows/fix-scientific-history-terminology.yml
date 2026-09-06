@@ -1,0 +1,27 @@
+name: Fix Scientific History terminology
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/scripts/fix-scientific-history-terminology.py'
+      - '.github/workflows/fix-scientific-history-terminology.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python .github/scripts/fix-scientific-history-terminology.py
+      - run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add origins-publications/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Clarify BAITSSS model and Desktop terminology on Scientific History"
+          git push origin gh-pages
