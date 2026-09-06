@@ -8,6 +8,12 @@ Every public page has one primary identity. Full explanations live only on their
 
 Navigation, footer, accessibility text, and unavoidable product naming are structural repetition and are exempt. Scientific claims, explanatory paragraphs, cards, headings, examples, status language, workflow descriptions, and calls to action are not exempt.
 
+## Substance rule
+
+Page identity does not justify emptiness. Every public authority page must remain complete enough to explain its purpose, provide useful content, and feel visually intentional. A page must not be reduced to a heading, one sentence, an empty card or grid, or routing links merely to avoid overlap.
+
+Short pages are acceptable when their function is inherently compact, such as Contact, Citation, or a reference index, provided the page still performs that function completely. Redirect-only legacy pages are the only intentional empty-page exception, and normal site navigation must not route visitors through them.
+
 ## Page authority
 
 - Home: what BAITSSS is and where to go next.
@@ -38,8 +44,10 @@ For every public heading, paragraph, card, box, example, and call to action, ask
 2. Is the same concept already explained more fully on another authority page?
 3. If yes, can this be reduced to a short orienting sentence plus a link?
 4. Does removing it make the page more focused without hiding essential information?
+5. After consolidation, does the page still have enough substance to perform its own job completely?
+6. Is any visible section, card group, media area, or page body accidentally empty?
 
-If yes, consolidate it.
+Consolidate only when both identity and substance remain intact.
 
 ## No duplication by paraphrase
 
