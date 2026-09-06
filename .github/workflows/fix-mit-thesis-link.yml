@@ -1,0 +1,44 @@
+name: Fix MIT thesis link placement
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - .github/workflows/fix-mit-thesis-link.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Move thesis link to MIT collaboration card
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('research-education/index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace('<p style="margin-top:14px"><a href="https://www.proquest.com/openview/18bac26c309d72e79a33c5989278df50/1?cbl=18750&diss=y&pq-origsite=gscholar" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">MIT thesis example: Sydney Wickman, 2024 →</a></p>', '')
+
+          pattern = r'<a([^>]*?)>MIT thesis record(?: ↗| →)?</a>'
+          repl = '<a href="https://www.proquest.com/openview/18bac26c309d72e79a33c5989278df50/1?cbl=18750&diss=y&pq-origsite=gscholar" target="_blank" rel="noopener">MIT thesis record ↗</a>'
+          s2, n = re.subn(pattern, repl, s, count=1)
+          if n == 0:
+              raise SystemExit('MIT thesis record link not found')
+
+          p.write_text(s2, encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add research-education/index.html
+          git commit -m "Move thesis link to MIT collaboration section"
+          git push origin gh-pages
