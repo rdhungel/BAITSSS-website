@@ -1,0 +1,21 @@
+name: Audit page substance
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - .github/workflows/audit-page-substance.yml
+      - .github/scripts/audit_page_substance.py
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Audit every public page
+        run: python .github/scripts/audit_page_substance.py
