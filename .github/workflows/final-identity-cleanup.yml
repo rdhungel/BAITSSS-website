@@ -1,0 +1,32 @@
+name: Final page identity cleanup
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - .github/workflows/final-identity-cleanup.yml
+      - .github/scripts/final_identity_cleanup.py
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Apply final identity cleanup
+        run: python .github/scripts/final_identity_cleanup.py
+      - name: Commit cleanup
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add software/index.html capabilities/index.html scientific-stewardship/index.html faq/index.html research-education/index.html access-participation/index.html meet-the-team/index.html
+          if git diff --cached --quiet; then
+            echo "No content changes needed"
+          else
+            git commit -m "Complete public page identity cleanup"
+            git push origin gh-pages
+          fi
