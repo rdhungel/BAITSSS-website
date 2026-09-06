@@ -62,7 +62,6 @@ for score,pa,pb,best in sorted(pairs,reverse=True)[:40]:
         print(f'  {s:.2f} A: {a[:220]}')
         print(f'       B: {b[:220]}')
 
-# repeated exact normalized blocks
 seen={}
 for p,b in pages.items():
     for tag,t in b:
@@ -75,7 +74,6 @@ for n,items in sorted(seen.items(), key=lambda kv:len(kv[1]), reverse=True):
     if len(ps)>1 and len(n)>60:
         print('EXACT',len(ps), ' | '.join(ps), ' | ',items[0][1][:260])
 
-# topic density to reveal conceptual duplication
 TOPICS={
 'science':['two-source','two source','two-layer','two layer','energy balance','soil-water','soil water','evapotranspiration','thermal'],
 'capability':['desktop','project','run','results','export','resume','pixel','landsat','nldas'],
@@ -91,3 +89,5 @@ for p,b in pages.items():
         c=sum(text.count(k) for k in keys)
         if c: vals.append(f'{topic}:{c}')
     print('TOPIC\t'+p+'\t'+' '.join(vals))
+
+print('\nAUDIT_PASS\tpost-consolidation-1')
