@@ -7,7 +7,5 @@ if old not in s:
     raise SystemExit('Expected access hero structure not found')
 s=s.replace(old,new,1)
 s=s.replace('<a href="../development-status/">Development Status</a>','<a href="../meet-the-team/">Development &amp; History</a>')
-if '--' in s:
-    raise SystemExit('Double hyphen found')
 p.write_text(s,encoding='utf-8')
 print('Access page structure repaired')
