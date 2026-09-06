@@ -49,6 +49,10 @@ For every public heading, paragraph, card, box, example, and call to action, ask
 
 Consolidate only when both identity and substance remain intact.
 
+## Preservation of documented scientific history
+
+Consolidation must never erase documented collaboration, validation, publication, institutional participation, student research, or development history. These records are evidence, not disposable repetition. When related material appears on more than one page, keep the complete documented record on the page that owns that history and reduce other pages to short cross-links. Never delete unique historical substance merely to reduce page count or wording overlap.
+
 ## No duplication by paraphrase
 
 Changing wording does not make duplicated content unique. Two blocks that communicate the same scientific, software, access, evidence, research, or historical message count as redundancy even when the sentences are different.
