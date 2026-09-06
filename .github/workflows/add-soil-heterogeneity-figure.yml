@@ -20,36 +20,7 @@ jobs:
           fetch-depth: 0
       - name: Add soil heterogeneity study block
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('published-science/index.html')
-          s = p.read_text(encoding='utf-8')
-          marker = '<!-- soil-heterogeneity-study -->'
-          if marker in s:
-              raise SystemExit(0)
-          block = '''
-<section class="section" id="soil-heterogeneity"><div class="wrap">
-  <div class="section-head"><h2>Soil heterogeneity and irrigation response</h2><p class="section-copy">BAITSSS can be used to examine how different soil representations influence soil-water behavior, evapotranspiration components, and modeled irrigation at the same location.</p></div>
-  <!-- soil-heterogeneity-study -->
-  <article class="study" style="grid-column:1/-1;overflow:hidden">
-    <a href="../assets/published-science/Soil%20Hetero.png" style="display:block;background:var(--soft);border-bottom:1px solid var(--line)" aria-label="Open soil heterogeneity figure full size">
-      <img src="../assets/published-science/Soil%20Hetero.png" alt="Comparison of POLARIS and SSURGO soil representations showing NDVI and LAI, evapotranspiration components, soil moisture, precipitation, and modeled irrigation through the season." style="display:block;width:100%;height:auto;object-fit:contain">
-    </a>
-    <div class="body">
-      <div class="year">Soil dataset comparison</div>
-      <h3>POLARIS and SSURGO produce different soil-water and irrigation behavior</h3>
-      <p>The vegetation trajectory is held in common while BAITSSS is evaluated with two soil representations. The comparison shows that differences in soil properties can produce substantially different root-zone water dynamics and modeled irrigation timing and frequency.</p>
-      <p>This figure is presented from the existing BAITSSS project record. The corresponding study or publication remains the authority for methods, parameterization, and interpretation.</p>
-    </div>
-  </article>
-</div></section>
-'''
-          target = '</main>'
-          if target not in s:
-              raise SystemExit('Expected </main> marker not found')
-          s = s.replace(target, block + target, 1)
-          p.write_text(s, encoding='utf-8')
-          PY
+          python -c "from pathlib import Path; import base64; p=Path('published-science/index.html'); s=p.read_text(encoding='utf-8'); marker='<!-- soil-heterogeneity-study -->'; block=base64.b64decode('PHNlY3Rpb24gY2xhc3M9InNlY3Rpb24iIGlkPSJzb2lsLWhldGVyb2dlbmVpdHkiPjxkaXYgY2xhc3M9IndyYXAiPgogIDxkaXYgY2xhc3M9InNlY3Rpb24taGVhZCI+PGgyPlNvaWwgaGV0ZXJvZ2VuZWl0eSBhbmQgaXJyaWdhdGlvbiByZXNwb25zZTwvaDI+PHAgY2xhc3M9InNlY3Rpb24tY29weSI+QkFJVFNTUyBjYW4gYmUgdXNlZCB0byBleGFtaW5lIGhvdyBkaWZmZXJlbnQgc29pbCByZXByZXNlbnRhdGlvbnMgaW5mbHVlbmNlIHNvaWwtd2F0ZXIgYmVoYXZpb3IsIGV2YXBvdHJhbnNwaXJhdGlvbiBjb21wb25lbnRzLCBhbmQgbW9kZWxlZCBpcnJpZ2F0aW9uIGF0IHRoZSBzYW1lIGxvY2F0aW9uLjwvcD48L2Rpdj4KICA8IS0tIHNvaWwtaGV0ZXJvZ2VuZWl0eS1zdHVkeSAtLT4KICA8YXJ0aWNsZSBjbGFzcz0ic3R1ZHkiIHN0eWxlPSJncmlkLWNvbHVtbjoxLy0xO292ZXJmbG93OmhpZGRlbiI+CiAgICA8YSBocmVmPSIuLi9hc3NldHMvcHVibGlzaGVkLXNjaWVuY2UvU29pbCUyMEhldGVyby5wbmciIHN0eWxlPSJkaXNwbGF5OmJsb2NrO2JhY2tncm91bmQ6dmFyKC0tc29mdCk7Ym9yZGVyLWJvdHRvbToxcHggc29saWQgdmFyKC0tbGluZSkiIGFyaWEtbGFiZWw9Ik9wZW4gc29pbCBoZXRlcm9nZW5laXR5IGZpZ3VyZSBmdWxsIHNpemUiPgogICAgICA8aW1nIHNyYz0iLi4vYXNzZXRzL3B1Ymxpc2hlZC1zY2llbmNlL1NvaWwlMjBIZXRlcm8ucG5nIiBhbHQ9IkNvbXBhcmlzb24gb2YgUE9MQVJJUyBhbmQgU1NVUkdPIHNvaWwgcmVwcmVzZW50YXRpb25zIHNob3dpbmcgTkRWSSBhbmQgTEFJLCBldmFwb3RyYW5zcGlyYXRpb24gY29tcG9uZW50cywgc29pbCBtb2lzdHVyZSwgcHJlY2lwaXRhdGlvbiwgYW5kIG1vZGVsZWQgaXJyaWdhdGlvbiB0aHJvdWdoIHRoZSBzZWFzb24uIiBzdHlsZT0iZGlzcGxheTpibG9jazt3aWR0aDoxMDAlO2hlaWdodDphdXRvO29iamVjdC1maXQ6Y29udGFpbiI+CiAgICA8L2E+CiAgICA8ZGl2IGNsYXNzPSJib2R5Ij4KICAgICAgPGRpdiBjbGFzcz0ieWVhciI+U29pbCBkYXRhc2V0IGNvbXBhcmlzb248L2Rpdj4KICAgICAgPGgzPlBPTEFSSVMgYW5kIFNTVVJHTyBwcm9kdWNlIGRpZmZlcmVudCBzb2lsLXdhdGVyIGFuZCBpcnJpZ2F0aW9uIGJlaGF2aW9yPC9oMz4KICAgICAgPHA+VGhlIHZlZ2V0YXRpb24gdHJhamVjdG9yeSBpcyBoZWxkIGluIGNvbW1vbiB3aGlsZSBCQUlUU1NTIGlzIGV2YWx1YXRlZCB3aXRoIHR3byBzb2lsIHJlcHJlc2VudGF0aW9ucy4gVGhlIGNvbXBhcmlzb24gc2hvd3MgdGhhdCBkaWZmZXJlbmNlcyBpbiBzb2lsIHByb3BlcnRpZXMgY2FuIHByb2R1Y2Ugc3Vic3RhbnRpYWxseSBkaWZmZXJlbnQgcm9vdC16b25lIHdhdGVyIGR5bmFtaWNzIGFuZCBtb2RlbGVkIGlycmlnYXRpb24gdGltaW5nIGFuZCBmcmVxdWVuY3kuPC9wPgogICAgICA8cD5UaGlzIGZpZ3VyZSBpcyBwcmVzZW50ZWQgZnJvbSB0aGUgZXhpc3RpbmcgQkFJVFNTUyBwcm9qZWN0IHJlY29yZC4gVGhlIGNvcnJlc3BvbmRpbmcgc3R1ZHkgb3IgcHVibGljYXRpb24gcmVtYWlucyB0aGUgYXV0aG9yaXR5IGZvciBtZXRob2RzLCBwYXJhbWV0ZXJpemF0aW9uLCBhbmQgaW50ZXJwcmV0YXRpb24uPC9wPgogICAgPC9kaXY+CiAgPC9hcnRpY2xlPgo8L2Rpdj48L3NlY3Rpb24+Cg==').decode(); p.write_text(s if marker in s else s.replace('</main>', block+'</main>', 1), encoding='utf-8')"
       - name: Commit figure integration
         run: |
           if git diff --quiet; then
