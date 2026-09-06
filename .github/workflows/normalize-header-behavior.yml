@@ -18,13 +18,20 @@ jobs:
         with:
           ref: gh-pages
           fetch-depth: 0
-      - name: Add shared header stylesheet to top navigation pages
+      - name: Add shared header stylesheet to every public page
         run: |
-          sed -i '/site-header.css/d' index.html
-          sed -i 's#</head>#<link rel="stylesheet" href="assets/site-header.css">\n</head>#' index.html
-          for f in software/index.html capabilities/index.html science/index.html research-education/index.html access-participation/index.html contact/index.html; do
-            sed -i '/site-header.css/d' "$f"
-            sed -i 's#</head>#<link rel="stylesheet" href="../assets/site-header.css">\n</head>#' "$f"
+          if grep -q 'class="site-header"' index.html; then
+            sed -i '/site-header.css/d' index.html
+            sed -i 's#</head>#<link rel="stylesheet" href="assets/site-header.css">\n</head>#' index.html
+          fi
+          for f in */index.html; do
+            if [ "$f" = "development-status/index.html" ]; then
+              continue
+            fi
+            if grep -q 'class="site-header"' "$f"; then
+              sed -i '/site-header.css/d' "$f"
+              sed -i 's#</head>#<link rel="stylesheet" href="../assets/site-header.css">\n</head>#' "$f"
+            fi
           done
       - name: Commit stable header behavior
         run: |
@@ -34,6 +41,6 @@ jobs:
           fi
           git config user.name "BAITSSS site maintenance"
           git config user.email "actions@users.noreply.github.com"
-          git add index.html software/index.html capabilities/index.html science/index.html research-education/index.html access-participation/index.html contact/index.html
-          git commit -m "Use one stable header behavior on top navigation pages"
+          git add -- '*.html'
+          git commit -m "Use one stable header behavior across website"
           git push origin gh-pages
