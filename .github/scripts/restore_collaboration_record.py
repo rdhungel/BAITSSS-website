@@ -1,0 +1,26 @@
+from pathlib import Path
+
+p = Path('access-participation/index.html')
+s = p.read_text(encoding='utf-8')
+old = '''<section class="section" id="mit-collaboration"><div class="wrap"><div class="section-head"><div class="section-kicker">02 · Collaboration example</div><div><h2>MIT student collaboration</h2></div></div><article class="route" style="min-height:0;max-width:760px"><div class="num">UNIVERSITY RESEARCH</div><h3>Higher-resolution data for irrigation management</h3><p>A documented MIT student collaboration used BAITSSS within a university research project in Cheyenne County, Kansas.</p></article></div></section>'''
+new = '''<section class="section" id="documented-collaborations"><div class="wrap"><div class="section-head"><div class="section-kicker">02 · Documented collaborations</div><div><h2>BAITSSS has developed through collaboration across universities, agencies, water managers, and student research.</h2><p class="section-intro">These examples are part of the documented scientific record. They are presented together so no single project is mistaken for the full collaboration history.</p></div></div><div class="routes">
+<article class="route"><div class="num">USDA-NIFA · UC RIVERSIDE</div><h3>AIM-AI multi-institutional research</h3><p>BAITSSS has been used within the USDA-NIFA funded Artificial Intelligence for Sustainable Water, Nutrient, Salinity, and Pest Management in the Western U.S. project led by UC Riverside, including specialty-crop water and irrigation research and collaboration across participating institutions.</p><p style="margin-top:14px"><a href="https://training-portal.nifa.usda.gov/web/crisprojectpages/1023249-artificial-intelligence-for-sustainable-water-nutrient-salinity-and-pest-management-in-the-western-us.html" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">USDA-NIFA project record ↗</a></p></article>
+<article class="route"><div class="num">KANSAS GMD4 · KANSAS STATE · USDA-ARS</div><h3>Groundwater and irrigation management</h3><p>BAITSSS was applied with Kansas Groundwater Management District No. 4, Kansas State University, and USDA-ARS collaborators to examine landscape-scale evapotranspiration, modeled irrigation, reported irrigation, and restricted water allocations in northwest Kansas.</p><p style="margin-top:14px"><a href="https://www.ars.usda.gov/research/publications/publication/?seqNo115=365507" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">USDA-ARS publication record ↗</a></p></article>
+<article class="route"><div class="num">KANSAS STATE · USDA-ARS</div><h3>Field evaluation and crop-water research</h3><p>Collaborative work at Bushland, Texas brought Kansas State University and USDA-ARS scientists together to evaluate BAITSSS against field observations and to investigate crop water use, energy balance behavior, and irrigation-management applications.</p><p style="margin-top:14px"><a href="https://www.ars.usda.gov/research/publications/publication/?seqNo115=348805" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">USDA-ARS evaluation record ↗</a></p></article>
+<article class="route"><div class="num">USDA-ARS · UC RIVERSIDE</div><h3>Specialty-crop evapotranspiration research</h3><p>Later BAITSSS research in California included USDA-ARS and UC Riverside collaboration on citrus evapotranspiration, independent eddy-covariance comparison, OpenET comparison, and specialty-crop water-use questions.</p><p style="margin-top:14px"><a href="https://www.ars.usda.gov/research/publications/publication/?seqNo115=414991" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;text-decoration:none">USDA-ARS citrus publication record ↗</a></p></article>
+<article class="route" id="mit-collaboration"><div class="num">MIT STUDENT RESEARCH</div><h3>Higher-resolution data for irrigation management</h3><p>A documented MIT student collaboration used BAITSSS within a university research project in Cheyenne County, Kansas to investigate higher-resolution satellite information for evapotranspiration and irrigation analysis.</p></article>
+</div></div></section>'''
+if old not in s:
+    raise SystemExit('MIT collaboration block not found')
+s = s.replace(old, new)
+s = s.replace('<div class="section-kicker">03 · Project collaboration</div>', '<div class="section-kicker">03 · Project collaboration</div>')
+p.write_text(s, encoding='utf-8')
+
+# Preserve the collaboration/history safeguard in the permanent authority rule.
+p = Path('SITE_CONTENT_AUTHORITY.md')
+a = p.read_text(encoding='utf-8')
+needle = '## No duplication by paraphrase\n'
+insert = '''## Preservation of documented scientific history\n\nConsolidation must never erase documented collaboration, validation, publication, institutional participation, student research, or development history. These records are evidence, not disposable repetition. When related material appears on more than one page, keep the complete documented record on the page that owns that history and reduce other pages to short cross-links. Never delete unique historical substance merely to reduce page count or wording overlap.\n\n'''
+if insert not in a:
+    a = a.replace(needle, insert + needle)
+p.write_text(a, encoding='utf-8')
