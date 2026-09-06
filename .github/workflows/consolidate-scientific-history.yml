@@ -1,0 +1,29 @@
+name: Consolidate scientific history
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/scripts/consolidate_scientific_history.py'
+      - '.github/workflows/consolidate-scientific-history.yml'
+permissions:
+  contents: write
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Consolidate scientific pages
+        run: python .github/scripts/consolidate_scientific_history.py
+      - name: Commit consolidation
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add origins-publications/index.html published-science/index.html research-geography/index.html evidence/index.html SITE_CONTENT_AUTHORITY.md '*.html' '*/*.html'
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Consolidate scientific history pages"
+            git push origin gh-pages
+          fi
