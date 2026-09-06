@@ -24,8 +24,8 @@ Short pages are acceptable when their function is inherently compact, such as Co
 - Published Science: visual scientific record and published study results.
 - Research & Education: research, teaching, student work, and academic use.
 - Access & Participation: how an institution, organization, project, or collaborator can engage with BAITSSS.
-- Development & History: scientific and software development history and current development stage.
-- Origins & Publications: bibliographic publication authority and scientific lineage.
+- Software Development & History: software lineage only, beginning with the transition from research code to the maintained desktop system; desktop architecture, testing, recovery, packaging, release preparation, and current software status belong here.
+- Scientific History & Publications: scientific model history only; origin, institutions, research evolution, documented collaborations in the scientific record, and peer-reviewed publications belong here.
 - FAQ: a comprehensive practical reading list. It is intentionally allowed to restate material from other pages because visitors may come here specifically to read direct answers without navigating through the full site. Do not prune, consolidate, shorten, or rewrite the FAQ merely to reduce redundancy. Preserve the established FAQ list unless a FAQ change is specifically requested or a factual correction is necessary.
 - Documentation: navigation to user and technical reference material. It must not restate the content of the pages it indexes.
 - Example Project: one concrete end-to-end example, not a second Software or Capabilities page.
@@ -48,6 +48,10 @@ For every public heading, paragraph, card, box, example, and call to action, ask
 6. Is any visible section, card group, media area, or page body accidentally empty?
 
 Consolidate only when both identity and substance remain intact. The FAQ is the explicit exception to redundancy consolidation because its purpose is to provide complete direct answers in one place.
+
+## Scientific history versus software history
+
+These are separate records and must remain visually and editorially distinct. Scientific History & Publications explains the model lineage and published research. Software Development & History explains the transformation and maintenance of the desktop software. A page may cross-link to the other history, but it must not retell the other page's timeline.
 
 ## Preservation of documented scientific history
 
