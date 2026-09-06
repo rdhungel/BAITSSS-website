@@ -1,0 +1,27 @@
+name: Finish combined Science page
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/scripts/finish-science-merge.py'
+      - '.github/workflows/finish-science-merge.yml'
+permissions:
+  contents: write
+jobs:
+  finish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python .github/scripts/finish-science-merge.py
+      - run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add science/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Finish combined Science stewardship presentation"
+          git push origin gh-pages
