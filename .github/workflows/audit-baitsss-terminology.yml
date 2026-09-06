@@ -1,0 +1,20 @@
+name: Audit BAITSSS terminology
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/scripts/audit-baitsss-terminology.py'
+      - '.github/workflows/audit-baitsss-terminology.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python .github/scripts/audit-baitsss-terminology.py
