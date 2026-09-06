@@ -1,0 +1,28 @@
+name: Fix access page structure
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - .github/workflows/fix-access-structure.yml
+      - .github/scripts/fix_access_structure.py
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Repair access page
+        run: python .github/scripts/fix_access_structure.py
+      - name: Commit repair
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add access-participation/index.html
+          git commit -m "Repair Access page structure"
+          git push origin gh-pages
