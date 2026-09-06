@@ -1,0 +1,29 @@
+name: Refine page justification
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/scripts/refine_page_justification.py'
+      - '.github/workflows/refine-page-justification.yml'
+permissions:
+  contents: write
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Refine public pages
+        run: python .github/scripts/refine_page_justification.py
+      - name: Commit refinements
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add documentation/index.html contact/index.html release-notes/index.html sitemap.xml '*.html' '*/*.html'
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Refine page justification and direct navigation"
+            git push origin gh-pages
+          fi
