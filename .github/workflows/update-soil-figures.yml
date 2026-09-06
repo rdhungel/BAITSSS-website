@@ -31,15 +31,16 @@ jobs:
           end = s.find('</main>', start)
           if start == -1 or end == -1:
               raise SystemExit('Soil heterogeneity section not found')
-          block = '''<section class="section" id="soil-heterogeneity"><div class="wrap">
-<div class="section-head"><h2>Soil heterogeneity and irrigation response</h2><p class="section-copy">BAITSSS can be used to examine how different soil representations influence soil-water behavior, evapotranspiration components, and modeled irrigation at the same location.</p></div>
-<div class="soil-pair">
-<article class="study"><a href="../assets/published-science/Soil%20Hetero.png"><img src="../assets/published-science/Soil%20Hetero.png" alt="POLARIS and SSURGO comparison of vegetation, evapotranspiration, soil water, precipitation, and irrigation response."></a><div class="body"><div class="year">Soil dataset comparison</div><h3>Soil water and evapotranspiration</h3><p>The vegetation trajectory is held in common while BAITSSS is evaluated with POLARIS and SSURGO soil representations.</p></div></article>
-<article class="study"><a href="../assets/published-science/Soil%20Hetero%20irrigation.png"><img src="../assets/published-science/Soil%20Hetero%20irrigation.png" alt="Modeled irrigation comparison under POLARIS and SSURGO soil representations."></a><div class="body"><div class="year">Irrigation response</div><h3>Modeled irrigation comparison</h3><p>Different soil representations produce different modeled irrigation timing and frequency.</p></div></article>
-</div>
-<article class="study soil-summary"><div class="body"><div class="year">Interpretation</div><h3>Soil representation changes modeled water balance behavior</h3><p>Together, the figures show that differences in soil representation can propagate into different root-zone water behavior and irrigation response while the vegetation trajectory remains the same.</p></div></article>
-</div></section>
-'''
+          block = (
+              '<section class="section" id="soil-heterogeneity"><div class="wrap">\n'
+              '<div class="section-head"><h2>Soil heterogeneity and irrigation response</h2><p class="section-copy">BAITSSS can be used to examine how different soil representations influence soil-water behavior, evapotranspiration components, and modeled irrigation at the same location.</p></div>\n'
+              '<div class="soil-pair">\n'
+              '<article class="study"><a href="../assets/published-science/Soil%20Hetero.png"><img src="../assets/published-science/Soil%20Hetero.png" alt="POLARIS and SSURGO comparison of vegetation, evapotranspiration, soil water, precipitation, and irrigation response."></a><div class="body"><div class="year">Soil dataset comparison</div><h3>Soil water and evapotranspiration</h3><p>The vegetation trajectory is held in common while BAITSSS is evaluated with POLARIS and SSURGO soil representations.</p></div></article>\n'
+              '<article class="study"><a href="../assets/published-science/Soil%20Hetero%20irrigation.png"><img src="../assets/published-science/Soil%20Hetero%20irrigation.png" alt="Modeled irrigation comparison under POLARIS and SSURGO soil representations."></a><div class="body"><div class="year">Irrigation response</div><h3>Modeled irrigation comparison</h3><p>Different soil representations produce different modeled irrigation timing and frequency.</p></div></article>\n'
+              '</div>\n'
+              '<article class="study soil-summary"><div class="body"><div class="year">Interpretation</div><h3>Soil representation changes modeled water balance behavior</h3><p>Together, the figures show that differences in soil representation can propagate into different root-zone water behavior and irrigation response while the vegetation trajectory remains the same.</p></div></article>\n'
+              '</div></section>\n'
+          )
           s = s[:start] + block + s[end:]
           p.write_text(s, encoding='utf-8')
           PY
