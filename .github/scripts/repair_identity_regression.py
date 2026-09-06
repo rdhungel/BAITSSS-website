@@ -65,6 +65,8 @@ if 'id="mit-collaboration"' not in s:
     if idx<0: raise SystemExit('Access project collaboration anchor missing')
     block='''<section class="section" id="mit-collaboration"><div class="wrap"><div class="section-head"><div class="section-kicker">02 · Collaboration example</div><div><h2>MIT student collaboration</h2></div></div><article class="route" style="min-height:0;max-width:760px"><div class="num">UNIVERSITY RESEARCH</div><h3>Higher-resolution data for irrigation management</h3><p>A documented MIT student collaboration used BAITSSS within a university research project in Cheyenne County, Kansas.</p></article></div></section>\n'''
     s=s[:idx]+block+s[idx:]
+else:
+    s=s.replace('<div class="section-kicker">Collaboration example</div>','<div class="section-kicker">02 · Collaboration example</div>',1)
 s=s.replace('<div class="section-kicker">04 · Project collaboration</div>','<div class="section-kicker">03 · Project collaboration</div>',1)
 p.write_text(s,encoding='utf-8')
 
