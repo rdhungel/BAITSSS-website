@@ -1,0 +1,28 @@
+name: Add Science glance
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - .github/workflows/add-science-glance.yml
+      - .github/scripts/add_science_glance.py
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Update Science page
+        run: python .github/scripts/add_science_glance.py
+      - name: Commit Science page
+        run: |
+          git config user.name "BAITSSS site maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add science/index.html
+          git commit -m "Add BAITSSS science at a glance"
+          git push origin gh-pages
