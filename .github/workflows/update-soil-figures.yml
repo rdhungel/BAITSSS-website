@@ -2,7 +2,8 @@ name: Update soil figures
 
 on:
   push:
-    branches: [gh-pages]
+    branches:
+      - gh-pages
     paths:
       - .github/workflows/update-soil-figures.yml
 
@@ -23,18 +24,13 @@ jobs:
           from pathlib import Path
           p = Path('published-science/index.html')
           s = p.read_text(encoding='utf-8')
-
-          css = '''
-.soil-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.soil-pair .study{overflow:hidden}.soil-pair a{display:block;background:var(--soft);border-bottom:1px solid var(--line);padding:14px}.soil-pair img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;margin:0 auto}.soil-summary{margin-top:18px}@media(max-width:900px){.soil-pair{grid-template-columns:1fr}.soil-pair img{max-height:none}}
-'''
+          css = '.soil-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.soil-pair .study{overflow:hidden}.soil-pair a{display:block;background:var(--soft);border-bottom:1px solid var(--line);padding:14px}.soil-pair img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;margin:0 auto}.soil-summary{margin-top:18px}@media(max-width:900px){.soil-pair{grid-template-columns:1fr}.soil-pair img{max-height:none}}\n'
           if '.soil-pair{' not in s:
               s = s.replace('@media(max-width:1100px)', css + '@media(max-width:1100px)', 1)
-
           start = s.find('<section class="section" id="soil-heterogeneity">')
           end = s.find('</main>', start)
           if start == -1 or end == -1:
               raise SystemExit('Soil heterogeneity section not found')
-
           block = '''<section class="section" id="soil-heterogeneity"><div class="wrap">
 <div class="section-head"><h2>Soil heterogeneity and irrigation response</h2><p class="section-copy">BAITSSS can be used to examine how different soil representations influence soil-water behavior, evapotranspiration components, and modeled irrigation at the same location.</p></div>
 <div class="soil-pair">
