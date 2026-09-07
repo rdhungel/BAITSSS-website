@@ -7,6 +7,8 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
 .site-header .more-menu a{display:block!important;width:100%!important;padding:10px 11px!important;border-radius:7px!important;color:#9db0c2!important;text-decoration:none!important;font-size:13.5px!important;line-height:1.45!important;font-weight:400!important;white-space:normal!important;background:transparent!important}
 .site-header .more-menu a:hover,.site-header .more-menu a.active{background:rgba(255,255,255,.04)!important;color:#c9ee82!important}
 
-/* Homepage hero alignment test: supporting copy starts directly under the title's visual left edge. */
-main > .hero .hero-copy > .hero-sub{margin-left:20px!important}
-@media(max-width:860px){main > .hero .hero-copy > .hero-sub{margin-left:0!important}}
+/* Homepage hero: one clear left edge for title, supporting copy, actions, and workflow. */
+@media(min-width:861px){
+  main > .hero .wrap{padding-left:20px!important}
+  main > .hero .hero-copy > .hero-sub{margin-left:0!important}
+}
