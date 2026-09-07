@@ -94,8 +94,8 @@ frame.addEventListener('load',()=>{
     });
   }
 
-  // Give the final water-use product enough room before adding any map detail.
-  // Structure and animation stay the same; only the report panel geometry and spacing expand.
+  // Give the final water-use product maximum room for the seven result-map tiles.
+  // Remove the two explanatory micro-lines; keep title, percent and progress only.
   const resultPanel=doc.querySelector('.result-panel');
   const resultGrid=doc.getElementById('resultGrid');
   const resultBar=doc.getElementById('resultBar');
@@ -103,36 +103,37 @@ frame.addEventListener('load',()=>{
   if(resultPanel && resultGrid && resultBar && resultPct && !doc.querySelector('.resultLayoutExpanded')){
     resultPanel.classList.add('resultLayoutExpanded');
     resultPanel.setAttribute('x','694');
-    resultPanel.setAttribute('y','493');
+    resultPanel.setAttribute('y','486');
     resultPanel.setAttribute('width','436');
-    resultPanel.setAttribute('height','154');
+    resultPanel.setAttribute('height','166');
     resultPanel.setAttribute('rx','16');
 
     const texts=[...doc.querySelectorAll('text')];
     const title=texts.find(t=>t.textContent.trim()==='YOUR WATER-USE REPORT');
     const scaleLabel=texts.find(t=>t.textContent.trim()==='WATER YOUR FIELD USED, LOW → HIGH ACROSS THE FIELD');
     const downloadLabel=texts.find(t=>t.textContent.trim()==='YOU GET: A MAP + REPORT YOU CAN DOWNLOAD, EVERY DAY');
-    if(title){ title.setAttribute('x','912'); title.setAttribute('y','516'); }
-    resultPct.setAttribute('x','1098'); resultPct.setAttribute('y','520');
+    if(title){ title.setAttribute('x','912'); title.setAttribute('y','507'); }
+    resultPct.setAttribute('x','1098'); resultPct.setAttribute('y','511');
+    if(scaleLabel) scaleLabel.style.display='none';
+    if(downloadLabel) downloadLabel.style.display='none';
 
-    // Preserve the existing animated bar width authority; only move it into the roomier layout.
+    // Preserve the animated bar width authority; only move it upward.
     const barTrack=[...doc.querySelectorAll('rect')].find(r=>
       r!==resultBar && r.getAttribute('x')==='752' && r.getAttribute('y')==='550' && r.getAttribute('width')==='336' && r.getAttribute('height')==='9'
     );
-    if(barTrack){ barTrack.setAttribute('x','728'); barTrack.setAttribute('y','536'); }
-    resultBar.setAttribute('x','728'); resultBar.setAttribute('y','536');
-    if(scaleLabel){ scaleLabel.setAttribute('x','728'); scaleLabel.setAttribute('y','558'); }
+    if(barTrack){ barTrack.setAttribute('x','717'); barTrack.setAttribute('y','525'); barTrack.setAttribute('width','384'); }
+    resultBar.setAttribute('x','717'); resultBar.setAttribute('y','525');
 
+    // Use the freed vertical space for materially larger result tiles.
     const tiles=[...resultGrid.querySelectorAll('.result-tile')];
-    const startX=728, tileW=46, gap=7, tileY=568, tileH=42;
+    const startX=717, tileW=48, gap=8, tileY=548, tileH=72;
     tiles.forEach((tile,i)=>{
       tile.setAttribute('x',String(startX+i*(tileW+gap)));
       tile.setAttribute('y',String(tileY));
       tile.setAttribute('width',String(tileW));
       tile.setAttribute('height',String(tileH));
-      tile.setAttribute('rx','5');
+      tile.setAttribute('rx','6');
     });
-    if(downloadLabel){ downloadLabel.setAttribute('x','728'); downloadLabel.setAttribute('y','630'); }
   }
 
   // Border-only device treatment for the WORKING IT OUT panel.
