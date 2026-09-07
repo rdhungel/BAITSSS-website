@@ -20,11 +20,9 @@ frame.addEventListener('load',()=>{
   const NS='http://www.w3.org/2000/svg';
   const xs=[716,818,920,1022];
 
-  // Remove the entire introductory header block from this test view.
   const topbarBlock=doc.querySelector('.topbar-block');
   if(topbarBlock) topbarBlock.style.display='none';
 
-  // Remove all footer/review material and the outer animation coat.
   const legend=doc.querySelector('.legend');
   if(legend) legend.style.display='none';
   const review=doc.querySelector('.review');
@@ -49,7 +47,6 @@ frame.addEventListener('load',()=>{
   const svg=doc.querySelector('svg');
   if(svg) svg.setAttribute('viewBox','0 20 1180 640');
 
-  // Remove the small top-right satellite thumbnail and tighten the top satellite panel.
   const satThumb=doc.getElementById('satThumb');
   if(satThumb) satThumb.style.display='none';
   const topSatellitePanel=[...doc.querySelectorAll('rect')].find(r=>
@@ -58,18 +55,6 @@ frame.addEventListener('load',()=>{
   );
   if(topSatellitePanel) topSatellitePanel.setAttribute('height','72');
 
-  if(svg && !doc.querySelector('.workflowHeading')){
-    const heading=doc.createElementNS(NS,'text');
-    heading.setAttribute('class','workflowHeading');
-    heading.setAttribute('x','590');
-    heading.setAttribute('y','48');
-    heading.setAttribute('text-anchor','middle');
-    heading.setAttribute('style','font-size:18px;font-weight:800;letter-spacing:.06em;fill:#a8b8c6');
-    heading.textContent='BAITSSS DESKTOP WORKFLOW';
-    svg.appendChild(heading);
-  }
-
-  // Replace the WHAT GOES IN badge with a plain NLDAS input label matching SATELLITE CROP VIEW.
   const inBadge=doc.getElementById('inBadge');
   if(inBadge){
     const badgeRect=inBadge.querySelector('rect');
@@ -85,7 +70,6 @@ frame.addEventListener('load',()=>{
     }
   }
 
-  // Replace only the weather + field presentation with the approved satellite/atmosphere visual.
   const through1=doc.getElementById('through1');
   if(svg && through1 && !doc.querySelector('.satAtmosFieldVisual')){
     const defs=svg.querySelector('defs');
@@ -119,7 +103,6 @@ frame.addEventListener('load',()=>{
     through1.parentNode.insertBefore(border,through1);
   }
 
-  // Exact source geometry from the base animation.
   if(svg && through1 && !doc.querySelector('.weatherEntrySources')){
     const sources=doc.createElementNS(NS,'g');
     sources.setAttribute('class','weatherEntrySources');
@@ -154,7 +137,6 @@ frame.addEventListener('load',()=>{
     });
   }
 
-  // Give the final water-use product maximum room for four large square result-map tiles.
   const resultPanel=doc.querySelector('.result-panel');
   const resultGrid=doc.getElementById('resultGrid');
   const resultBar=doc.getElementById('resultBar');
@@ -240,7 +222,6 @@ frame.addEventListener('load',()=>{
     resultGrid.appendChild(frames);
   }
 
-  // Border-only device treatment for the WORKING IT OUT panel.
   const panel=[...doc.querySelectorAll('rect')].find(r=>r.getAttribute('x')==='690'&&r.getAttribute('y')==='145'&&r.getAttribute('width')==='450'&&r.getAttribute('height')==='305');
   if(svg && panel && !doc.querySelector('.computeDeviceBezel')){
     const outer=doc.createElementNS(NS,'rect');
@@ -289,7 +270,6 @@ frame.addEventListener('load',()=>{
     }
   });
 
-  // Fit the test iframe tightly around the visible animation content.
   requestAnimationFrame(()=>{
     const hero=doc.querySelector('.hero');
     if(hero){
