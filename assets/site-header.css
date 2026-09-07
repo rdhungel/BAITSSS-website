@@ -48,7 +48,7 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
   main > .hero .hero-workflow{margin-top:10px!important}
 }
 
-/* The former hero lead now lives inside the workflow animation header. */
+/* The former hero lead now lives in the workflow title row. */
 main > .hero .hero-lead{display:none!important}
 main > .hero .hero-support{margin-top:0!important}
 
@@ -57,6 +57,28 @@ main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
 main > .hero .hero-actions a[href="contact/"]{display:none!important}
 
-/* No homepage overlay: the workflow title is rendered inside the animation document itself. */
-main > .hero .hero-workflow{position:relative!important;background:#07131f!important;padding-top:0!important}
-main > .hero .hero-workflow::before,main > .hero .hero-workflow::after{content:none!important;display:none!important}
+/* Real workflow title row above the iframe so it cannot sit underneath it. */
+main > .hero .hero-workflow{display:flex!important;flex-direction:column!important;position:relative!important;background:#07131f!important;padding-top:0!important;overflow:hidden!important}
+main > .hero .hero-workflow::before{
+  content:"Take control of your field through scientific software."!important;
+  position:static!important;
+  display:flex!important;
+  flex:0 0 42px!important;
+  width:100%!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0 20px!important;
+  box-sizing:border-box!important;
+  color:#b9c9df!important;
+  background:#0b1b2a!important;
+  border-bottom:1px solid rgba(255,255,255,.10)!important;
+  font-size:18px!important;
+  line-height:1.2!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+  text-align:center!important;
+  pointer-events:none!important;
+}
+main > .hero .hero-workflow::after{content:none!important;display:none!important}
+main > .hero .hero-workflow iframe{position:static!important;display:block!important;flex:0 0 auto!important}
+@media(max-width:760px){main > .hero .hero-workflow::before{flex-basis:38px!important;font-size:15px!important;padding:0 12px!important}}
