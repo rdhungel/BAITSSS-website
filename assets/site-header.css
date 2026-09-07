@@ -59,6 +59,9 @@ main > .hero .hero-lead{
 @media(max-width:860px){main > .hero .hero-lead{margin-top:10px!important;font-size:22px!important}}
 @media(max-width:560px){main > .hero .hero-lead{margin-top:8px!important;font-size:20px!important}}
 
+/* Remove the all-caps hero support line. */
+main > .hero .hero-support{display:none!important}
+
 /* Remove these homepage hero actions. */
 main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
