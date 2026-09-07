@@ -124,9 +124,9 @@ frame.addEventListener('load',()=>{
     if(barTrack){ barTrack.setAttribute('x','717'); barTrack.setAttribute('y','525'); barTrack.setAttribute('width','384'); }
     resultBar.setAttribute('x','717'); resultBar.setAttribute('y','525');
 
-    // Use the freed vertical space for materially larger result tiles.
+    // Seven true squares, evenly fitted into the available row span.
     const tiles=[...resultGrid.querySelectorAll('.result-tile')];
-    const startX=717, tileW=48, gap=8, tileY=548, tileH=72;
+    const startX=717, tileW=48, tileH=48, gap=8, tileY=559;
     tiles.forEach((tile,i)=>{
       tile.setAttribute('x',String(startX+i*(tileW+gap)));
       tile.setAttribute('y',String(tileY));
