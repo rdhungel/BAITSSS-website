@@ -48,6 +48,16 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
   main > .hero .hero-workflow{margin-top:10px!important}
 }
 
+/* Keep only the clean hero lead treatment shown in the approved second reference. */
+main > .hero .hero-lead{
+  margin-top:14px!important;
+  font-size:23px!important;
+  line-height:1.35!important;
+  font-weight:520!important;
+}
+@media(max-width:860px){main > .hero .hero-lead{margin-top:10px!important;font-size:22px!important}}
+@media(max-width:560px){main > .hero .hero-lead{margin-top:8px!important;font-size:20px!important}}
+
 /* Remove these homepage hero actions. */
 main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
