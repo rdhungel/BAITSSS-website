@@ -24,17 +24,30 @@ frame.addEventListener('load',()=>{
   const topbarBlock=doc.querySelector('.topbar-block');
   if(topbarBlock) topbarBlock.style.display='none';
 
-  // Remove all footer/review material so the animation is contained in one main box.
+  // Remove all footer/review material and the outer animation coat.
   const legend=doc.querySelector('.legend');
   if(legend) legend.style.display='none';
   const review=doc.querySelector('.review');
   if(review) review.style.display='none';
   doc.documentElement.style.minHeight='0';
   doc.body.style.minHeight='0';
-  doc.body.style.padding='10px 16px';
+  doc.body.style.padding='0';
+  doc.body.style.margin='0';
+  const heroShell=doc.querySelector('.hero');
+  if(heroShell){
+    heroShell.style.margin='0 auto';
+    heroShell.style.maxWidth='1180px';
+  }
+  const outerFrame=doc.querySelector('.frame');
+  if(outerFrame){
+    outerFrame.style.border='0';
+    outerFrame.style.borderRadius='0';
+    outerFrame.style.background='#07131f';
+    outerFrame.style.overflow='hidden';
+  }
 
   const svg=doc.querySelector('svg');
-  if(svg) svg.setAttribute('viewBox','0 0 1180 660');
+  if(svg) svg.setAttribute('viewBox','0 20 1180 640');
 
   // Remove the small top-right satellite thumbnail and tighten the top satellite panel.
   const satThumb=doc.getElementById('satThumb');
@@ -276,11 +289,11 @@ frame.addEventListener('load',()=>{
     }
   });
 
-  // Fit the test iframe tightly around the one remaining main animation box.
+  // Fit the test iframe tightly around the visible animation content.
   requestAnimationFrame(()=>{
     const hero=doc.querySelector('.hero');
     if(hero){
-      const h=Math.ceil(hero.getBoundingClientRect().height+20);
+      const h=Math.ceil(hero.getBoundingClientRect().height);
       frame.style.height=h+'px';
     }
   });
