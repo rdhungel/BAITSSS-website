@@ -49,39 +49,48 @@ frame.addEventListener('load',()=>{
     through1.parentNode.insertBefore(border,through1);
   }
 
-  // Compact scientific weather-source marks immediately beside the four ball entry points.
-  // No badges or cartoon-style containers; balls, paths and timing remain unchanged.
+  // Exact source geometry from the base animation:
+  // n1=(72,282), n2=(72,314), n3=(72,346), n4=(72,378), each r=6.
+  // Therefore the visible left edge of every entry ball is x=66.
+  // Every source symbol below ends at x=65: a deliberate 1 px gap, with exact y alignment.
   if(svg && through1 && !doc.querySelector('.weatherEntrySources')){
     const sources=doc.createElementNS(NS,'g');
     sources.setAttribute('class','weatherEntrySources');
     sources.setAttribute('pointer-events','none');
-    const addPath=(g,d,color,w='1.5')=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke',color);p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');g.appendChild(p);};
+    const addPath=(g,d,color,w='1.8')=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke',color);p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');g.appendChild(p);};
 
-    // Solar radiation: tucked directly against the amber ball entry.
+    // n1 blue: humidity, centered exactly at y=282; rightmost x=65.
     let g=doc.createElementNS(NS,'g');
-    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','62'); c.setAttribute('cy','282'); c.setAttribute('r','3.4'); c.setAttribute('fill','none'); c.setAttribute('stroke','#f1b35b'); c.setAttribute('stroke-width','1.5'); g.appendChild(c);
-    [[62,274,62,277],[62,287,62,290],[54,282,57,282],[67,282,70,282],[56.5,276.5,58.5,278.5],[65.5,285.5,67.5,287.5],[67.5,276.5,65.5,278.5],[58.5,285.5,56.5,287.5]].forEach(p=>{const l=doc.createElementNS(NS,'line');l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#f1b35b');l.setAttribute('stroke-width','1.35');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
+    addPath(g,'M59 273 C63 278 65 281 65 284 A6 6 0 0 1 53 284 C53 281 55 278 59 273 Z','#7FDBFF','1.9');
     sources.appendChild(g);
 
-    // Air temperature: tucked directly against the violet ball entry.
+    // n2 amber: solar radiation, centered exactly at y=314; rightmost x=65.
     g=doc.createElementNS(NS,'g');
-    addPath(g,'M62 307 V317.5 A4 4 0 1 0 66 317.5 V307 A2 2 0 0 0 62 307 Z','#caa7ff','1.45');
-    addPath(g,'M64 311 V319','#caa7ff','1.45');
+    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','57'); c.setAttribute('cy','314'); c.setAttribute('r','3.5'); c.setAttribute('fill','none'); c.setAttribute('stroke','#FFD166'); c.setAttribute('stroke-width','1.9'); g.appendChild(c);
+    [[57,306,57,309],[57,319,57,322],[49,314,52,314],[62,314,65,314],[51.5,308.5,53.5,310.5],[60.5,317.5,62.5,319.5],[62.5,308.5,60.5,310.5],[53.5,317.5,51.5,319.5]].forEach(p=>{const l=doc.createElementNS(NS,'line');l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#FFD166');l.setAttribute('stroke-width','1.8');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
     sources.appendChild(g);
 
-    // Humidity: tucked directly against the blue ball entry.
+    // n3 teal: wind speed, centered exactly at y=346; rightmost x=65.
     g=doc.createElementNS(NS,'g');
-    addPath(g,'M61 340 C65 345 67 348 67 351 A6 6 0 0 1 55 351 C55 348 57 345 61 340 Z','#52b7ff','1.5');
+    addPath(g,'M49 342 H60 C63 342 65 340.5 65 339','#A8F5E6','1.9');
+    addPath(g,'M49 346 H61 C64 346 65 347.5 63 349','#A8F5E6','1.9');
+    addPath(g,'M49 350 H57','#A8F5E6','1.9');
     sources.appendChild(g);
 
-    // Wind speed: flow lines terminate at the teal ball entry.
+    // n4 violet: air temperature, centered exactly at y=378; rightmost x=65.
     g=doc.createElementNS(NS,'g');
-    addPath(g,'M52 377 H63 C66 377 67 375.5 67 374','#87d7cf','1.5');
-    addPath(g,'M52 381 H65 C68 381 69 383 67 384.5','#87d7cf','1.5');
-    addPath(g,'M52 385 H60','#87d7cf','1.5');
+    addPath(g,'M59 369 V379 A4 4 0 1 0 65 379 V369 A3 3 0 0 0 59 369 Z','#DEC3FF','1.9');
+    addPath(g,'M62 372 V382','#DEC3FF','1.9');
     sources.appendChild(g);
 
     through1.parentNode.insertBefore(sources,through1);
+
+    // The satellite/atmosphere image is an overlay. Keep the original animated entry balls
+    // above that overlay so their real entry coordinates remain visible next to the symbols.
+    ['n1','n2','n3','n4'].forEach(id=>{
+      const dot=doc.getElementById(id);
+      if(dot) through1.parentNode.insertBefore(dot,through1);
+    });
   }
 
   // Border-only device treatment for the WORKING IT OUT panel.
