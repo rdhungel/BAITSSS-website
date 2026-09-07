@@ -50,8 +50,10 @@ frame.addEventListener('load',()=>{
     if(!doc.querySelector('.heroLeadInsideAnimation')){
       const heroLead=doc.createElementNS(NS,'text');
       heroLead.setAttribute('class','heroLeadInsideAnimation');
-      heroLead.setAttribute('x','40');
-      heroLead.setAttribute('y','19');
+      heroLead.setAttribute('x','590');
+      heroLead.setAttribute('y','46');
+      heroLead.setAttribute('text-anchor','middle');
+      heroLead.setAttribute('dominant-baseline','middle');
       heroLead.setAttribute('font-size','23');
       heroLead.setAttribute('font-weight','520');
       heroLead.setAttribute('fill','#dbe7f2');
@@ -237,7 +239,6 @@ frame.addEventListener('load',()=>{
     });
     resultGrid.appendChild(frames);
   }
-
   const panel=[...doc.querySelectorAll('rect')].find(r=>r.getAttribute('x')==='690'&&r.getAttribute('y')==='145'&&r.getAttribute('width')==='450'&&r.getAttribute('height')==='305');
   if(svg && panel && !doc.querySelector('.computeDeviceBezel')){
     const outer=doc.createElementNS(NS,'rect');
