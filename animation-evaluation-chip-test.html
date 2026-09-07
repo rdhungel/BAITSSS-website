@@ -49,43 +49,36 @@ frame.addEventListener('load',()=>{
     through1.parentNode.insertBefore(border,through1);
   }
 
-  // Small source cues at the existing four weather-ball entry points.
-  // Balls, paths and timing remain unchanged; each ball now visibly emerges from a weather variable.
+  // Compact scientific weather-source marks immediately beside the four ball entry points.
+  // No badges or cartoon-style containers; balls, paths and timing remain unchanged.
   if(svg && through1 && !doc.querySelector('.weatherEntrySources')){
     const sources=doc.createElementNS(NS,'g');
     sources.setAttribute('class','weatherEntrySources');
     sources.setAttribute('pointer-events','none');
+    const addPath=(g,d,color,w='1.5')=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke',color);p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');g.appendChild(p);};
 
-    const makeBase=(cy,color)=>{
-      const g=doc.createElementNS(NS,'g');
-      const c=doc.createElementNS(NS,'circle');
-      c.setAttribute('cx','72'); c.setAttribute('cy',String(cy)); c.setAttribute('r','12');
-      c.setAttribute('fill','rgba(7,19,31,.82)'); c.setAttribute('stroke',color); c.setAttribute('stroke-width','1.5');
-      g.appendChild(c);
-      return g;
-    };
-
-    // Solar radiation.
-    let g=makeBase(282,'#f1b35b');
-    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','72'); c.setAttribute('cy','282'); c.setAttribute('r','4'); c.setAttribute('fill','#f1b35b'); g.appendChild(c);
-    [[72,272,72,275],[72,289,72,292],[62,282,65,282],[79,282,82,282],[65,275,67.2,277.2],[76.8,286.8,79,289],[79,275,76.8,277.2],[67.2,286.8,65,289]].forEach(p=>{const l=doc.createElementNS(NS,'line'); l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#f1b35b');l.setAttribute('stroke-width','1.4');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
+    // Solar radiation: small line sun just left of the amber ball at x=72.
+    let g=doc.createElementNS(NS,'g');
+    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','57'); c.setAttribute('cy','282'); c.setAttribute('r','3.4'); c.setAttribute('fill','none'); c.setAttribute('stroke','#f1b35b'); c.setAttribute('stroke-width','1.5'); g.appendChild(c);
+    [[57,274,57,277],[57,287,57,290],[49,282,52,282],[62,282,65,282],[51.5,276.5,53.5,278.5],[60.5,285.5,62.5,287.5],[62.5,276.5,60.5,278.5],[53.5,285.5,51.5,287.5]].forEach(p=>{const l=doc.createElementNS(NS,'line');l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#f1b35b');l.setAttribute('stroke-width','1.35');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
     sources.appendChild(g);
 
-    // Air temperature.
-    g=makeBase(315,'#caa7ff');
-    let stem=doc.createElementNS(NS,'rect'); stem.setAttribute('x','70'); stem.setAttribute('y','306'); stem.setAttribute('width','4'); stem.setAttribute('height','11'); stem.setAttribute('rx','2'); stem.setAttribute('fill','none'); stem.setAttribute('stroke','#caa7ff'); stem.setAttribute('stroke-width','1.4'); g.appendChild(stem);
-    c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','72'); c.setAttribute('cy','319'); c.setAttribute('r','3.3'); c.setAttribute('fill','#caa7ff'); g.appendChild(c);
-    let l=doc.createElementNS(NS,'line'); l.setAttribute('x1','72');l.setAttribute('y1','309');l.setAttribute('x2','72');l.setAttribute('y2','317');l.setAttribute('stroke','#caa7ff');l.setAttribute('stroke-width','1.5');l.setAttribute('stroke-linecap','round');g.appendChild(l);
+    // Air temperature: restrained outline thermometer beside the violet ball.
+    g=doc.createElementNS(NS,'g');
+    addPath(g,'M55 307 V317.5 A4 4 0 1 0 59 317.5 V307 A2 2 0 0 0 55 307 Z','#caa7ff','1.45');
+    addPath(g,'M57 311 V319','#caa7ff','1.45');
     sources.appendChild(g);
 
-    // Humidity.
-    g=makeBase(348,'#52b7ff');
-    let drop=doc.createElementNS(NS,'path'); drop.setAttribute('d','M72 339 C77 345 79 348 79 352 A7 7 0 0 1 65 352 C65 348 67 345 72 339 Z'); drop.setAttribute('fill','#52b7ff'); g.appendChild(drop);
+    // Humidity: outline droplet beside the blue ball.
+    g=doc.createElementNS(NS,'g');
+    addPath(g,'M57 340 C61 345 63 348 63 351 A6 6 0 0 1 51 351 C51 348 53 345 57 340 Z','#52b7ff','1.5');
     sources.appendChild(g);
 
-    // Wind speed.
-    g=makeBase(381,'#87d7cf');
-    ['M64 377 H76 C79 377 80 375 80 373','M64 381 H79 C82 381 83 383 81 385','M64 385 H73'].forEach(d=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke','#87d7cf');p.setAttribute('stroke-width','1.6');p.setAttribute('stroke-linecap','round');g.appendChild(p);});
+    // Wind speed: three compact meteorological flow lines beside the teal ball.
+    g=doc.createElementNS(NS,'g');
+    addPath(g,'M49 377 H60 C63 377 64 375.5 64 374','#87d7cf','1.5');
+    addPath(g,'M49 381 H62 C65 381 66 383 64 384.5','#87d7cf','1.5');
+    addPath(g,'M49 385 H57','#87d7cf','1.5');
     sources.appendChild(g);
 
     through1.parentNode.insertBefore(sources,through1);
