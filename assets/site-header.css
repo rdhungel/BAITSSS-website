@@ -7,28 +7,39 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
 .site-header .more-menu a{display:block!important;width:100%!important;padding:10px 11px!important;border-radius:7px!important;color:#9db0c2!important;text-decoration:none!important;font-size:13.5px!important;line-height:1.45!important;font-weight:400!important;white-space:normal!important;background:transparent!important}
 .site-header .more-menu a:hover,.site-header .more-menu a.active{background:rgba(255,255,255,.04)!important;color:#c9ee82!important}
 
-/* Homepage hero: one clear left edge, with actions moved into a right-side box. */
+/* Homepage hero: compact right-side action box. */
 @media(min-width:1061px){
   main > .hero .wrap{padding-left:20px!important}
-  main > .hero .hero-copy{position:relative!important;padding-right:430px!important;min-height:198px!important}
+  main > .hero .hero-copy{position:relative!important;padding-right:340px!important;min-height:176px!important}
   main > .hero .hero-copy > .hero-sub{margin-left:0!important}
   main > .hero .hero-actions{
     position:absolute!important;
     top:0!important;
     right:0!important;
-    width:392px!important;
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:12px!important;
-    padding:18px!important;
+    width:310px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    gap:10px!important;
+    padding:14px!important;
     border:1px solid rgba(255,255,255,.12)!important;
     border-radius:16px!important;
     background:rgba(10,25,40,.72)!important;
   }
-  main > .hero .hero-actions .btn{width:100%!important;min-width:0!important;margin:0!important}
-  main > .hero .hero-actions .btn-primary{grid-column:1 / -1!important}
-  main > .hero .hero-actions .btn-text{height:40px!important;padding:0 12px!important;border:1px solid rgba(255,255,255,.10)!important;border-radius:8px!important;justify-content:center!important}
-  main > .hero .hero-actions .btn-faq{grid-column:1 / -1!important}
+  main > .hero .hero-actions .btn{min-width:0!important;margin:0!important}
+  main > .hero .hero-actions .btn-primary,
+  main > .hero .hero-actions .btn-faq{
+    width:270px!important;
+    max-width:270px!important;
+    justify-content:center!important;
+  }
+  main > .hero .hero-actions .btn-text{
+    width:auto!important;
+    height:34px!important;
+    padding:0 10px!important;
+    border:0!important;
+    justify-content:center!important;
+  }
 }
 @media(max-width:1060px){
   main > .hero .hero-copy{padding-right:0!important;min-height:0!important}
