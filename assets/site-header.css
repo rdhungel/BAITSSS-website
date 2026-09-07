@@ -10,7 +10,7 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
 /* Homepage hero: compact right-side action box. */
 @media(min-width:1061px){
   main > .hero .wrap{padding-left:20px!important}
-  main > .hero .hero-copy{position:relative!important;padding-right:340px!important;min-height:176px!important}
+  main > .hero .hero-copy{position:relative!important;padding-right:340px!important;min-height:0!important}
   main > .hero .hero-copy > .hero-sub{margin-left:0!important}
   main > .hero .hero-actions{
     position:absolute!important;
@@ -40,10 +40,12 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
     border:0!important;
     justify-content:center!important;
   }
+  main > .hero .hero-workflow{margin-top:6px!important}
 }
 @media(max-width:1060px){
   main > .hero .hero-copy{padding-right:0!important;min-height:0!important}
   main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;padding:0!important;border:0!important;background:transparent!important}
+  main > .hero .hero-workflow{margin-top:10px!important}
 }
 
 /* Remove these homepage hero actions. */
