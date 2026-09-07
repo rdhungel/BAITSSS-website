@@ -62,3 +62,21 @@ main > .hero .hero-lead{
 main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
 main > .hero .hero-actions a[href="contact/"]{display:none!important}
+
+/* Failsafe: cover any stale cached workflow heading rendered inside the homepage iframe. */
+main > .hero .hero-workflow{position:relative!important}
+main > .hero .hero-workflow::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(46%,520px);
+  height:36px;
+  background:#0b1b2a;
+  pointer-events:none;
+  z-index:3;
+}
+@media(max-width:760px){
+  main > .hero .hero-workflow::after{width:54%;height:30px}
+}
