@@ -48,7 +48,12 @@ frame.addEventListener('load',()=>{
   if(svg) svg.setAttribute('viewBox','0 20 1180 640');
 
   const architectureLabel=[...doc.querySelectorAll('text')].find(t=>t.textContent.trim()==='WORKING IT OUT');
-  if(architectureLabel) architectureLabel.textContent='BAITSSS DESKTOP ARCHITECTURE';
+  if(architectureLabel){
+    architectureLabel.textContent='BAITSSS DESKTOP ARCHITECTURE';
+    architectureLabel.setAttribute('x','758');
+    const architectureIcon=architectureLabel.previousElementSibling && architectureLabel.previousElementSibling.querySelector('use[href="#ram"]');
+    if(architectureIcon) architectureIcon.setAttribute('x','714');
+  }
 
   const satThumb=doc.getElementById('satThumb');
   if(satThumb) satThumb.style.display='none';
