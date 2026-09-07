@@ -20,6 +20,10 @@ frame.addEventListener('load',()=>{
   const NS='http://www.w3.org/2000/svg';
   const xs=[716,818,920,1022];
 
+  // Remove the entire introductory header block from this test view.
+  const topbarBlock=doc.querySelector('.topbar-block');
+  if(topbarBlock) topbarBlock.style.display='none';
+
   // Replace only the weather + field presentation with the approved satellite/atmosphere visual.
   const svg=doc.querySelector('svg');
   const through1=doc.getElementById('through1');
