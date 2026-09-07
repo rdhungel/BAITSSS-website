@@ -45,7 +45,10 @@ frame.addEventListener('load',()=>{
   }
 
   const svg=doc.querySelector('svg');
-  if(svg) svg.setAttribute('viewBox','0 118 1180 542');
+  if(svg) svg.setAttribute('viewBox','0 20 1180 640');
+
+  const satelliteLabel=[...doc.querySelectorAll('text')].find(t=>t.textContent.trim()==='SATELLITE CROP VIEW');
+  if(satelliteLabel) satelliteLabel.textContent='BAITSSS DESKTOP ARCHITECTURE';
 
   const satThumb=doc.getElementById('satThumb');
   if(satThumb) satThumb.style.display='none';
