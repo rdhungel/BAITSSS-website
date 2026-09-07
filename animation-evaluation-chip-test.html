@@ -57,28 +57,28 @@ frame.addEventListener('load',()=>{
     sources.setAttribute('pointer-events','none');
     const addPath=(g,d,color,w='1.5')=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke',color);p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');g.appendChild(p);};
 
-    // Solar radiation: small line sun just left of the amber ball at x=72.
+    // Solar radiation: tucked directly against the amber ball entry.
     let g=doc.createElementNS(NS,'g');
-    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','57'); c.setAttribute('cy','282'); c.setAttribute('r','3.4'); c.setAttribute('fill','none'); c.setAttribute('stroke','#f1b35b'); c.setAttribute('stroke-width','1.5'); g.appendChild(c);
-    [[57,274,57,277],[57,287,57,290],[49,282,52,282],[62,282,65,282],[51.5,276.5,53.5,278.5],[60.5,285.5,62.5,287.5],[62.5,276.5,60.5,278.5],[53.5,285.5,51.5,287.5]].forEach(p=>{const l=doc.createElementNS(NS,'line');l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#f1b35b');l.setAttribute('stroke-width','1.35');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
+    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','62'); c.setAttribute('cy','282'); c.setAttribute('r','3.4'); c.setAttribute('fill','none'); c.setAttribute('stroke','#f1b35b'); c.setAttribute('stroke-width','1.5'); g.appendChild(c);
+    [[62,274,62,277],[62,287,62,290],[54,282,57,282],[67,282,70,282],[56.5,276.5,58.5,278.5],[65.5,285.5,67.5,287.5],[67.5,276.5,65.5,278.5],[58.5,285.5,56.5,287.5]].forEach(p=>{const l=doc.createElementNS(NS,'line');l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#f1b35b');l.setAttribute('stroke-width','1.35');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
     sources.appendChild(g);
 
-    // Air temperature: restrained outline thermometer beside the violet ball.
+    // Air temperature: tucked directly against the violet ball entry.
     g=doc.createElementNS(NS,'g');
-    addPath(g,'M55 307 V317.5 A4 4 0 1 0 59 317.5 V307 A2 2 0 0 0 55 307 Z','#caa7ff','1.45');
-    addPath(g,'M57 311 V319','#caa7ff','1.45');
+    addPath(g,'M62 307 V317.5 A4 4 0 1 0 66 317.5 V307 A2 2 0 0 0 62 307 Z','#caa7ff','1.45');
+    addPath(g,'M64 311 V319','#caa7ff','1.45');
     sources.appendChild(g);
 
-    // Humidity: outline droplet beside the blue ball.
+    // Humidity: tucked directly against the blue ball entry.
     g=doc.createElementNS(NS,'g');
-    addPath(g,'M57 340 C61 345 63 348 63 351 A6 6 0 0 1 51 351 C51 348 53 345 57 340 Z','#52b7ff','1.5');
+    addPath(g,'M61 340 C65 345 67 348 67 351 A6 6 0 0 1 55 351 C55 348 57 345 61 340 Z','#52b7ff','1.5');
     sources.appendChild(g);
 
-    // Wind speed: three compact meteorological flow lines beside the teal ball.
+    // Wind speed: flow lines terminate at the teal ball entry.
     g=doc.createElementNS(NS,'g');
-    addPath(g,'M49 377 H60 C63 377 64 375.5 64 374','#87d7cf','1.5');
-    addPath(g,'M49 381 H62 C65 381 66 383 64 384.5','#87d7cf','1.5');
-    addPath(g,'M49 385 H57','#87d7cf','1.5');
+    addPath(g,'M52 377 H63 C66 377 67 375.5 67 374','#87d7cf','1.5');
+    addPath(g,'M52 381 H65 C68 381 69 383 67 384.5','#87d7cf','1.5');
+    addPath(g,'M52 385 H60','#87d7cf','1.5');
     sources.appendChild(g);
 
     through1.parentNode.insertBefore(sources,through1);
