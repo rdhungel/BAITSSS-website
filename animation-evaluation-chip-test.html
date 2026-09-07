@@ -144,31 +144,36 @@ frame.addEventListener('load',()=>{
       tile.setAttribute('rx','8');
     });
 
-    // Put one realistic BAITSSS-style center-pivot result image in the first product square only.
+    // Put the same realistic BAITSSS center-pivot result image in all four product squares.
     const defs=svg && svg.querySelector('defs');
-    if(defs && !doc.getElementById('resultPivotClip1')){
-      const pivotClip=doc.createElementNS(NS,'clipPath');
-      pivotClip.setAttribute('id','resultPivotClip1');
-      const pivotClipRect=doc.createElementNS(NS,'rect');
-      pivotClipRect.setAttribute('x',String(squareX[0]));
-      pivotClipRect.setAttribute('y',String(squareY));
-      pivotClipRect.setAttribute('width',String(squareSize));
-      pivotClipRect.setAttribute('height',String(squareSize));
-      pivotClipRect.setAttribute('rx','8');
-      pivotClip.appendChild(pivotClipRect);
-      defs.appendChild(pivotClip);
+    if(defs && !doc.querySelector('.resultPivotPreviews')){
+      const pivotPreviews=doc.createElementNS(NS,'g');
+      pivotPreviews.setAttribute('class','resultPivotPreviews');
+      pivotPreviews.setAttribute('pointer-events','none');
+      squareX.forEach((x,i)=>{
+        const clipId='resultPivotClip'+(i+1);
+        const pivotClip=doc.createElementNS(NS,'clipPath');
+        pivotClip.setAttribute('id',clipId);
+        const pivotClipRect=doc.createElementNS(NS,'rect');
+        pivotClipRect.setAttribute('x',String(x));
+        pivotClipRect.setAttribute('y',String(squareY));
+        pivotClipRect.setAttribute('width',String(squareSize));
+        pivotClipRect.setAttribute('height',String(squareSize));
+        pivotClipRect.setAttribute('rx','8');
+        pivotClip.appendChild(pivotClipRect);
+        defs.appendChild(pivotClip);
 
-      const pivotImage=doc.createElementNS(NS,'image');
-      pivotImage.setAttribute('class','resultPivotPreview1');
-      pivotImage.setAttribute('href',CENTER_PIVOT);
-      pivotImage.setAttribute('x',String(squareX[0]));
-      pivotImage.setAttribute('y',String(squareY));
-      pivotImage.setAttribute('width',String(squareSize));
-      pivotImage.setAttribute('height',String(squareSize));
-      pivotImage.setAttribute('preserveAspectRatio','xMidYMid slice');
-      pivotImage.setAttribute('clip-path','url(#resultPivotClip1)');
-      pivotImage.setAttribute('pointer-events','none');
-      resultGrid.appendChild(pivotImage);
+        const pivotImage=doc.createElementNS(NS,'image');
+        pivotImage.setAttribute('href',CENTER_PIVOT);
+        pivotImage.setAttribute('x',String(x));
+        pivotImage.setAttribute('y',String(squareY));
+        pivotImage.setAttribute('width',String(squareSize));
+        pivotImage.setAttribute('height',String(squareSize));
+        pivotImage.setAttribute('preserveAspectRatio','xMidYMid slice');
+        pivotImage.setAttribute('clip-path','url(#'+clipId+')');
+        pivotPreviews.appendChild(pivotImage);
+      });
+      resultGrid.appendChild(pivotPreviews);
     }
 
     // Add one crisp outline per visible square; these are presentation only and do not
