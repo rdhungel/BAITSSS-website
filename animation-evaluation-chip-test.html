@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}iframe{display:block;width:100%;height:980px;border:0;background:#07131f}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}iframe{display:block;width:100%;height:720px;border:0;background:#07131f}</style></head>
 <body>
 <iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chips"></iframe>
 <script>
@@ -23,6 +23,15 @@ frame.addEventListener('load',()=>{
   // Remove the entire introductory header block from this test view.
   const topbarBlock=doc.querySelector('.topbar-block');
   if(topbarBlock) topbarBlock.style.display='none';
+
+  // Remove all footer/review material so the animation is contained in one main box.
+  const legend=doc.querySelector('.legend');
+  if(legend) legend.style.display='none';
+  const review=doc.querySelector('.review');
+  if(review) review.style.display='none';
+  doc.documentElement.style.minHeight='0';
+  doc.body.style.minHeight='0';
+  doc.body.style.padding='10px 16px';
 
   const svg=doc.querySelector('svg');
   if(svg) svg.setAttribute('viewBox','0 0 1180 660');
@@ -81,10 +90,7 @@ frame.addEventListener('load',()=>{
     through1.parentNode.insertBefore(border,through1);
   }
 
-  // Exact source geometry from the base animation:
-  // n1=(72,282), n2=(72,314), n3=(72,346), n4=(72,378), each r=6.
-  // Therefore the visible left edge of every entry ball is x=66.
-  // Every source symbol below ends at x=65: a deliberate 1 px gap, with exact y alignment.
+  // Exact source geometry from the base animation.
   if(svg && through1 && !doc.querySelector('.weatherEntrySources')){
     const sources=doc.createElementNS(NS,'g');
     sources.setAttribute('class','weatherEntrySources');
@@ -92,34 +98,27 @@ frame.addEventListener('load',()=>{
     sources.setAttribute('opacity','1');
     const addPath=(g,d,color,w='2.3')=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke',color);p.setAttribute('stroke-width',w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');g.appendChild(p);};
 
-    // n1 blue: humidity, centered exactly at y=282; rightmost x=65.
     let g=doc.createElementNS(NS,'g');
     addPath(g,'M59 273 C63 278 65 281 65 284 A6 6 0 0 1 53 284 C53 281 55 278 59 273 Z','#C8F4FF','2.4');
     sources.appendChild(g);
 
-    // n2 amber: solar radiation, centered exactly at y=314; rightmost x=65.
     g=doc.createElementNS(NS,'g');
     let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','57'); c.setAttribute('cy','314'); c.setAttribute('r','3.5'); c.setAttribute('fill','none'); c.setAttribute('stroke','#FFF176'); c.setAttribute('stroke-width','2.4'); g.appendChild(c);
     [[57,306,57,309],[57,319,57,322],[49,314,52,314],[62,314,65,314],[51.5,308.5,53.5,310.5],[60.5,317.5,62.5,319.5],[62.5,308.5,60.5,310.5],[53.5,317.5,51.5,319.5]].forEach(p=>{const l=doc.createElementNS(NS,'line');l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#FFF176');l.setAttribute('stroke-width','2.3');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
     sources.appendChild(g);
 
-    // n3 teal: wind speed, centered exactly at y=346; rightmost x=65.
     g=doc.createElementNS(NS,'g');
     addPath(g,'M49 342 H60 C63 342 65 340.5 65 339','#D2FFF5','2.4');
     addPath(g,'M49 346 H61 C64 346 65 347.5 63 349','#D2FFF5','2.4');
     addPath(g,'M49 350 H57','#D2FFF5','2.4');
     sources.appendChild(g);
 
-    // n4 violet: air temperature, centered exactly at y=378; rightmost x=65.
     g=doc.createElementNS(NS,'g');
     addPath(g,'M59 369 V379 A4 4 0 1 0 65 379 V369 A3 3 0 0 0 59 369 Z','#F1E3FF','2.4');
     addPath(g,'M62 372 V382','#F1E3FF','2.4');
     sources.appendChild(g);
 
     through1.parentNode.insertBefore(sources,through1);
-
-    // The satellite/atmosphere image is an overlay. Keep the original animated entry balls
-    // above that overlay so their real entry coordinates remain visible next to the symbols.
     ['n1','n2','n3','n4'].forEach(id=>{
       const dot=doc.getElementById(id);
       if(dot) through1.parentNode.insertBefore(dot,through1);
@@ -127,9 +126,6 @@ frame.addEventListener('load',()=>{
   }
 
   // Give the final water-use product maximum room for four large square result-map tiles.
-  // The base animation logic is left untouched: all seven original result-tile elements remain
-  // in the DOM and continue receiving the exact same timing/fill updates. They are visually
-  // layered into four larger square footprints: 2 + 2 + 2 + 1.
   const resultPanel=doc.querySelector('.result-panel');
   const resultGrid=doc.getElementById('resultGrid');
   const resultBar=doc.getElementById('resultBar');
@@ -151,8 +147,6 @@ frame.addEventListener('load',()=>{
     if(scaleLabel) scaleLabel.style.display='none';
     if(downloadLabel) downloadLabel.style.display='none';
 
-    // Keep the progress track at the same 336 px width used by the untouched base animation.
-    // That means the existing resultBar calculation (336 * result) reaches the track end at 100%.
     const barTrack=[...doc.querySelectorAll('rect')].find(r=>
       r!==resultBar && r.getAttribute('x')==='752' && r.getAttribute('y')==='550' && r.getAttribute('width')==='336' && r.getAttribute('height')==='9'
     );
@@ -162,9 +156,6 @@ frame.addEventListener('load',()=>{
     const tiles=[...resultGrid.querySelectorAll('.result-tile')];
     const squareX=[724,818,912,1006];
     const squareY=550, squareSize=78;
-
-    // Keep all seven animated tiles alive. Pairs occupy the same square so the original
-    // seven-step fill logic remains identical while the user sees four large products.
     const squareForTile=[0,0,1,1,2,2,3];
     tiles.forEach((tile,i)=>{
       const s=squareForTile[i];
@@ -175,7 +166,6 @@ frame.addEventListener('load',()=>{
       tile.setAttribute('rx','8');
     });
 
-    // Put one approved BAITSSS center-pivot result image in each product square.
     const defs=svg && svg.querySelector('defs');
     if(defs && !doc.querySelector('.resultPivotPreviews')){
       const pivotPreviews=doc.createElementNS(NS,'g');
@@ -207,8 +197,6 @@ frame.addEventListener('load',()=>{
       resultGrid.appendChild(pivotPreviews);
     }
 
-    // Add one crisp outline per visible square; these are presentation only and do not
-    // participate in the animation state or timing.
     const frames=doc.createElementNS(NS,'g');
     frames.setAttribute('class','resultSquareFrames');
     frames.setAttribute('pointer-events','none');
@@ -269,6 +257,15 @@ frame.addEventListener('load',()=>{
       dot.setAttribute('cy','326');
       dot.setAttribute('r','6');
       unit.appendChild(dot);
+    }
+  });
+
+  // Fit the test iframe tightly around the one remaining main animation box.
+  requestAnimationFrame(()=>{
+    const hero=doc.querySelector('.hero');
+    if(hero){
+      const h=Math.ceil(hero.getBoundingClientRect().height+20);
+      frame.style.height=h+'px';
     }
   });
 });
