@@ -5,6 +5,7 @@
 <iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chips"></iframe>
 <script>
 const CHIP='/assets/worker-chip-board.webp?v=1';
+const SAT_ATMOS='/assets/published-science/Satellite%20atmos.png?v=1';
 const frame=document.getElementById('preview');
 frame.addEventListener('load',()=>{
   const doc=frame.contentDocument;
@@ -13,8 +14,42 @@ frame.addEventListener('load',()=>{
   const NS='http://www.w3.org/2000/svg';
   const xs=[716,818,920,1022];
 
-  // Border-only device treatment for the WORKING IT OUT panel.
+  // Replace only the weather + field presentation with the approved satellite/atmosphere visual.
   const svg=doc.querySelector('svg');
+  const through1=doc.getElementById('through1');
+  if(svg && through1 && !doc.querySelector('.satAtmosFieldVisual')){
+    const defs=svg.querySelector('defs');
+    const clip=doc.createElementNS(NS,'clipPath');
+    clip.setAttribute('id','satAtmosFieldClip');
+    const clipRect=doc.createElementNS(NS,'rect');
+    clipRect.setAttribute('x','40'); clipRect.setAttribute('y','145');
+    clipRect.setAttribute('width','610'); clipRect.setAttribute('height','305');
+    clipRect.setAttribute('rx','18');
+    clip.appendChild(clipRect);
+    if(defs) defs.appendChild(clip);
+
+    const visual=doc.createElementNS(NS,'image');
+    visual.setAttribute('class','satAtmosFieldVisual');
+    visual.setAttribute('href',SAT_ATMOS);
+    visual.setAttribute('x','40'); visual.setAttribute('y','145');
+    visual.setAttribute('width','610'); visual.setAttribute('height','305');
+    visual.setAttribute('preserveAspectRatio','xMidYMid slice');
+    visual.setAttribute('clip-path','url(#satAtmosFieldClip)');
+    visual.setAttribute('pointer-events','none');
+    through1.parentNode.insertBefore(visual,through1);
+
+    const border=doc.createElementNS(NS,'rect');
+    border.setAttribute('x','40'); border.setAttribute('y','145');
+    border.setAttribute('width','610'); border.setAttribute('height','305');
+    border.setAttribute('rx','18');
+    border.setAttribute('fill','none');
+    border.setAttribute('stroke','rgba(201,238,130,.28)');
+    border.setAttribute('stroke-width','1.5');
+    border.setAttribute('pointer-events','none');
+    through1.parentNode.insertBefore(border,through1);
+  }
+
+  // Border-only device treatment for the WORKING IT OUT panel.
   const panel=[...doc.querySelectorAll('rect')].find(r=>r.getAttribute('x')==='690'&&r.getAttribute('y')==='145'&&r.getAttribute('width')==='450'&&r.getAttribute('height')==='305');
   if(svg && panel && !doc.querySelector('.computeDeviceBezel')){
     const outer=doc.createElementNS(NS,'rect');
