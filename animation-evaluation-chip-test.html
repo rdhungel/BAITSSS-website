@@ -12,6 +12,34 @@ frame.addEventListener('load',()=>{
   if(!doc || !units || units.length!==4 || doc.querySelectorAll('.realWorkerChip').length) return;
   const NS='http://www.w3.org/2000/svg';
   const xs=[716,818,920,1022];
+
+  // Border-only device treatment for the WORKING IT OUT panel.
+  const svg=doc.querySelector('svg');
+  const panel=[...doc.querySelectorAll('rect')].find(r=>r.getAttribute('x')==='690'&&r.getAttribute('y')==='145'&&r.getAttribute('width')==='450'&&r.getAttribute('height')==='305');
+  if(svg && panel && !doc.querySelector('.computeDeviceBezel')){
+    const outer=doc.createElementNS(NS,'rect');
+    outer.setAttribute('class','computeDeviceBezel');
+    outer.setAttribute('x','686'); outer.setAttribute('y','141');
+    outer.setAttribute('width','458'); outer.setAttribute('height','313');
+    outer.setAttribute('rx','21');
+    outer.setAttribute('fill','none');
+    outer.setAttribute('stroke','#1d2f40');
+    outer.setAttribute('stroke-width','8');
+    outer.setAttribute('pointer-events','none');
+
+    const edge=doc.createElementNS(NS,'rect');
+    edge.setAttribute('x','689'); edge.setAttribute('y','144');
+    edge.setAttribute('width','452'); edge.setAttribute('height','307');
+    edge.setAttribute('rx','17');
+    edge.setAttribute('fill','none');
+    edge.setAttribute('stroke','rgba(154,184,204,.42)');
+    edge.setAttribute('stroke-width','1.4');
+    edge.setAttribute('pointer-events','none');
+
+    panel.insertAdjacentElement('afterend',outer);
+    outer.insertAdjacentElement('afterend',edge);
+  }
+
   units.forEach((unit,i)=>{
     const card=unit.querySelector('.worker-card');
     const chip=doc.createElementNS(NS,'image');
