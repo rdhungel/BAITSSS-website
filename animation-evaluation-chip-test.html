@@ -21,23 +21,7 @@ frame.addEventListener('load',()=>{
   const xs=[716,818,920,1022];
 
   const topbarBlock=doc.querySelector('.topbar-block');
-  if(topbarBlock){
-    topbarBlock.style.display='block';
-    topbarBlock.style.padding='8px 20px 9px';
-    topbarBlock.style.background='#0b1b2a';
-    topbarBlock.style.borderBottom='1px solid rgba(255,255,255,.10)';
-    const topbar=topbarBlock.querySelector('.topbar');
-    if(topbar){
-      topbar.textContent='Take control of your field through scientific software.';
-      topbar.style.fontSize='18px';
-      topbar.style.fontWeight='700';
-      topbar.style.letterSpacing='0';
-      topbar.style.color='#b9c9df';
-      topbar.style.lineHeight='1.25';
-    }
-    const subtitle=topbarBlock.querySelector('.subtitle');
-    if(subtitle) subtitle.style.display='none';
-  }
+  if(topbarBlock) topbarBlock.style.display='none';
 
   const legend=doc.querySelector('.legend');
   if(legend) legend.style.display='none';
