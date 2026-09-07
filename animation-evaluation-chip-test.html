@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}iframe{display:block;width:100%;height:720px;border:0;background:#07131f}</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}body{position:relative}#animationWrap{position:relative;width:100%;height:720px;background:#07131f}#workflowLead{position:absolute;top:17px;left:0;right:0;z-index:5;text-align:center;color:#dbe7f2;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:23px;font-weight:520;line-height:1.2;pointer-events:none}iframe{display:block;width:100%;height:720px;border:0;background:#07131f}</style></head>
 <body>
-<iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chips"></iframe>
+<div id="animationWrap"><div id="workflowLead">Take control of your field through scientific software.</div><iframe id="preview" src="/animation-evaluation.html" title="BAITSSS animation realistic worker chips"></iframe></div>
 <script>
 const CHIP='/assets/worker-chip-board.webp?v=1';
 const SAT_ATMOS='/assets/published-science/Satellite%20atmos.png?v=1';
@@ -45,25 +45,7 @@ frame.addEventListener('load',()=>{
   }
 
   const svg=doc.querySelector('svg');
-  if(svg){
-    svg.setAttribute('viewBox','0 0 1180 660');
-    if(!doc.querySelector('.heroLeadInsideAnimation')){
-      const heroLead=doc.createElementNS(NS,'text');
-      heroLead.setAttribute('class','heroLeadInsideAnimation');
-      heroLead.setAttribute('x','590');
-      heroLead.setAttribute('y','46');
-      heroLead.setAttribute('text-anchor','middle');
-      heroLead.setAttribute('dominant-baseline','middle');
-      heroLead.setAttribute('font-size','23');
-      heroLead.setAttribute('font-weight','520');
-      heroLead.setAttribute('fill','#dbe7f2');
-      heroLead.setAttribute('font-family','-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif');
-      heroLead.textContent='Take control of your field through scientific software.';
-      const defs=svg.querySelector('defs');
-      if(defs && defs.nextSibling) svg.insertBefore(heroLead,defs.nextSibling);
-      else svg.insertBefore(heroLead,svg.firstChild);
-    }
-  }
+  if(svg) svg.setAttribute('viewBox','0 0 1180 660');
 
   const satThumb=doc.getElementById('satThumb');
   if(satThumb) satThumb.style.display='none';
@@ -292,6 +274,7 @@ frame.addEventListener('load',()=>{
     if(hero){
       const h=Math.ceil(hero.getBoundingClientRect().height);
       frame.style.height=h+'px';
+      document.getElementById('animationWrap').style.height=h+'px';
     }
   });
 });
