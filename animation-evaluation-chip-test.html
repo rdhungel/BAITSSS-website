@@ -26,6 +26,16 @@ frame.addEventListener('load',()=>{
 
   // Replace only the weather + field presentation with the approved satellite/atmosphere visual.
   const svg=doc.querySelector('svg');
+  if(svg && !doc.querySelector('.workflowHeading')){
+    const heading=doc.createElementNS(NS,'text');
+    heading.setAttribute('class','workflowHeading');
+    heading.setAttribute('x','590');
+    heading.setAttribute('y','18');
+    heading.setAttribute('text-anchor','middle');
+    heading.setAttribute('style','font-size:18px;font-weight:800;letter-spacing:.06em;fill:#a8b8c6');
+    heading.textContent='BAITSSS DESKTOP WORKFLOW';
+    svg.appendChild(heading);
+  }
   const through1=doc.getElementById('through1');
   if(svg && through1 && !doc.querySelector('.satAtmosFieldVisual')){
     const defs=svg.querySelector('defs');
