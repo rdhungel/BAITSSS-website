@@ -119,11 +119,12 @@ frame.addEventListener('load',()=>{
     if(scaleLabel) scaleLabel.style.display='none';
     if(downloadLabel) downloadLabel.style.display='none';
 
-    // Preserve the animated bar width authority; only move it upward.
+    // Keep the progress track at the same 336 px width used by the untouched base animation.
+    // That means the existing resultBar calculation (336 * result) reaches the track end at 100%.
     const barTrack=[...doc.querySelectorAll('rect')].find(r=>
       r!==resultBar && r.getAttribute('x')==='752' && r.getAttribute('y')==='550' && r.getAttribute('width')==='336' && r.getAttribute('height')==='9'
     );
-    if(barTrack){ barTrack.setAttribute('x','717'); barTrack.setAttribute('y','525'); barTrack.setAttribute('width','384'); }
+    if(barTrack){ barTrack.setAttribute('x','717'); barTrack.setAttribute('y','525'); barTrack.setAttribute('width','336'); }
     resultBar.setAttribute('x','717'); resultBar.setAttribute('y','525');
 
     const tiles=[...resultGrid.querySelectorAll('.result-tile')];
