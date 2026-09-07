@@ -57,35 +57,6 @@ main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
 main > .hero .hero-actions a[href="contact/"]{display:none!important}
 
-/* Workflow title band: restores the earlier animation-title position with the hero lead text. */
-main > .hero .hero-workflow{
-  position:relative!important;
-  padding-top:42px!important;
-  background:#07131f!important;
-}
-main > .hero .hero-workflow::before{
-  content:"Take control of your field through scientific software.";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:42px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0 20px;
-  color:#b9c9df;
-  background:#0b1b2a;
-  border-bottom:1px solid rgba(255,255,255,.10);
-  font-size:18px;
-  line-height:1.2;
-  font-weight:700;
-  letter-spacing:0;
-  text-align:center;
-  pointer-events:none;
-  z-index:3;
-}
-@media(max-width:760px){
-  main > .hero .hero-workflow{padding-top:38px!important}
-  main > .hero .hero-workflow::before{height:38px;font-size:15px;padding:0 12px}
-}
+/* No homepage overlay: the workflow title is rendered inside the animation document itself. */
+main > .hero .hero-workflow{position:relative!important;background:#07131f!important;padding-top:0!important}
+main > .hero .hero-workflow::before,main > .hero .hero-workflow::after{content:none!important;display:none!important}
