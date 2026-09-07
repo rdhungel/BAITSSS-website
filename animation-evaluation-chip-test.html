@@ -49,6 +49,48 @@ frame.addEventListener('load',()=>{
     through1.parentNode.insertBefore(border,through1);
   }
 
+  // Small source cues at the existing four weather-ball entry points.
+  // Balls, paths and timing remain unchanged; each ball now visibly emerges from a weather variable.
+  if(svg && through1 && !doc.querySelector('.weatherEntrySources')){
+    const sources=doc.createElementNS(NS,'g');
+    sources.setAttribute('class','weatherEntrySources');
+    sources.setAttribute('pointer-events','none');
+
+    const makeBase=(cy,color)=>{
+      const g=doc.createElementNS(NS,'g');
+      const c=doc.createElementNS(NS,'circle');
+      c.setAttribute('cx','72'); c.setAttribute('cy',String(cy)); c.setAttribute('r','12');
+      c.setAttribute('fill','rgba(7,19,31,.82)'); c.setAttribute('stroke',color); c.setAttribute('stroke-width','1.5');
+      g.appendChild(c);
+      return g;
+    };
+
+    // Solar radiation.
+    let g=makeBase(282,'#f1b35b');
+    let c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','72'); c.setAttribute('cy','282'); c.setAttribute('r','4'); c.setAttribute('fill','#f1b35b'); g.appendChild(c);
+    [[72,272,72,275],[72,289,72,292],[62,282,65,282],[79,282,82,282],[65,275,67.2,277.2],[76.8,286.8,79,289],[79,275,76.8,277.2],[67.2,286.8,65,289]].forEach(p=>{const l=doc.createElementNS(NS,'line'); l.setAttribute('x1',p[0]);l.setAttribute('y1',p[1]);l.setAttribute('x2',p[2]);l.setAttribute('y2',p[3]);l.setAttribute('stroke','#f1b35b');l.setAttribute('stroke-width','1.4');l.setAttribute('stroke-linecap','round');g.appendChild(l);});
+    sources.appendChild(g);
+
+    // Air temperature.
+    g=makeBase(315,'#caa7ff');
+    let stem=doc.createElementNS(NS,'rect'); stem.setAttribute('x','70'); stem.setAttribute('y','306'); stem.setAttribute('width','4'); stem.setAttribute('height','11'); stem.setAttribute('rx','2'); stem.setAttribute('fill','none'); stem.setAttribute('stroke','#caa7ff'); stem.setAttribute('stroke-width','1.4'); g.appendChild(stem);
+    c=doc.createElementNS(NS,'circle'); c.setAttribute('cx','72'); c.setAttribute('cy','319'); c.setAttribute('r','3.3'); c.setAttribute('fill','#caa7ff'); g.appendChild(c);
+    let l=doc.createElementNS(NS,'line'); l.setAttribute('x1','72');l.setAttribute('y1','309');l.setAttribute('x2','72');l.setAttribute('y2','317');l.setAttribute('stroke','#caa7ff');l.setAttribute('stroke-width','1.5');l.setAttribute('stroke-linecap','round');g.appendChild(l);
+    sources.appendChild(g);
+
+    // Humidity.
+    g=makeBase(348,'#52b7ff');
+    let drop=doc.createElementNS(NS,'path'); drop.setAttribute('d','M72 339 C77 345 79 348 79 352 A7 7 0 0 1 65 352 C65 348 67 345 72 339 Z'); drop.setAttribute('fill','#52b7ff'); g.appendChild(drop);
+    sources.appendChild(g);
+
+    // Wind speed.
+    g=makeBase(381,'#87d7cf');
+    ['M64 377 H76 C79 377 80 375 80 373','M64 381 H79 C82 381 83 383 81 385','M64 385 H73'].forEach(d=>{const p=doc.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill','none');p.setAttribute('stroke','#87d7cf');p.setAttribute('stroke-width','1.6');p.setAttribute('stroke-linecap','round');g.appendChild(p);});
+    sources.appendChild(g);
+
+    through1.parentNode.insertBefore(sources,through1);
+  }
+
   // Border-only device treatment for the WORKING IT OUT panel.
   const panel=[...doc.querySelectorAll('rect')].find(r=>r.getAttribute('x')==='690'&&r.getAttribute('y')==='145'&&r.getAttribute('width')==='450'&&r.getAttribute('height')==='305');
   if(svg && panel && !doc.querySelector('.computeDeviceBezel')){
