@@ -45,7 +45,23 @@ frame.addEventListener('load',()=>{
   }
 
   const svg=doc.querySelector('svg');
-  if(svg) svg.setAttribute('viewBox','0 20 1180 640');
+  if(svg){
+    svg.setAttribute('viewBox','0 0 1180 660');
+    if(!doc.querySelector('.heroLeadInsideAnimation')){
+      const heroLead=doc.createElementNS(NS,'text');
+      heroLead.setAttribute('class','heroLeadInsideAnimation');
+      heroLead.setAttribute('x','40');
+      heroLead.setAttribute('y','19');
+      heroLead.setAttribute('font-size','23');
+      heroLead.setAttribute('font-weight','520');
+      heroLead.setAttribute('fill','#dbe7f2');
+      heroLead.setAttribute('font-family','-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif');
+      heroLead.textContent='Take control of your field through scientific software.';
+      const defs=svg.querySelector('defs');
+      if(defs && defs.nextSibling) svg.insertBefore(heroLead,defs.nextSibling);
+      else svg.insertBefore(heroLead,svg.firstChild);
+    }
+  }
 
   const satThumb=doc.getElementById('satThumb');
   if(satThumb) satThumb.style.display='none';
