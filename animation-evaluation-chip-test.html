@@ -94,8 +94,10 @@ frame.addEventListener('load',()=>{
     });
   }
 
-  // Give the final water-use product maximum room for the seven result-map tiles.
-  // Remove the two explanatory micro-lines; keep title, percent and progress only.
+  // Give the final water-use product maximum room for four large square result-map tiles.
+  // The base animation logic is left untouched: all seven original result-tile elements remain
+  // in the DOM and continue receiving the exact same timing/fill updates. They are visually
+  // layered into four larger square footprints: 2 + 2 + 2 + 1.
   const resultPanel=doc.querySelector('.result-panel');
   const resultGrid=doc.getElementById('resultGrid');
   const resultBar=doc.getElementById('resultBar');
@@ -124,16 +126,36 @@ frame.addEventListener('load',()=>{
     if(barTrack){ barTrack.setAttribute('x','717'); barTrack.setAttribute('y','525'); barTrack.setAttribute('width','384'); }
     resultBar.setAttribute('x','717'); resultBar.setAttribute('y','525');
 
-    // Seven true squares, evenly fitted into the available row span.
     const tiles=[...resultGrid.querySelectorAll('.result-tile')];
-    const startX=717, tileW=48, tileH=48, gap=8, tileY=559;
+    const squareX=[724,818,912,1006];
+    const squareY=550, squareSize=78;
+
+    // Keep all seven animated tiles alive. Pairs occupy the same square so the original
+    // seven-step fill logic remains identical while the user sees four large products.
+    const squareForTile=[0,0,1,1,2,2,3];
     tiles.forEach((tile,i)=>{
-      tile.setAttribute('x',String(startX+i*(tileW+gap)));
-      tile.setAttribute('y',String(tileY));
-      tile.setAttribute('width',String(tileW));
-      tile.setAttribute('height',String(tileH));
-      tile.setAttribute('rx','6');
+      const s=squareForTile[i];
+      tile.setAttribute('x',String(squareX[s]));
+      tile.setAttribute('y',String(squareY));
+      tile.setAttribute('width',String(squareSize));
+      tile.setAttribute('height',String(squareSize));
+      tile.setAttribute('rx','8');
     });
+
+    // Add one crisp outline per visible square; these are presentation only and do not
+    // participate in the animation state or timing.
+    const frames=doc.createElementNS(NS,'g');
+    frames.setAttribute('class','resultSquareFrames');
+    frames.setAttribute('pointer-events','none');
+    squareX.forEach(x=>{
+      const r=doc.createElementNS(NS,'rect');
+      r.setAttribute('x',String(x)); r.setAttribute('y',String(squareY));
+      r.setAttribute('width',String(squareSize)); r.setAttribute('height',String(squareSize));
+      r.setAttribute('rx','8'); r.setAttribute('fill','none');
+      r.setAttribute('stroke','rgba(202,167,255,.34)'); r.setAttribute('stroke-width','1.2');
+      frames.appendChild(r);
+    });
+    resultGrid.appendChild(frames);
   }
 
   // Border-only device treatment for the WORKING IT OUT panel.
