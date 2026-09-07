@@ -52,8 +52,21 @@ frame.addEventListener('load',()=>{
   const architectureLabel=[...doc.querySelectorAll('text')].find(t=>t.textContent.trim()==='WORKING IT OUT');
   const architectureIcon=[...doc.querySelectorAll('use')].find(u=>u.getAttribute('href')==='#ram');
   if(architectureLabel){
-    architectureLabel.textContent='MODERNIZED BAITSSS DESKTOP ARCHITECTURE';
+    architectureLabel.textContent='';
     architectureLabel.setAttribute('x','758');
+    architectureLabel.setAttribute('y','207');
+    architectureLabel.setAttribute('dominant-baseline','auto');
+    architectureLabel.setAttribute('style','font-size:15.5px;font-weight:800;fill:#f4f7fa');
+    const line1=doc.createElementNS(NS,'tspan');
+    line1.setAttribute('x','758');
+    line1.setAttribute('y','207');
+    line1.textContent='MODERNIZED BAITSSS';
+    const line2=doc.createElementNS(NS,'tspan');
+    line2.setAttribute('x','758');
+    line2.setAttribute('dy','18');
+    line2.textContent='DESKTOP ARCHITECTURE';
+    architectureLabel.appendChild(line1);
+    architectureLabel.appendChild(line2);
   }
   if(architectureIcon) architectureIcon.setAttribute('x','714');
 
