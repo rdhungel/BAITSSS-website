@@ -56,6 +56,22 @@ frame.addEventListener('load',()=>{
     svg.appendChild(heading);
   }
 
+  // Replace the WHAT GOES IN badge with a plain NLDAS input label matching SATELLITE CROP VIEW.
+  const inBadge=doc.getElementById('inBadge');
+  if(inBadge){
+    const badgeRect=inBadge.querySelector('rect');
+    if(badgeRect) badgeRect.style.display='none';
+    const badgeText=inBadge.querySelector('text');
+    if(badgeText){
+      badgeText.textContent='NLDAS WEATHER INPUT';
+      badgeText.setAttribute('x','40');
+      badgeText.setAttribute('y','133');
+      badgeText.setAttribute('text-anchor','start');
+      badgeText.setAttribute('dominant-baseline','middle');
+      badgeText.setAttribute('style','font-size:16px;font-weight:800;letter-spacing:0;fill:#f4f7fa');
+    }
+  }
+
   // Replace only the weather + field presentation with the approved satellite/atmosphere visual.
   const through1=doc.getElementById('through1');
   if(svg && through1 && !doc.querySelector('.satAtmosFieldVisual')){
