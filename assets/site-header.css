@@ -46,6 +46,7 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
   main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;padding:0!important;border:0!important;background:transparent!important}
 }
 
-/* Remove these two homepage hero actions. */
+/* Remove these homepage hero actions. */
 main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
+main > .hero .hero-actions a[href="contact/"]{display:none!important}
