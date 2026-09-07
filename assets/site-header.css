@@ -48,35 +48,44 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
   main > .hero .hero-workflow{margin-top:10px!important}
 }
 
-/* Keep only the clean hero lead treatment shown in the approved second reference. */
-main > .hero .hero-lead{
-  margin-top:14px!important;
-  font-size:23px!important;
-  line-height:1.35!important;
-  font-weight:520!important;
-}
-@media(max-width:860px){main > .hero .hero-lead{margin-top:10px!important;font-size:22px!important}}
-@media(max-width:560px){main > .hero .hero-lead{margin-top:8px!important;font-size:20px!important}}
+/* The former hero lead now lives inside the workflow animation header. */
+main > .hero .hero-lead{display:none!important}
+main > .hero .hero-support{margin-top:0!important}
 
 /* Remove these homepage hero actions. */
 main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
 main > .hero .hero-actions a[href="contact/"]{display:none!important}
 
-/* Failsafe: cover any stale cached workflow heading rendered inside the homepage iframe. */
-main > .hero .hero-workflow{position:relative!important}
-main > .hero .hero-workflow::after{
-  content:"";
+/* Workflow title band: restores the earlier animation-title position with the hero lead text. */
+main > .hero .hero-workflow{
+  position:relative!important;
+  padding-top:42px!important;
+  background:#07131f!important;
+}
+main > .hero .hero-workflow::before{
+  content:"Take control of your field through scientific software.";
   position:absolute;
   top:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(46%,520px);
-  height:36px;
+  left:0;
+  right:0;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 20px;
+  color:#b9c9df;
   background:#0b1b2a;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  font-size:18px;
+  line-height:1.2;
+  font-weight:700;
+  letter-spacing:0;
+  text-align:center;
   pointer-events:none;
   z-index:3;
 }
 @media(max-width:760px){
-  main > .hero .hero-workflow::after{width:54%;height:30px}
+  main > .hero .hero-workflow{padding-top:38px!important}
+  main > .hero .hero-workflow::before{height:38px;font-size:15px;padding:0 12px}
 }
