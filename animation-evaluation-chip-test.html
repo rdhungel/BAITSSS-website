@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BAITSSS Animation Chip Test</title><style>html,body{margin:0;background:#07131f}iframe{display:block;width:100%;height:720px;border:0;background:#07131f}</style></head>
 <body>
-<iframe id="preview" src="/animation-evaluation.html?v=architecture-left-20260907-1" title="BAITSSS animation realistic worker chips"></iframe>
+<iframe id="preview" src="/animation-evaluation.html?v=satellite-strip-removed-20260907-1" title="BAITSSS animation realistic worker chips"></iframe>
 <script>
 const CHIP='/assets/worker-chip-board.webp?v=1';
 const SAT_ATMOS='/assets/published-science/Satellite%20atmos.png?v=1';
@@ -45,7 +45,7 @@ frame.addEventListener('load',()=>{
   }
 
   const svg=doc.querySelector('svg');
-  if(svg) svg.setAttribute('viewBox','0 20 1180 640');
+  if(svg) svg.setAttribute('viewBox','0 122 1180 538');
 
   const architectureLabel=[...doc.querySelectorAll('text')].find(t=>t.textContent.trim()==='WORKING IT OUT');
   const architectureIcon=[...doc.querySelectorAll('use')].find(u=>u.getAttribute('href')==='#ram');
@@ -54,14 +54,6 @@ frame.addEventListener('load',()=>{
     architectureLabel.setAttribute('x','758');
   }
   if(architectureIcon) architectureIcon.setAttribute('x','714');
-
-  const satThumb=doc.getElementById('satThumb');
-  if(satThumb) satThumb.style.display='none';
-  const topSatellitePanel=[...doc.querySelectorAll('rect')].find(r=>
-    r.getAttribute('x')==='40' && r.getAttribute('y')==='28' &&
-    r.getAttribute('width')==='1100' && r.getAttribute('height')==='90'
-  );
-  if(topSatellitePanel) topSatellitePanel.setAttribute('height','72');
 
   const inBadge=doc.getElementById('inBadge');
   if(inBadge){
