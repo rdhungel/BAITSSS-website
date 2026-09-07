@@ -6,7 +6,12 @@
 <script>
 const CHIP='/assets/worker-chip-board.webp?v=1';
 const SAT_ATMOS='/assets/published-science/Satellite%20atmos.png?v=1';
-const CENTER_PIVOT='/assets/published-science/center%20pivot.png?v=1';
+const CENTER_PIVOTS=[
+  '/assets/published-science/center1.png?v=1',
+  '/assets/published-science/center2.png?v=1',
+  '/assets/published-science/center3.png?v=1',
+  '/assets/published-science/center4.png?v=1'
+];
 const frame=document.getElementById('preview');
 frame.addEventListener('load',()=>{
   const doc=frame.contentDocument;
@@ -144,7 +149,7 @@ frame.addEventListener('load',()=>{
       tile.setAttribute('rx','8');
     });
 
-    // Put the same realistic BAITSSS center-pivot result image in all four product squares.
+    // Put one approved BAITSSS center-pivot result image in each product square.
     const defs=svg && svg.querySelector('defs');
     if(defs && !doc.querySelector('.resultPivotPreviews')){
       const pivotPreviews=doc.createElementNS(NS,'g');
@@ -164,7 +169,7 @@ frame.addEventListener('load',()=>{
         defs.appendChild(pivotClip);
 
         const pivotImage=doc.createElementNS(NS,'image');
-        pivotImage.setAttribute('href',CENTER_PIVOT);
+        pivotImage.setAttribute('href',CENTER_PIVOTS[i]);
         pivotImage.setAttribute('x',String(x));
         pivotImage.setAttribute('y',String(squareY));
         pivotImage.setAttribute('width',String(squareSize));
