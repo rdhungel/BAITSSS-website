@@ -15,8 +15,8 @@ main > .hero .hero-actions{position:static!important;width:auto!important;displa
 main > .hero .hero-actions .btn{min-width:0!important;margin:0!important}
 main > .hero .hero-actions .btn-primary{width:auto!important;max-width:none!important;justify-content:center!important}
 main > .hero .hero-actions .btn-faq{display:none!important}
-main > .hero .hero-workflow{margin-top:18px!important}
-@media(max-width:1060px){main > .hero .hero-copy{padding-right:0!important;min-height:0!important}main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;padding:0!important;border:0!important;background:transparent!important}main > .hero .hero-workflow{margin-top:18px!important}}
+main > .hero .hero-workflow{margin-top:10px!important}
+@media(max-width:1060px){main > .hero .hero-copy{padding-right:0!important;min-height:0!important}main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;padding:0!important;border:0!important;background:transparent!important}main > .hero .hero-workflow{margin-top:10px!important}}
 
 /* Keep only the clean hero lead treatment shown in the approved second reference. */
 main > .hero .hero-lead{display:block!important;margin-top:14px!important;font-size:23px!important;line-height:1.35!important;font-weight:520!important}
