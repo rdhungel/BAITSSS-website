@@ -7,62 +7,26 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
 .site-header .more-menu a{display:block!important;width:100%!important;padding:10px 11px!important;border-radius:7px!important;color:#9db0c2!important;text-decoration:none!important;font-size:13.5px!important;line-height:1.45!important;font-weight:400!important;white-space:normal!important;background:transparent!important}
 .site-header .more-menu a:hover,.site-header .more-menu a.active{background:rgba(255,255,255,.04)!important;color:#c9ee82!important}
 
-/* Homepage hero: compact right-side action box. */
-@media(min-width:1061px){
-  main > .hero .wrap{padding-left:20px!important}
-  main > .hero .hero-copy{position:relative!important;padding-right:340px!important;min-height:0!important}
-  main > .hero .hero-copy > .hero-sub{margin-left:0!important}
-  main > .hero .hero-actions{
-    position:absolute!important;
-    top:0!important;
-    right:0!important;
-    width:310px!important;
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    gap:10px!important;
-    padding:14px!important;
-    border:1px solid rgba(255,255,255,.12)!important;
-    border-radius:16px!important;
-    background:rgba(10,25,40,.72)!important;
-  }
-  main > .hero .hero-actions .btn{min-width:0!important;margin:0!important}
-  main > .hero .hero-actions .btn-primary,
-  main > .hero .hero-actions .btn-faq{
-    width:270px!important;
-    max-width:270px!important;
-    justify-content:center!important;
-  }
-  main > .hero .hero-actions .btn-text{
-    width:auto!important;
-    height:34px!important;
-    padding:0 10px!important;
-    border:0!important;
-    justify-content:center!important;
-  }
-  main > .hero .hero-workflow{margin-top:6px!important}
-}
-@media(max-width:1060px){
-  main > .hero .hero-copy{padding-right:0!important;min-height:0!important}
-  main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;padding:0!important;border:0!important;background:transparent!important}
-  main > .hero .hero-workflow{margin-top:10px!important}
-}
+/* Homepage hero: one clear primary action below the lead. */
+main > .hero .wrap{padding-left:20px!important}
+main > .hero .hero-copy{position:static!important;padding-right:0!important;min-height:0!important}
+main > .hero .hero-copy > .hero-sub{margin-left:0!important;margin-bottom:14px!important}
+main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;align-items:center!important;gap:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important}
+main > .hero .hero-actions .btn{min-width:0!important;margin:0!important}
+main > .hero .hero-actions .btn-primary{width:auto!important;max-width:none!important;justify-content:center!important}
+main > .hero .hero-actions .btn-faq{display:none!important}
+main > .hero .hero-workflow{margin-top:18px!important}
+@media(max-width:1060px){main > .hero .hero-copy{padding-right:0!important;min-height:0!important}main > .hero .hero-actions{position:static!important;width:auto!important;display:flex!important;padding:0!important;border:0!important;background:transparent!important}main > .hero .hero-workflow{margin-top:18px!important}}
 
 /* Keep only the clean hero lead treatment shown in the approved second reference. */
-main > .hero .hero-lead{
-  display:block!important;
-  margin-top:14px!important;
-  font-size:23px!important;
-  line-height:1.35!important;
-  font-weight:520!important;
-}
+main > .hero .hero-lead{display:block!important;margin-top:14px!important;font-size:23px!important;line-height:1.35!important;font-weight:520!important}
 @media(max-width:860px){main > .hero .hero-lead{margin-top:10px!important;font-size:22px!important}}
 @media(max-width:560px){main > .hero .hero-lead{margin-top:8px!important;font-size:20px!important}}
 
 /* Remove the all-caps hero support line. */
 main > .hero .hero-support{display:none!important}
 
-/* Remove these homepage hero actions. */
+/* Keep only the primary homepage hero action. */
 main > .hero .hero-actions a[href="capabilities/"]{display:none!important}
 main > .hero .hero-actions a[href="access-participation/"]{display:none!important}
 main > .hero .hero-actions a[href="contact/"]{display:none!important}
