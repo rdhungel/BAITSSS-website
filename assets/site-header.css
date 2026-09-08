@@ -7,6 +7,10 @@ html{overflow-y:scroll!important;scrollbar-gutter:stable!important}.site-header{
 .site-header .more-menu a{display:block!important;width:100%!important;padding:10px 11px!important;border-radius:7px!important;color:#9db0c2!important;text-decoration:none!important;font-size:13.5px!important;line-height:1.45!important;font-weight:400!important;white-space:normal!important;background:transparent!important}
 .site-header .more-menu a:hover,.site-header .more-menu a.active{background:rgba(255,255,255,.04)!important;color:#c9ee82!important}
 
+/* Legacy stewardship route: present it under the current public page name. */
+.site-header .more-menu a[href*="meet-the-team/"]{font-size:0!important}
+.site-header .more-menu a[href*="meet-the-team/"]::after{content:"People & Scientific Stewardship";font-size:13.5px!important;line-height:1.45!important}
+
 /* Homepage hero: one clear primary action below the lead. */
 main > .hero .wrap{padding-left:20px!important}
 main > .hero .hero-copy{position:static!important;padding-right:0!important;min-height:0!important}
