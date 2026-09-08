@@ -38,5 +38,9 @@ main > .hero .hero-workflow::before,main > .hero .hero-workflow::after{content:n
 /* Tighten the handoff from the homepage animation to the 2026 ET section on iPhone-sized screens. */
 @media(max-width:560px){main > .hero{padding-bottom:12px!important}.frontier-2026{padding-top:24px!important}}
 
+/* Prevent the 6.6-second mobile intro-to-V2 resize from snapping the page upward. */
+main > .hero .hero-workflow,main > .hero .hero-workflow iframe{overflow-anchor:none!important}
+@media(max-width:560px){main > .hero .hero-workflow iframe{transition:height .65s ease!important}}
+
 /* Software Development assurance status pills: center within each desktop row. */
 .assurance-row .state{align-self:center!important}
