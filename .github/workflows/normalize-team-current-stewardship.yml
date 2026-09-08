@@ -1,0 +1,43 @@
+name: Normalize team stewardship navigation
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/normalize-team-current-stewardship.yml'
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Normalize stewardship labels and canonical team route
+        shell: python
+        run: |
+          from pathlib import Path
+          for p in Path('.').rglob('*.html'):
+              text = p.read_text(encoding='utf-8')
+              old = text
+              text = text.replace('People &amp; Scientific Stewardship', 'Team &amp; Current Stewardship')
+              text = text.replace('People & Scientific Stewardship', 'Team & Current Stewardship')
+              text = text.replace('href="../meet-the-team/"', 'href="../people/"')
+              text = text.replace('href="./meet-the-team/"', 'href="./people/"')
+              text = text.replace('href="meet-the-team/"', 'href="people/"')
+              if text != old:
+                  p.write_text(text, encoding='utf-8')
+      - name: Remove one-time workflow
+        run: rm -f .github/workflows/normalize-team-current-stewardship.yml
+      - name: Commit normalized navigation
+        run: |
+          git config user.name "rdhungel"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Normalize Team and Current Stewardship navigation"
+            git push origin gh-pages
+          fi
