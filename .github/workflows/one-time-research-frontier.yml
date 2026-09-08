@@ -1,0 +1,59 @@
+name: One-time Research Education frontier migration
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch gh-pages and clean temporary gh-pages workflow
+        run: |
+          git fetch origin gh-pages
+          git checkout gh-pages
+          python - <<'PY'
+          from pathlib import Path
+
+          page = Path('research-education/index.html')
+          text = page.read_text(encoding='utf-8')
+          marker = '<section class="section"><div class="wrap"><div class="section-head"><div class="section-kicker">02 · Academic package</div>'
+
+          if '02 · Research frontier in 2026' not in text:
+              if marker not in text:
+                  raise SystemExit('Academic package insertion marker not found')
+
+              frontier = '''<section class="section"><div class="wrap"><div class="section-head"><div class="section-kicker">02 · Research frontier in 2026</div><div><h2>What became feasible, what is still difficult, and where BAITSSS can help</h2><p class="section-intro">For many university groups, field-scale studies that combine satellite observations, hourly weather, soil and terrain information, long simulations, reproducible project state, restart, spatial Results, and traceable exports are far more practical in 2026 than they were a decade ago. The remaining barriers are increasingly scientific and observational rather than simply computational.</p></div></div><div class="grid three"><article class="card"><div class="tag">NOW MORE FEASIBLE</div><h3>Controlled field-scale computational experiments</h3><p>Seasonal hourly simulation, 30 m spatial analysis, multi-source environmental inputs, restartable execution, repeatable scenarios, and reproducible Results can now be organized within one research workflow instead of being rebuilt separately for each study.</p></article><article class="card"><div class="tag">STILL DIFFICULT IN 2026</div><h3>Observations, transferability, and scientific uncertainty</h3><p>Reliable irrigation records, root-zone soil-water observations, continuous thermal measurements, ET partitioning, universal parameter transferability, long multi-site validation, and uncertainty at every pixel and hour remain difficult. Larger computational scale does not remove these scientific limitations.</p></article><article class="card"><div class="tag">THE BAITSSS BRIDGE</div><h3>Move effort from infrastructure toward the research question</h3><p>BAITSSS Desktop can provide the controlled project, data, execution, recovery, Results, provenance, and parameter framework needed to run comparable experiments. This lets a thesis or dissertation focus more directly on testing mechanisms, observations, assumptions, sensitivity, transferability, and validation.</p></article></div><div class="package" style="margin-top:16px"><article class="panel"><div class="label">A decade ago versus now</div><p>Many of the underlying datasets and models existed around 2016, but a student often had to assemble downloading, preprocessing, reprojection, timestamp handling, configuration, runtime dependencies, long-run recovery, plotting, and provenance as separate research code. In 2026, more of that engineering can be treated as reusable infrastructure, making larger and better-controlled scientific experiments practical for a university project.</p></article><aside class="notice"><strong>The remaining frontier is not solved by software alone.</strong><p>Independent measurements are still required to determine whether modeled behavior is scientifically credible. BAITSSS can make experiments easier to define, repeat, compare, and inspect, but it cannot replace lysimeters, eddy-covariance systems, soil-water measurements, thermal observations, irrigation records, or careful field experimental design.</p></aside></div></div></section>
+'''
+              text = text.replace(marker, frontier + marker, 1)
+              for old, new in [
+                  ('02 · Academic package', '03 · Academic package'),
+                  ('03 · Research directions', '04 · Research directions'),
+                  ('04 · Student pathway', '05 · Student pathway'),
+                  ('05 · Educational use', '06 · Educational use'),
+                  ('06 · Collaboration', '07 · Collaboration'),
+              ]:
+                  text = text.replace(old, new)
+              page.write_text(text, encoding='utf-8')
+
+          Path('.github/workflows/one-time-research-frontier.yml').unlink(missing_ok=True)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Frame the 2026 university research frontier in Research and Education"
+          git push origin gh-pages
+      - name: Remove this temporary workflow from main
+        run: |
+          git checkout main
+          rm -f .github/workflows/one-time-research-frontier.yml
+          git add -A
+          git commit -m "Remove completed one-time Research and Education migration"
+          git push origin main
