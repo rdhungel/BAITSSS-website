@@ -52,10 +52,15 @@ main > .hero .hero-workflow,main > .hero .hero-workflow iframe{overflow-anchor:n
   .wrap{width:100%!important;max-width:100%!important;padding-left:18px!important;padding-right:18px!important}
   img,video,iframe,svg{max-width:100%}
   h1,h2,h3,p,li,a,span{overflow-wrap:break-word}
-  .hero-grid,.section-head,.integrated-grid,.package,.request-box,.history-note,.engine,.data-band,.desktop-preview-grid,.home-close-grid,.form-grid,.cards,.routes,.evidence-grid,.timeline,.publication,.interface-grid,.path,.split,.grid.two,.grid.three,.grid.four,.release-grid,.workflow,.studies,.assurance-row,.proof-grid,.arch,.stage,.team-card,.authority,.satellite-timeline,.compare,.gridmap{grid-template-columns:1fr!important}
+  main h1{font-size:34px!important;line-height:1.08!important;letter-spacing:-.025em!important}
+  main .hero-title{font-size:30px!important;line-height:1.1!important}
+  .hero-grid{grid-template-columns:1fr!important;gap:20px!important}
+  .section-head{grid-template-columns:1fr!important;gap:10px!important}
+  .integrated-grid,.package,.request-box,.history-note,.engine,.data-band,.desktop-preview-grid,.home-close-grid,.form-grid,.cards,.routes,.evidence-grid,.timeline,.publication,.interface-grid,.path,.split,.grid.two,.grid.three,.grid.four,.release-grid,.workflow,.studies,.assurance-row,.proof-grid,.arch,.stage,.team-card,.authority,.satellite-timeline,.compare,.gridmap{grid-template-columns:1fr!important}
   .wide,.interface-card.wide{grid-column:auto!important}
   #home-v1-release .wrap>div{grid-template-columns:1fr!important;gap:18px!important}
   .desktop-small-row,.clean-list,.equation-def,.metric-grid{grid-template-columns:1fr!important}
+  .hero-aside{margin-top:0!important}
   .table-shell{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
   table{max-width:none!important}
   .button,.btn{max-width:100%!important;white-space:normal!important;text-align:center!important}
