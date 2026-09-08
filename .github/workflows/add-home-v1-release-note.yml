@@ -16,7 +16,7 @@ jobs:
         with:
           ref: gh-pages
       - name: Add release note below homepage animation
-        shell: python
+        shell: python {0}
         run: |
           from pathlib import Path
           p = Path('index.html')
