@@ -1,0 +1,53 @@
+name: Align FAQ with current BAITSSS Desktop status
+on:
+  push:
+    paths:
+      - '.github/workflows/one-time-faq-current-status.yml'
+permissions:
+  contents: write
+jobs:
+  align:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Align FAQ claims to current maintained capability authority
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('faq/index.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+          '''<article class="faq"><h2>Can I use my own satellite or weather data?</h2><p><strong>Not yet for alternative satellite or weather sources.</strong> The current BAITSSS Desktop workflow is built around its supported Landsat and NLDAS data path. Support for additional user-provided or alternative satellite and weather sources is a planned future capability.</p></article>''':
+          '''<article class="faq"><h2>Can I use my own satellite or weather data?</h2><p>The established satellite route is <strong>Landsat 7, 8, and 9</strong>, and the established hourly weather-forcing route is <strong>NLDAS</strong>. Arbitrary satellite products or weather formats are not supported as drop-in scientific replacements.</p><p>A <strong>Local Weather Station</strong> forcing route is currently in development, including strict location, timestamp, period-completeness, conditioning, and execution checks. It is not yet presented as an established BAITSSS Desktop V1 forcing route.</p></article>''',
+          '''<article class="faq"><h2>Does the BAITSSS model use thermal information?</h2><p><strong>The BAITSSS model does not currently use satellite thermal data as a direct model input.</strong> Soil and canopy temperatures are calculated internally as part of the surface energy balance using the model state and atmospheric forcing.</p><p>The desktop also makes <strong>thermal computation and pixel scale extraction available for scientific inspection and comparison</strong>. A selected pixel can be examined through the Results workflow so calculated temperature behavior can be evaluated alongside other model outputs, even though thermal imagery is not driving the current BAITSSS model simulation.</p></article>''':
+          '''<article class="faq"><h2>Does the BAITSSS model use thermal information?</h2><p><strong>Satellite thermal observations are not assimilated as a direct forcing of the maintained BAITSSS model trajectory.</strong> Soil and canopy temperatures are calculated internally as part of the two-source energy-balance solution.</p><p>For scientific evaluation, BAITSSS Desktop can extract an <strong>observed Landsat surface temperature at a selected model pixel and the exact scene acquisition time</strong> and preserve that observation with source and QA provenance. This allows independent comparison with modeled thermal behavior without turning the satellite thermal observation into a model input.</p></article>''',
+          '''<article class="faq"><h2>Does the BAITSSS model use reference evapotranspiration (ET)?</h2><p>No. The BAITSSS model does not require reference ET to calculate or calibrate ET. ET is computed from coupled energy-balance, resistance, vegetation, soil-water, and atmospheric processes.</p><p>Minimum canopy resistance helps constrain maximum transpiration, but not as a simple reference-ET multiplier.</p><p><strong>Next pipeline:</strong> Reference ET calculation and weather-data conditioning are planned for a future BAITSSS Desktop release. They are not part of the current ET calculation.</p></article>''':
+          '''<article class="faq"><h2>Does the BAITSSS model use reference evapotranspiration (ET)?</h2><p><strong>Yes, the maintained BAITSSS Desktop route includes internal reference-ET preparation as part of its supported weather and scientific workflow.</strong> However, BAITSSS total ET is not calculated by multiplying reference ET by a crop coefficient.</p><p>Model ET is produced from the coupled energy balance, resistance framework, vegetation state, soil-water state, atmospheric forcing, and hour-to-hour state progression. Reference ET therefore has a different role from the modeled BAITSSS ET result.</p></article>''',
+          '''<article class="faq"><h2>Can I run multiple AOIs, Landsat datasets, or simulations at the same time?</h2><p><strong>Not currently.</strong> BAITSSS Desktop runs <strong>one simulation at a time</strong>. You can prepare multiple projects, AOIs, Landsat datasets, and future simulation periods in advance and run them sequentially.</p><p>At present, a simulation can use <strong>only one Landsat scene</strong>. Because of that, the maximum AOI for a single simulation is limited to the spatial coverage of that Landsat scene.</p></article>''':
+          '''<article class="faq"><h2>Can I run multiple AOIs, Landsat datasets, or simulations at the same time?</h2><p>BAITSSS Desktop currently executes <strong>one simulation at a time</strong>. You can maintain multiple independent projects, AOIs, simulation periods, and runs and execute them sequentially.</p><p>A simulation is <strong>not limited to one Landsat observation</strong>. The maintained Landsat route performs period-based scene handling and carries seasonal vegetation progression between available satellite observations. Spatial execution remains tied to the supported 30 m model grid and validated project data.</p></article>''',
+          '''<article class="faq"><h2>How fast can I get results?</h2><p>Runtime depends strongly on the size of the area being simulated. On the current development computer, a <strong>small-area or single-pixel seasonal simulation</strong> may take roughly <strong>5–10 minutes</strong>. For a much larger AOI approaching about <strong>500 km²</strong>, the currently observed runtime is about <strong>1 hour</strong>.</p><p class="fact">These are current practical observations, not fixed guarantees. Runtime varies with the computer, AOI size, simulation length, and run configuration, and BAITSSS Desktop is still being optimized.</p></article>''':
+          '''<article class="faq"><h2>How fast can I get results?</h2><p>Runtime depends on <strong>AOI size, simulation length, hardware, available memory, storage performance, and run configuration</strong>. BAITSSS Desktop V1 includes multiprocessing spatial execution, long-run recovery, disk protection, and bounded storage designed for both short diagnostic runs and long seasonal simulations.</p><p class="fact">There is no single public wall-clock time that applies to every project. Performance should be measured for the actual AOI, period, hardware, and configuration rather than inferred from an older development-machine estimate.</p></article>''',
+          '''<article class="faq"><h2>Can I export my results?</h2><p>Yes. BAITSSS Desktop provides exports including <strong>CSV</strong> for tabular results and <strong>PNG</strong> for figures and maps, so results can be carried into analysis, reports, presentations, and other scientific workflows.</p><p>BAITSSS Desktop also preserves detailed <strong>model diagnostics and model information within each model output</strong>, allowing users to inspect and export information about the simulation beyond the summarized figures and tables.</p></article>''':
+          '''<article class="faq"><h2>Can I export my results?</h2><p>Yes. BAITSSS Desktop supports <strong>hourly CSV, run Results CSV, selected-pixel CSV, and PNG figure or map export</strong>. Where exposed by the Results workflow, it also provides General and Publication figure modes and Simulation Report PDF export.</p><p>Scientific tables are kept separate from detailed provenance where appropriate. Companion metadata can preserve run identity, pixel identity, source information, thermal authority, QA, and export traceability so an exported result remains connected to the simulation that produced it.</p></article>''',
+          '''<article class="faq"><h2>Can I get software similar to BAITSSS Desktop?</h2><p>Several tools provide satellite evapotranspiration, soil-water modeling, or irrigation support, but they do not necessarily combine these functions in the same way. BAITSSS Desktop integrates the BAITSSS model with <strong>30 m remote sensing, hourly weather, energy balance, soil-water dynamics, and modeled irrigation within one continuous simulation</strong>.</p><p>Many established tools also have relatively fixed functionality, while BAITSSS Desktop remains under active development so supported workflows and capabilities can continue to expand.</p></article>''':
+          '''<article class="faq"><h2>Can I get software similar to BAITSSS Desktop?</h2><p>Several scientific tools address satellite evapotranspiration, soil-water modeling, or irrigation support, but they do not necessarily combine the same processes or workflow. BAITSSS Desktop integrates the BAITSSS model with <strong>30 m remote sensing, hourly weather, two-source energy balance, two-layer soil-water dynamics, modeled irrigation, run recovery, Results, and scientific provenance</strong> within one maintained desktop system.</p><p><strong>BAITSSS Desktop V1 is now in first-release validation and final software cleanup.</strong> The core desktop system is implemented; current work is concentrated on final validation, authority cleanup, human workflow checks, release acceptance, documentation, and controlled packaging.</p></article>'''
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit('Expected FAQ text not found; refusing partial update: ' + old[:90])
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+      - name: Remove one-time workflow
+        shell: python
+        run: |
+          from pathlib import Path
+          Path('.github/workflows/one-time-faq-current-status.yml').unlink()
+      - name: Commit FAQ alignment
+        run: |
+          git config user.name "BAITSSS website maintenance"
+          git config user.email "actions@users.noreply.github.com"
+          git add faq/index.html .github/workflows/one-time-faq-current-status.yml
+          git commit -m "Align FAQ with current BAITSSS Desktop V1 status"
+          git push origin gh-pages
