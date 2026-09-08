@@ -1,0 +1,34 @@
+name: Update development team stewardship
+on:
+  push:
+    branches: [gh-pages]
+permissions:
+  contents: write
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Replace individual stewardship block with team framing
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('meet-the-team/index.html')
+          s = p.read_text(encoding='utf-8')
+          start = s.index('<article class="person">')
+          end = s.index('</article></div></section>', start) + len('</article>')
+          new = '''<article class="person"><div class="identity"><div class="label">Current development team</div><div class="name">BAITSSS Development Team</div><div class="role">Scientific model stewardship, desktop software development, verification, documentation, and release preparation</div><div class="scope">Current responsibility covers BAITSSS Desktop software development and maintenance, scientific continuity, verification, release preparation, documentation, and research collaboration pathways.</div></div><div class="bio"><p>The BAITSSS Development Team brings together scientific and technical experience in <strong>evapotranspiration, irrigation and agricultural water management, remote sensing, soil-water processes, field instrumentation, and scientific model development</strong>. The team also includes continuity from the original development of the BAITSSS model, helping preserve its established scientific basis as the software continues to evolve.</p><p>For BAITSSS Desktop, the current responsibility is broader than writing code. It includes preserving the established scientific model behavior while reorganizing the research implementation into a maintained Windows desktop system, verifying numerical equivalence, controlling data and parameter authority, testing run and recovery behavior, packaging the scientific runtime, documenting the software, and preparing the first release version.</p><p>The software-development record and its current maturity are documented separately on <strong>Software Development &amp; Verification</strong>, rather than being implied by an individual biography.</p><div class="links"><a class="button primary" href="../software-development/">Software Development &amp; Verification</a><a class="button" href="../origins-publications/">Scientific History &amp; Publications</a></div></div></article>'''
+          s = s[:start] + new + s[end:]
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add meet-the-team/index.html
+          git commit -m "Present BAITSSS stewardship as development team"
+          git push origin gh-pages
