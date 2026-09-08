@@ -1,0 +1,13 @@
+BAITSSS homepage animation authority
+
+Current public animation: animation-evaluation-chip-test.html
+Base animation: animation-evaluation.html
+Refined wrapper blob: eb8928da87ad72f18a432e7bfb3b7c6cca5de5a8
+
+Required visual elements:
+- large Satellite atmos field visual on the left
+- four realistic worker-chip-board.webp processor chips
+- center1.png, center2.png, center3.png, center4.png in the Results panel
+- MODERNIZED BAITSSS / DESKTOP ARCHITECTURE heading
+
+This is the September 7 refined V2 animation and is the homepage visual authority.
