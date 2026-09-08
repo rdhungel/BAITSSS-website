@@ -17,138 +17,17 @@ jobs:
         with:
           ref: gh-pages
           fetch-depth: 0
-      - name: Centralize navigation authority
+      - name: Write shared controller and transform pages
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          version = 'nav-20260908-4'
-          shared_js = r'''(function(){
-  'use strict';
-  function initBAITSSSNavigation(){
-    var toggle=document.getElementById('navToggle');
-    var nav=document.getElementById('primaryNav');
-    if(!toggle||!nav)return;
-    var details=nav.querySelector('details.more');
-    var mq=window.matchMedia('(max-width:900px)');
-
-    function closeNav(){
-      nav.setAttribute('data-open','false');
-      toggle.setAttribute('aria-expanded','false');
-      if(details)details.removeAttribute('open');
-    }
-    function openNav(){
-      nav.setAttribute('data-open','true');
-      toggle.setAttribute('aria-expanded','true');
-    }
-    function toggleNav(event){
-      if(event){
-        event.preventDefault();
-        event.stopImmediatePropagation();
-      }
-      if(nav.getAttribute('data-open')==='true')closeNav();
-      else openNav();
-    }
-
-    closeNav();
-    toggle.addEventListener('click',toggleNav,true);
-
-    nav.addEventListener('click',function(event){
-      var link=event.target.closest&&event.target.closest('a');
-      if(link)closeNav();
-    },true);
-
-    document.addEventListener('click',function(event){
-      if(nav.getAttribute('data-open')!=='true')return;
-      var header=toggle.closest('.site-header');
-      if(header&&!header.contains(event.target))closeNav();
-    },true);
-
-    document.addEventListener('keydown',function(event){
-      if(event.key==='Escape'){
-        closeNav();
-        try{toggle.focus({preventScroll:true});}catch(e){toggle.focus();}
-      }
-    });
-
-    window.addEventListener('pagehide',closeNav);
-    window.addEventListener('pageshow',function(){
-      closeNav();
-      requestAnimationFrame(closeNav);
-    });
-
-    if(mq.addEventListener)mq.addEventListener('change',closeNav);
-    else if(mq.addListener)mq.addListener(closeNav);
-  }
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initBAITSSSNavigation,{once:true});
-  else initBAITSSSNavigation();
-})();
-'''
-          Path('assets/site-nav.js').write_text(shared_js, encoding='utf-8')
-
-          old = "(function(){var t=document.getElementById('navToggle'),n=document.getElementById('primaryNav');t.addEventListener('click',function(){var o=n.getAttribute('data-open')==='true';n.setAttribute('data-open',String(!o));t.setAttribute('aria-expanded',String(!o));});"
-
-          changed=[]
-          candidates=[Path('index.html')]
-          candidates += sorted(p for p in Path('.').glob('*/index.html'))
-          for p in candidates:
-            if not p.exists():
-              continue
-            text=p.read_text(encoding='utf-8')
-            if 'id="navToggle"' not in text or 'id="primaryNav"' not in text:
-              continue
-            original=text
-
-            # Remove the duplicated page-level hamburger authority while preserving any other code in the same IIFE.
-            text=text.replace(old, '(function(){')
-
-            # Cache-bust the shared CSS so Safari does not mix older navigation rules across restored pages.
-            text=re.sub(r'href="([^\"]*assets/site-header\.css)(?:\?[^\"]*)?"',
-                        lambda m: 'href="'+m.group(1)+'?v='+version+'"', text)
-
-            # Load the one shared navigation controller from every canonical header page.
-            if 'assets/site-nav.js' not in text:
-              text=text.replace('</head>', '<script src="/assets/site-nav.js?v='+version+'" defer></script>\n</head>', 1)
-            else:
-              text=re.sub(r'src="[^\"]*assets/site-nav\.js(?:\?[^\"]*)?"',
-                          'src="/assets/site-nav.js?v='+version+'"', text)
-
-            if text!=original:
-              p.write_text(text, encoding='utf-8')
-              changed.append(str(p))
-
-          # Remove this one-time workflow from the resulting commit.
-          wf=Path('.github/workflows/one-time-nav-centralize.yml')
-          if wf.exists(): wf.unlink()
-
-          print('Updated header pages:')
-          for p in changed: print(' -',p)
-          print('Count:',len(changed))
-          PY
-
+          echo 'KGZ1bmN0aW9uKCl7CiAgJ3VzZSBzdHJpY3QnOwogIGZ1bmN0aW9uIGluaXRCQUlUU1NTTmF2aWdhdGlvbigpewogICAgdmFyIHRvZ2dsZT1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbmF2VG9nZ2xlJyk7CiAgICB2YXIgbmF2PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwcmltYXJ5TmF2Jyk7CiAgICBpZighdG9nZ2xlfHwhbmF2KXJldHVybjsKICAgIHZhciBkZXRhaWxzPW5hdi5xdWVyeVNlbGVjdG9yKCdkZXRhaWxzLm1vcmUnKTsKICAgIHZhciBtcT13aW5kb3cubWF0Y2hNZWRpYSgnKG1heC13aWR0aDo5MDBweCknKTsKCiAgICBmdW5jdGlvbiBjbG9zZU5hdigpewogICAgICBuYXYuc2V0QXR0cmlidXRlKCdkYXRhLW9wZW4nLCdmYWxzZScpOwogICAgICB0b2dnbGUuc2V0QXR0cmlidXRlKCdhcmlhLWV4cGFuZGVkJywnZmFsc2UnKTsKICAgICAgaWYoZGV0YWlscylkZXRhaWxzLnJlbW92ZUF0dHJpYnV0ZSgnb3BlbicpOwogICAgfQogICAgZnVuY3Rpb24gb3Blbk5hdigpewogICAgICBuYXYuc2V0QXR0cmlidXRlKCdkYXRhLW9wZW4nLCd0cnVlJyk7CiAgICAgIHRvZ2dsZS5zZXRBdHRyaWJ1dGUoJ2FyaWEtZXhwYW5kZWQnLCd0cnVlJyk7CiAgICB9CiAgICBmdW5jdGlvbiB0b2dnbGVOYXYoZXZlbnQpewogICAgICBpZihldmVudCl7CiAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTsKICAgICAgICBldmVudC5zdG9wSW1tZWRpYXRlUHJvcGFnYXRpb24oKTsKICAgICAgfQogICAgICBpZihuYXYuZ2V0QXR0cmlidXRlKCdkYXRhLW9wZW4nKT09PSd0cnVlJyljbG9zZU5hdigpOwogICAgICBlbHNlIG9wZW5OYXYoKTsKICAgIH0KCiAgICBjbG9zZU5hdigpOwogICAgdG9nZ2xlLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyx0b2dnbGVOYXYsdHJ1ZSk7CgogICAgbmF2LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyxmdW5jdGlvbihldmVudCl7CiAgICAgIHZhciBsaW5rPWV2ZW50LnRhcmdldC5jbG9zZXN0JiZldmVudC50YXJnZXQuY2xvc2VzdCgnYScpOwogICAgICBpZihsaW5rKWNsb3NlTmF2KCk7CiAgICB9LHRydWUpOwoKICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJyxmdW5jdGlvbihldmVudCl7CiAgICAgIGlmKG5hdi5nZXRBdHRyaWJ1dGUoJ2RhdGEtb3BlbicpIT09J3RydWUnKXJldHVybjsKICAgICAgdmFyIGhlYWRlcj10b2dnbGUuY2xvc2VzdCgnLnNpdGUtaGVhZGVyJyk7CiAgICAgIGlmKGhlYWRlciYmIWhlYWRlci5jb250YWlucyhldmVudC50YXJnZXQpKWNsb3NlTmF2KCk7CiAgICB9LHRydWUpOwoKICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ2tleWRvd24nLGZ1bmN0aW9uKGV2ZW50KXsKICAgICAgaWYoZXZlbnQua2V5PT09J0VzY2FwZScpewogICAgICAgIGNsb3NlTmF2KCk7CiAgICAgICAgdHJ5e3RvZ2dsZS5mb2N1cyh7cHJldmVudFNjcm9sbDp0cnVlfSk7fWNhdGNoKGUpe3RvZ2dsZS5mb2N1cygpO30KICAgICAgfQogICAgfSk7CgogICAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ3BhZ2VoaWRlJyxjbG9zZU5hdik7CiAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcigncGFnZXNob3cnLGZ1bmN0aW9uKCl7CiAgICAgIGNsb3NlTmF2KCk7CiAgICAgIHJlcXVlc3RBbmltYXRpb25GcmFtZShjbG9zZU5hdik7CiAgICB9KTsKCiAgICBpZihtcS5hZGRFdmVudExpc3RlbmVyKW1xLmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsY2xvc2VOYXYpOwogICAgZWxzZSBpZihtcS5hZGRMaXN0ZW5lciltcS5hZGRMaXN0ZW5lcihjbG9zZU5hdik7CiAgfQoKICBpZihkb2N1bWVudC5yZWFkeVN0YXRlPT09J2xvYWRpbmcnKWRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLGluaXRCQUlUU1NTTmF2aWdhdGlvbix7b25jZTp0cnVlfSk7CiAgZWxzZSBpbml0QkFJVFNTU05hdmlnYXRpb24oKTsKfSkoKTsK' | base64 -d > /tmp/site-nav.js
+          echo 'ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmltcG9ydCByZQp2ZXJzaW9uPSduYXYtMjAyNjA5MDgtNScKc2hhcmVkX2pzPVBhdGgoJy90bXAvc2l0ZS1uYXYuanMnKS5yZWFkX3RleHQoZW5jb2Rpbmc9J3V0Zi04JykKUGF0aCgnYXNzZXRzL3NpdGUtbmF2LmpzJykud3JpdGVfdGV4dChzaGFyZWRfanMsZW5jb2Rpbmc9J3V0Zi04JykKb2xkPSIoZnVuY3Rpb24oKXt2YXIgdD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbmF2VG9nZ2xlJyksbj1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncHJpbWFyeU5hdicpO3QuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLGZ1bmN0aW9uKCl7dmFyIG89bi5nZXRBdHRyaWJ1dGUoJ2RhdGEtb3BlbicpPT09J3RydWUnO24uc2V0QXR0cmlidXRlKCdkYXRhLW9wZW4nLFN0cmluZyghbykpO3Quc2V0QXR0cmlidXRlKCdhcmlhLWV4cGFuZGVkJyxTdHJpbmcoIW8pKTt9KTsiCmNoYW5nZWQ9W10KY2FuZGlkYXRlcz1bUGF0aCgnaW5kZXguaHRtbCcpXStzb3J0ZWQoUGF0aCgnLicpLmdsb2IoJyovaW5kZXguaHRtbCcpKQpmb3IgcCBpbiBjYW5kaWRhdGVzOgogICAgaWYgbm90IHAuZXhpc3RzKCk6IGNvbnRpbnVlCiAgICB0ZXh0PXAucmVhZF90ZXh0KGVuY29kaW5nPSd1dGYtOCcpCiAgICBpZiAnaWQ9Im5hdlRvZ2dsZSInIG5vdCBpbiB0ZXh0IG9yICdpZD0icHJpbWFyeU5hdiInIG5vdCBpbiB0ZXh0OiBjb250aW51ZQogICAgb3JpZ2luYWw9dGV4dAogICAgdGV4dD10ZXh0LnJlcGxhY2Uob2xkLCcoZnVuY3Rpb24oKXsnKQogICAgdGV4dD1yZS5zdWIocidocmVmPSIoW14iXSphc3NldHMvc2l0ZS1oZWFkZXJcLmNzcykoPzpcP1teIl0qKT8iJyxsYW1iZGEgbTonaHJlZj0iJyttLmdyb3VwKDEpKyc/dj0nK3ZlcnNpb24rJyInLHRleHQpCiAgICBpZiAnYXNzZXRzL3NpdGUtbmF2LmpzJyBub3QgaW4gdGV4dDoKICAgICAgICB0ZXh0PXRleHQucmVwbGFjZSgnPC9oZWFkPicsJzxzY3JpcHQgc3JjPSIvYXNzZXRzL3NpdGUtbmF2LmpzP3Y9Jyt2ZXJzaW9uKyciIGRlZmVyPjwvc2NyaXB0PlxuPC9oZWFkPicsMSkKICAgIGVsc2U6CiAgICAgICAgdGV4dD1yZS5zdWIocidzcmM9IlteIl0qYXNzZXRzL3NpdGUtbmF2XC5qcyg/Olw/W14iXSopPyInLCdzcmM9Ii9hc3NldHMvc2l0ZS1uYXYuanM/dj0nK3ZlcnNpb24rJyInLHRleHQpCiAgICBpZiB0ZXh0IT1vcmlnaW5hbDoKICAgICAgICBwLndyaXRlX3RleHQodGV4dCxlbmNvZGluZz0ndXRmLTgnKTsgY2hhbmdlZC5hcHBlbmQoc3RyKHApKQp3Zj1QYXRoKCcuZ2l0aHViL3dvcmtmbG93cy9vbmUtdGltZS1uYXYtY2VudHJhbGl6ZS55bWwnKQppZiB3Zi5leGlzdHMoKTogd2YudW5saW5rKCkKcHJpbnQoJ1VQREFURUQnLGxlbihjaGFuZ2VkKSkKZm9yIHAgaW4gY2hhbmdlZDogcHJpbnQocCkK' | base64 -d > /tmp/transform.py
+          python /tmp/transform.py
       - name: Verify one authority
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          bad=[]
-          count=0
-          old="var t=document.getElementById('navToggle'),n=document.getElementById('primaryNav')"
-          for p in [Path('index.html')]+sorted(Path('.').glob('*/index.html')):
-            if not p.exists(): continue
-            s=p.read_text(encoding='utf-8')
-            if 'id="navToggle"' in s and 'id="primaryNav"' in s:
-              count+=1
-              if '/assets/site-nav.js?v=nav-20260908-4' not in s: bad.append(f'{p}: missing shared controller')
-              if old in s: bad.append(f'{p}: duplicated inline hamburger handler remains')
-              if 'site-header.css?v=nav-20260908-4' not in s: bad.append(f'{p}: shared CSS not cache-busted')
-          if bad:
-            raise SystemExit('\n'.join(bad))
-          print('Verified canonical header pages:',count)
-          PY
+          echo 'ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCmJhZD1bXTsgY291bnQ9MApvbGQ9InZhciB0PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCduYXZUb2dnbGUnKSxuPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwcmltYXJ5TmF2JykiCmZvciBwIGluIFtQYXRoKCdpbmRleC5odG1sJyldK3NvcnRlZChQYXRoKCcuJykuZ2xvYignKi9pbmRleC5odG1sJykpOgogICAgaWYgbm90IHAuZXhpc3RzKCk6IGNvbnRpbnVlCiAgICBzPXAucmVhZF90ZXh0KGVuY29kaW5nPSd1dGYtOCcpCiAgICBpZiAnaWQ9Im5hdlRvZ2dsZSInIGluIHMgYW5kICdpZD0icHJpbWFyeU5hdiInIGluIHM6CiAgICAgICAgY291bnQrPTEKICAgICAgICBpZiAnL2Fzc2V0cy9zaXRlLW5hdi5qcz92PW5hdi0yMDI2MDkwOC01JyBub3QgaW4gczogYmFkLmFwcGVuZChmJ3twfTogbWlzc2luZyBzaGFyZWQgY29udHJvbGxlcicpCiAgICAgICAgaWYgb2xkIGluIHM6IGJhZC5hcHBlbmQoZid7cH06IGR1cGxpY2F0ZWQgaW5saW5lIGhhbmRsZXIgcmVtYWlucycpCiAgICAgICAgaWYgJ3NpdGUtaGVhZGVyLmNzcz92PW5hdi0yMDI2MDkwOC01JyBub3QgaW4gczogYmFkLmFwcGVuZChmJ3twfTogQ1NTIGNhY2hlIGJ1c3QgbWlzc2luZycpCmlmIGJhZDogcmFpc2UgU3lzdGVtRXhpdCgnXG4nLmpvaW4oYmFkKSkKcHJpbnQoJ1ZFUklGSUVEJyxjb3VudCkK' | base64 -d > /tmp/verify.py
+          python /tmp/verify.py
       - name: Commit centralized navigation
         shell: bash
         run: |
