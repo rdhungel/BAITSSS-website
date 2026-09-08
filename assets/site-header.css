@@ -34,3 +34,7 @@ main > .hero .hero-actions a[href="contact/"]{display:none!important}
 /* No workflow title overlay. */
 main > .hero .hero-workflow{position:relative!important;background:#07131f!important;padding-top:0!important}
 main > .hero .hero-workflow::before,main > .hero .hero-workflow::after{content:none!important;display:none!important}
+
+/* Public release identity: keep V1 explicit only at the Software authority and Home screenshot preview. */
+body:has(.interface-grid) .hero .eyebrow::after{content:"BAITSSS Desktop V1 · First release version";margin-left:8px;color:#f4f7fa;font-weight:700;letter-spacing:.04em}
+body:has(.desktop-preview-grid) .desktop-preview .eyebrow::after{content:" · V1";color:#f4f7fa;font-weight:700;letter-spacing:.04em}
