@@ -1,0 +1,42 @@
+name: Add BAITSSS Upper Layer panel to Software page
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/one-time-add-upper-panel.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Insert Upper Layer screenshot
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('software/index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<article class="interface-card wide"><a href="../assets/published-science/data.png" target="_blank" rel="noopener"><img src="../assets/published-science/data.png" loading="lazy" alt="BAITSSS Desktop Data interface"></a><div class="interface-copy"><strong>Data and readiness</strong><span>Organize Landsat, weather, terrain, soil, land cover, and other required BAITSSS model inputs while keeping readiness visible.</span></div></article>'
+          addition = marker + '\n<article class="interface-card wide"><a href="../assets/published-science/BAITSSS%20Panel%20for%20Upper%20Layer.png" target="_blank" rel="noopener"><img src="../assets/published-science/BAITSSS%20Panel%20for%20Upper%20Layer.png" loading="lazy" alt="BAITSSS Desktop Upper Layer panel"></a><div class="interface-copy"><strong>Upper Layer</strong><span>Review and prepare the upper-layer weather and scientific inputs within the BAITSSS Desktop workflow.</span></div></article>'
+          if 'BAITSSS%20Panel%20for%20Upper%20Layer.png' not in s:
+              if marker not in s:
+                  raise SystemExit('Expected Data interface marker not found')
+              s = s.replace(marker, addition, 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Remove one-time workflow
+        run: rm .github/workflows/one-time-add-upper-panel.yml
+      - name: Commit update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add software/index.html .github/workflows/one-time-add-upper-panel.yml
+          git diff --cached --quiet && exit 0
+          git commit -m 'Add Upper Layer panel to BAITSSS Desktop page'
+          git push origin gh-pages
