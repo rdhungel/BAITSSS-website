@@ -1,0 +1,50 @@
+name: Normalize More menu
+
+on:
+  push:
+    branches: [gh-pages]
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Normalize stale More menu entries
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          pattern = re.compile(r'<a href="(?P<prefix>\.\.?/)meet-the-team/">Software Development (?:&amp;|&) History</a>')
+          changed = []
+          for path in Path('.').rglob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              def repl(m):
+                  p = m.group('prefix')
+                  return (
+                      f'<a href="{p}software-development/">Software Development &amp; Verification</a>'
+                      f'<a href="{p}people/">People &amp; Scientific Stewardship</a>'
+                  )
+              new = pattern.sub(repl, text)
+              if new != text:
+                  path.write_text(new, encoding='utf-8')
+                  changed.append(str(path))
+          print('Changed:', ', '.join(changed) if changed else 'none')
+      - name: Commit normalized menus
+        run: |
+          if git diff --quiet; then
+            echo "No stale menus found"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html' '**/*.html'
+          git commit -m "Normalize More menu across site"
+          git push origin gh-pages
