@@ -35,5 +35,8 @@ main > .hero .hero-actions a[href="contact/"]{display:none!important}
 main > .hero .hero-workflow{position:relative!important;background:#07131f!important;padding-top:0!important}
 main > .hero .hero-workflow::before,main > .hero .hero-workflow::after{content:none!important;display:none!important}
 
+/* Tighten the handoff from the homepage animation to the 2026 ET section on iPhone-sized screens. */
+@media(max-width:560px){main > .hero{padding-bottom:12px!important}.frontier-2026{padding-top:24px!important}}
+
 /* Software Development assurance status pills: center within each desktop row. */
 .assurance-row .state{align-self:center!important}
