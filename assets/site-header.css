@@ -35,6 +35,7 @@ main > .hero .hero-actions a[href="contact/"]{display:none!important}
 main > .hero .hero-workflow{position:relative!important;background:#07131f!important;padding-top:0!important}
 main > .hero .hero-workflow::before,main > .hero .hero-workflow::after{content:none!important;display:none!important}
 
-/* Public release identity: keep V1 explicit only at the Software authority and Home screenshot preview. */
-body:has(.interface-grid) .hero .eyebrow::after{content:"BAITSSS Desktop V1 · First release version";margin-left:8px;color:#f4f7fa;font-weight:700;letter-spacing:.04em}
-body:has(.desktop-preview-grid) .desktop-preview .eyebrow::after{content:" · V1";color:#f4f7fa;font-weight:700;letter-spacing:.04em}
+/* Public release identity: explicit only at Software top and Home screenshot preview. */
+.hero-grid .eyebrow::after{content:"BAITSSS Desktop V1 · First release version"!important;display:inline-block!important;margin-left:10px!important;padding:5px 9px!important;border:1px solid rgba(201,238,130,.45)!important;border-radius:999px!important;color:#f4f7fa!important;background:rgba(201,238,130,.08)!important;font-weight:800!important;letter-spacing:.04em!important;text-transform:none!important;white-space:nowrap!important}
+.desktop-preview .eyebrow::after{content:" · BAITSSS Desktop V1"!important;color:#f4f7fa!important;font-weight:800!important;letter-spacing:.04em!important;text-transform:none!important}
+@media(max-width:620px){.hero-grid .eyebrow::after{display:block!important;margin:8px 0 0!important;width:max-content!important;max-width:100%!important;white-space:normal!important}}
