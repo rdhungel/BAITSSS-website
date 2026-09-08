@@ -1,0 +1,159 @@
+name: One-time centralize BAITSSS navigation
+
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - '.github/workflows/one-time-nav-centralize.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  centralize-navigation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+      - name: Centralize navigation authority
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          version = 'nav-20260908-4'
+          shared_js = r'''(function(){
+  'use strict';
+  function initBAITSSSNavigation(){
+    var toggle=document.getElementById('navToggle');
+    var nav=document.getElementById('primaryNav');
+    if(!toggle||!nav)return;
+    var details=nav.querySelector('details.more');
+    var mq=window.matchMedia('(max-width:900px)');
+
+    function closeNav(){
+      nav.setAttribute('data-open','false');
+      toggle.setAttribute('aria-expanded','false');
+      if(details)details.removeAttribute('open');
+    }
+    function openNav(){
+      nav.setAttribute('data-open','true');
+      toggle.setAttribute('aria-expanded','true');
+    }
+    function toggleNav(event){
+      if(event){
+        event.preventDefault();
+        event.stopImmediatePropagation();
+      }
+      if(nav.getAttribute('data-open')==='true')closeNav();
+      else openNav();
+    }
+
+    closeNav();
+    toggle.addEventListener('click',toggleNav,true);
+
+    nav.addEventListener('click',function(event){
+      var link=event.target.closest&&event.target.closest('a');
+      if(link)closeNav();
+    },true);
+
+    document.addEventListener('click',function(event){
+      if(nav.getAttribute('data-open')!=='true')return;
+      var header=toggle.closest('.site-header');
+      if(header&&!header.contains(event.target))closeNav();
+    },true);
+
+    document.addEventListener('keydown',function(event){
+      if(event.key==='Escape'){
+        closeNav();
+        try{toggle.focus({preventScroll:true});}catch(e){toggle.focus();}
+      }
+    });
+
+    window.addEventListener('pagehide',closeNav);
+    window.addEventListener('pageshow',function(){
+      closeNav();
+      requestAnimationFrame(closeNav);
+    });
+
+    if(mq.addEventListener)mq.addEventListener('change',closeNav);
+    else if(mq.addListener)mq.addListener(closeNav);
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initBAITSSSNavigation,{once:true});
+  else initBAITSSSNavigation();
+})();
+'''
+          Path('assets/site-nav.js').write_text(shared_js, encoding='utf-8')
+
+          old = "(function(){var t=document.getElementById('navToggle'),n=document.getElementById('primaryNav');t.addEventListener('click',function(){var o=n.getAttribute('data-open')==='true';n.setAttribute('data-open',String(!o));t.setAttribute('aria-expanded',String(!o));});"
+
+          changed=[]
+          candidates=[Path('index.html')]
+          candidates += sorted(p for p in Path('.').glob('*/index.html'))
+          for p in candidates:
+            if not p.exists():
+              continue
+            text=p.read_text(encoding='utf-8')
+            if 'id="navToggle"' not in text or 'id="primaryNav"' not in text:
+              continue
+            original=text
+
+            # Remove the duplicated page-level hamburger authority while preserving any other code in the same IIFE.
+            text=text.replace(old, '(function(){')
+
+            # Cache-bust the shared CSS so Safari does not mix older navigation rules across restored pages.
+            text=re.sub(r'href="([^\"]*assets/site-header\.css)(?:\?[^\"]*)?"',
+                        lambda m: 'href="'+m.group(1)+'?v='+version+'"', text)
+
+            # Load the one shared navigation controller from every canonical header page.
+            if 'assets/site-nav.js' not in text:
+              text=text.replace('</head>', '<script src="/assets/site-nav.js?v='+version+'" defer></script>\n</head>', 1)
+            else:
+              text=re.sub(r'src="[^\"]*assets/site-nav\.js(?:\?[^\"]*)?"',
+                          'src="/assets/site-nav.js?v='+version+'"', text)
+
+            if text!=original:
+              p.write_text(text, encoding='utf-8')
+              changed.append(str(p))
+
+          # Remove this one-time workflow from the resulting commit.
+          wf=Path('.github/workflows/one-time-nav-centralize.yml')
+          if wf.exists(): wf.unlink()
+
+          print('Updated header pages:')
+          for p in changed: print(' -',p)
+          print('Count:',len(changed))
+          PY
+
+      - name: Verify one authority
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          bad=[]
+          count=0
+          old="var t=document.getElementById('navToggle'),n=document.getElementById('primaryNav')"
+          for p in [Path('index.html')]+sorted(Path('.').glob('*/index.html')):
+            if not p.exists(): continue
+            s=p.read_text(encoding='utf-8')
+            if 'id="navToggle"' in s and 'id="primaryNav"' in s:
+              count+=1
+              if '/assets/site-nav.js?v=nav-20260908-4' not in s: bad.append(f'{p}: missing shared controller')
+              if old in s: bad.append(f'{p}: duplicated inline hamburger handler remains')
+              if 'site-header.css?v=nav-20260908-4' not in s: bad.append(f'{p}: shared CSS not cache-busted')
+          if bad:
+            raise SystemExit('\n'.join(bad))
+          print('Verified canonical header pages:',count)
+          PY
+      - name: Commit centralized navigation
+        shell: bash
+        run: |
+          git config user.name "BAITSSS Website Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Centralize mobile navigation authority" || exit 0
+          git push origin gh-pages
