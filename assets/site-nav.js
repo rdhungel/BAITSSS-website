@@ -14,10 +14,23 @@
       var contactLink=Array.prototype.find.call(nav.children,function(el){
         return el.tagName==='A'&&(/contact\/?$/.test(el.getAttribute('href')||''));
       });
-      var more=nav.querySelector('details.more');
-      nav.insertBefore(businessLink,contactLink||more||null);
+      var moreForInsert=nav.querySelector('details.more');
+      nav.insertBefore(businessLink,contactLink||moreForInsert||null);
     }
     if(window.location.pathname.replace(/\/+$/,'')==='/business')businessLink.classList.add('active');
+
+    /* Software Development & Verification now belongs inside the Software page. */
+    Array.prototype.forEach.call(nav.querySelectorAll('a'),function(link){
+      var href=link.getAttribute('href')||'';
+      if(/software-development\/?(?:#.*)?$/.test(href))link.remove();
+    });
+
+    /* Preserve old internal links while the former standalone route is retired. */
+    Array.prototype.forEach.call(document.querySelectorAll('a[href*="software-development"]'),function(link){
+      var href=link.getAttribute('href')||'';
+      if(href.indexOf('#performance-engineering')!==-1)link.setAttribute('href','/software/#performance-engineering');
+      else link.setAttribute('href','/software/#development-verification');
+    });
 
     var details=nav.querySelector('details.more');
     var mq=window.matchMedia('(max-width:900px)');
