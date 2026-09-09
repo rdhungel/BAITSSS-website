@@ -4,6 +4,21 @@
     var toggle=document.getElementById('navToggle');
     var nav=document.getElementById('primaryNav');
     if(!toggle||!nav)return;
+
+    /* Keep the Business doorway present across every maintained page that uses the shared navigation. */
+    var businessLink=nav.querySelector('a[href="/business/"],a[href="../business/"],a[href="./business/"],a[href="business/"]');
+    if(!businessLink){
+      businessLink=document.createElement('a');
+      businessLink.href='/business/';
+      businessLink.textContent='Business';
+      var contactLink=Array.prototype.find.call(nav.children,function(el){
+        return el.tagName==='A'&&(/contact\/?$/.test(el.getAttribute('href')||''));
+      });
+      var more=nav.querySelector('details.more');
+      nav.insertBefore(businessLink,contactLink||more||null);
+    }
+    if(window.location.pathname.replace(/\/+$/,'')==='/business')businessLink.classList.add('active');
+
     var details=nav.querySelector('details.more');
     var mq=window.matchMedia('(max-width:900px)');
 
