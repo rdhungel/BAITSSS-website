@@ -8,6 +8,23 @@ The live BAITSSS website must have one active authority for each public subject.
 
 A legacy URL may remain only as a redirect to the current authority. It must not contain a second editable copy of the page.
 
+## Cross-page duplication rule
+
+Each subject has one page that owns the complete explanation. Other pages, especially Home, may show a short preview, one representative example, or a small fragment that helps a visitor understand what is available elsewhere.
+
+A preview must not become a second full overview. Do not repeat the same complete workflow, multi-card inventory, release explanation, screenshot tour, scientific argument, research overview, access explanation, development record, or other substantial section on multiple pages.
+
+The test is visual as well as textual. Two sections can still be duplicative even when the wording differs if they present the same full structure, the same sequence of ideas, or the same set of images in nearly the same way.
+
+Home is a gateway, not a second copy of every authority page. It may sample the site, but the detailed material belongs on the page that owns the subject.
+
+When duplication is found:
+
+1. Keep the complete material on its canonical authority page.
+2. Reduce the non-authority occurrence to a brief preview or remove it.
+3. Link directly to the authority page for the complete explanation.
+4. Preserve only repetitions that serve a normal site-wide function, such as concise navigation labels, status wording, or footer links.
+
 ## Canonical public authorities
 
 - `/` — Home
