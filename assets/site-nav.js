@@ -80,6 +80,69 @@
       }
     }
 
+    /* Give time-pressed readers a compact evidence summary before the long scientific record. */
+    if(path==='/origins-publications'&&!document.getElementById('top-line-evidence')){
+      var hero=document.querySelector('main .hero');
+      if(hero){
+        var summary=document.createElement('section');
+        summary.id='top-line-evidence';
+        summary.setAttribute('aria-label','Top-line scientific evidence');
+        summary.style.padding='32px 0 36px';
+        summary.style.borderBottom='1px solid var(--line)';
+        summary.style.background='var(--bg-soft)';
+
+        var wrap=document.createElement('div');
+        wrap.className='wrap';
+
+        var label=document.createElement('div');
+        label.textContent='Top-line evidence';
+        label.style.fontSize='11px';
+        label.style.letterSpacing='.13em';
+        label.style.textTransform='uppercase';
+        label.style.color='var(--accent)';
+        label.style.fontWeight='800';
+        label.style.marginBottom='16px';
+        wrap.appendChild(label);
+
+        var grid=document.createElement('div');
+        grid.style.display='grid';
+        grid.style.gridTemplateColumns='repeat(auto-fit,minmax(240px,1fr))';
+        grid.style.gap='14px';
+
+        var items=[
+          ['Peer-reviewed record','Published BAITSSS studies span 2016 through 2025, with DOI-linked records available below.'],
+          ['Field evaluation','In one Bushland corn study, cumulative ET error improved from 7% in the blind test to less than 1% after revisions. These values apply to that study and configuration, not as a universal accuracy claim.'],
+          ['Independent comparison','Published citrus evaluation directly compared BAITSSS with eddy covariance observations and the OpenET ensemble, with performance reported by orchard and year rather than as a single universal result.']
+        ];
+
+        items.forEach(function(item){
+          var card=document.createElement('article');
+          card.style.padding='20px 22px';
+          card.style.border='1px solid var(--line-strong)';
+          card.style.borderRadius='12px';
+          card.style.background='rgba(255,255,255,.018)';
+          var h=document.createElement('h2');
+          h.textContent=item[0];
+          h.style.margin='0 0 8px';
+          h.style.fontSize='18px';
+          h.style.lineHeight='1.3';
+          var p=document.createElement('p');
+          p.textContent=item[1];
+          p.style.margin='0';
+          p.style.color='var(--text-dim)';
+          p.style.fontSize='14px';
+          p.style.lineHeight='1.65';
+          card.appendChild(h);
+          card.appendChild(p);
+          grid.appendChild(card);
+        });
+
+        wrap.appendChild(grid);
+        summary.appendChild(wrap);
+        hero.insertAdjacentElement('afterend',summary);
+      }
+    }
+
     var details=nav.querySelector('details.more');
     var mq=window.matchMedia('(max-width:900px)');
 
