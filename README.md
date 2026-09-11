@@ -2,7 +2,7 @@
 
 BAITSSS is scientific desktop software for field-scale **evapotranspiration, soil water, irrigation, surface energy balance, and remote-sensing analysis**.
 
-The current BAITSSS Desktop workflow brings together **Landsat observations, hourly NLDAS weather, soil and land-surface information, project setup, simulation, results, diagnostics, and export** within a Windows desktop application.
+**BAITSSS Desktop V1** is the first release version of the Windows desktop product. It brings together **Landsat observations, hourly NLDAS weather, soil and land-surface information, project setup, simulation, results, diagnostics, and export** within one persistent project workflow.
 
 ## Public website
 
@@ -10,7 +10,7 @@ The current public BAITSSS website is:
 
 **https://baitsss.com**
 
-The site includes the current software workflow, scientific background, frequently asked questions, evidence, development status, research history, publications, access information, and a desktop demonstration.
+The site includes the software workflow, scientific background, evidence, development status, research and education information, publications, access and participation information, and contact routes.
 
 ## What BAITSSS is designed to examine
 
@@ -30,11 +30,11 @@ Current Landsat-based field results are produced at **30 m spatial resolution**.
 
 BAITSSS developed from research on evapotranspiration between satellite overpasses, two-source surface energy balance, soil-water accounting, irrigation, remote sensing, and field-scale agricultural water management.
 
-Peer-reviewed BAITSSS research has included applications in semiarid agriculture, advective environments, restricted water allocation, lettuce, citrus, and spatial soil-property studies. The publication record and scientific history are available on the public website.
+Peer-reviewed BAITSSS research has included applications in semiarid agriculture, advective environments, restricted water allocation, lettuce, citrus, western Kansas water-policy analysis, and spatial soil-property studies. The publication record and scientific history are available on the public website.
 
 ## Desktop software
 
-Earlier BAITSSS versions were primarily research code. Current development is centered on a Windows desktop scientific software system that organizes:
+Earlier BAITSSS versions were primarily research code. Current development is centered on BAITSSS Desktop V1, which organizes:
 
 - Project creation and management
 - Area of Interest (AOI) definition
@@ -50,7 +50,7 @@ The desktop software is intended to make the scientific model more practical, tr
 
 ## Current boundaries
 
-The current BAITSSS Desktop does **not** provide forecasting of future ET or irrigation demand. It does not currently accept alternative satellite or weather sources in place of the supported Landsat and NLDAS workflow, and it does not dynamically simulate biological root growth through time.
+BAITSSS Desktop V1 does **not** provide forecasting of future ET or irrigation demand. It does not currently accept alternative satellite or weather sources in place of the supported Landsat and NLDAS workflow, and it does not dynamically simulate biological root growth through time.
 
 BAITSSS runs one simulation at a time. Multiple projects, AOIs, datasets, periods, and simulations can be prepared and run sequentially.
 
@@ -62,6 +62,6 @@ The BAITSSS desktop scientific source code is **not** part of this repository. I
 
 ## Explore BAITSSS
 
-Visit **https://baitsss.com** for the current software, FAQ, scientific background, publications, development status, access information, and demonstration.
+Visit **https://baitsss.com** for BAITSSS Desktop V1, science, evidence, research and education, publications, development status, access and participation information, and contact.
 
 Keywords: evapotranspiration, irrigation, soil water, hydrology, remote sensing, Landsat, NLDAS, agricultural water management, surface energy balance, scientific software, field-scale modeling.
