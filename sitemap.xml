@@ -2,13 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://baitsss.com/</loc></url>
   <url><loc>https://baitsss.com/software/</loc></url>
+  <url><loc>https://baitsss.com/capabilities/</loc></url>
   <url><loc>https://baitsss.com/science/</loc></url>
-  <url><loc>https://baitsss.com/evidence/</loc></url>
   <url><loc>https://baitsss.com/research-education/</loc></url>
   <url><loc>https://baitsss.com/access-participation/</loc></url>
-  <url><loc>https://baitsss.com/contact/</loc></url>
-  <url><loc>https://baitsss.com/development-status/</loc></url>
-  <url><loc>https://baitsss.com/scientific-stewardship/</loc></url>
+  <url><loc>https://baitsss.com/access-policy/</loc></url>
+  <url><loc>https://baitsss.com/business/</loc></url>
+  <url><loc>https://baitsss.com/people/</loc></url>
   <url><loc>https://baitsss.com/origins-publications/</loc></url>
-  <url><loc>https://baitsss.com/publications/baitsss-desktop-v1/</loc></url>
+  <url><loc>https://baitsss.com/faq/</loc></url>
+  <url><loc>https://baitsss.com/documentation/</loc></url>
+  <url><loc>https://baitsss.com/example-project/</loc></url>
+  <url><loc>https://baitsss.com/system-requirements/</loc></url>
+  <url><loc>https://baitsss.com/citation/</loc></url>
+  <url><loc>https://baitsss.com/release-notes/</loc></url>
+  <url><loc>https://baitsss.com/known-issues/</loc></url>
+  <url><loc>https://baitsss.com/contact/</loc></url>
 </urlset>

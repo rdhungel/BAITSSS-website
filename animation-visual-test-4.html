@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BAITSSS animation visual clarity test 4</title>
+<style>
+html,body{margin:0;background:#07131f;color:#f4f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+body{padding:18px}
+.wrap{max-width:1212px;margin:0 auto}
+.note{font-size:12px;color:#8ea1b2;margin:0 0 10px 2px;letter-spacing:.02em}
+.stage{position:relative;width:100%;height:980px;border-radius:18px;overflow:hidden;background:#07131f}
+iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0;background:#07131f;z-index:1}
+.overlay{position:absolute;inset:0;z-index:20;pointer-events:none}
+.satellite{position:absolute;left:31%;top:14%;width:22%;max-width:250px;opacity:.46;filter:drop-shadow(0 0 10px rgba(168,199,218,.20))}
+.beam{position:absolute;left:36.5%;top:27%;width:18%;height:18%;opacity:.34}
+.chip{position:absolute;right:13.5%;top:19%;width:13%;max-width:150px;opacity:.52;filter:drop-shadow(0 0 9px rgba(135,215,207,.20))}
+@media(max-width:760px){body{padding:8px}.note{font-size:10px}.stage{height:920px}.satellite{left:29%;top:15%;width:25%}.beam{left:35%;top:28%;width:20%}.chip{right:10%;top:20%;width:15%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="note">VISUAL CLARITY TEST 4 · overlay is outside the animation SVG so it cannot hide behind animation panels</p>
+<div class="stage">
+<iframe src="/animation-evaluation.html" title="BAITSSS animation visual clarity test"></iframe>
+<div class="overlay" aria-hidden="true">
+<svg class="satellite" viewBox="0 0 240 120">
+  <g fill="none" stroke="#b8d0df" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="95" y="37" width="50" height="46" rx="7" stroke-width="4"/>
+    <rect x="8" y="31" width="72" height="58" rx="4" stroke-width="3"/>
+    <rect x="160" y="31" width="72" height="58" rx="4" stroke-width="3"/>
+    <path d="M20 43h48M20 58h48M20 73h48M32 31v58M52 31v58M172 43h48M172 58h48M172 73h48M184 31v58M204 31v58" stroke-width="1.7" opacity=".8"/>
+    <path d="M80 60h15M145 60h15" stroke-width="3.3"/>
+    <circle cx="120" cy="60" r="9" stroke-width="3"/>
+    <path d="M112 85l-25 31M128 85l28 31" stroke-width="2.2" opacity=".9"/>
+  </g>
+</svg>
+<svg class="beam" viewBox="0 0 220 170">
+  <path d="M110 0L18 155M110 0L202 155" fill="none" stroke="#a8c7da" stroke-width="2.2" stroke-dasharray="8 10"/>
+  <path d="M18 155H202" fill="none" stroke="#a8c7da" stroke-width="2" opacity=".65"/>
+</svg>
+<svg class="chip" viewBox="0 0 160 140">
+  <g fill="none" stroke="#87d7cf" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="22" y="18" width="116" height="104" rx="16" stroke-width="4"/>
+    <rect x="47" y="40" width="66" height="60" rx="10" stroke-width="4"/>
+    <path d="M8 32h14M8 52h14M8 72h14M8 92h14M8 112h14M138 32h14M138 52h14M138 72h14M138 92h14M138 112h14M42 5v13M62 5v13M82 5v13M102 5v13M122 5v13M42 122v13M62 122v13M82 122v13M102 122v13M122 122v13" stroke-width="3"/>
+  </g>
+  <g fill="none" stroke="#c9ee82" stroke-width="3">
+    <path d="M59 70h42M80 49v42M64 55l32 30M96 55L64 85"/>
+  </g>
+</svg>
+</div>
+</div>
+</div>
+</body>
+</html>

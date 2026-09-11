@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAITSSS — The Measurement Gap</title>
+<style>
+:root{--bg:#0b0f19;--bg-raised:#10141f;--ink:#f4f6fa;--ink-dim:#9aa4b8;--line:#232838;--accent:#c6ff5e;--accent-dim:#8fae4a;--pre:#67748f;--post:#c6ff5e}*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}section{max-width:1180px;margin:0 auto;padding:72px 48px 84px}.kicker{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:18px}h1{font-size:46px;line-height:1.12;letter-spacing:-.025em;max-width:900px;margin:0 0 24px}.lede{font-size:18px;line-height:1.62;color:var(--ink-dim);max-width:820px;margin:0 0 42px}.chart-block{background:var(--bg-raised);border:1px solid var(--line);border-radius:8px;padding:36px 40px 30px}.chart-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px}.chart-title{max-width:700px;font-size:20px;line-height:1.35;font-weight:750}.chart-subtitle{margin-top:7px;max-width:740px;color:var(--ink-dim);font-size:13px;line-height:1.45}.legend{display:flex;gap:20px;font-size:13px;color:var(--ink-dim)}.legend span{display:flex;align-items:center;gap:8px}.swatch{width:10px;height:10px;border-radius:2px;display:inline-block}svg{display:block;width:100%;height:auto;margin-top:16px}.axis-label{fill:var(--ink-dim);font-size:12px;font-family:inherit}.grid-line{stroke:var(--line);stroke-width:1}.lema-band{fill:var(--accent);opacity:.055}.trend-line{fill:none;stroke:#aeb8ca;stroke-width:1.6}.dot{stroke:var(--bg-raised);stroke-width:2}.dot-pre{fill:var(--pre)}.dot-post{fill:var(--post)}.value-label{fill:var(--ink);font-size:12px;font-weight:700;font-family:inherit;text-anchor:middle}.lema-marker{stroke:var(--accent);stroke-width:1;stroke-dasharray:3 4;opacity:.65}.lema-tag{fill:var(--accent-dim);font-size:11px;font-weight:800;letter-spacing:.05em}.stat-row{display:grid;grid-template-columns:1.05fr 1.35fr;gap:1px;background:var(--line);margin-top:34px;border:1px solid var(--line);border-radius:6px;overflow:hidden}.stat{background:var(--bg-raised);padding:30px 32px;min-height:174px}.stat .eyebrow{color:var(--ink-dim);font-size:12px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}.stat .num{font-size:44px;line-height:1;font-weight:850;letter-spacing:-.02em}.stat.applied .num{color:var(--accent)}.stat .cap{margin-top:12px;color:var(--ink-dim);font-size:15px;line-height:1.55;max-width:420px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:15px}.metric{padding-top:12px;border-top:1px solid var(--line)}.metric strong{display:block;font-size:18px;color:var(--ink)}.metric span{display:block;margin-top:4px;color:var(--ink-dim);font-size:13px}.takeaway{margin-top:32px;padding-top:26px;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:start}.takeaway-label{color:var(--accent-dim);font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.takeaway p{margin:0;font-size:16px;line-height:1.65;color:var(--ink-dim);max-width:820px}.source{margin-top:20px;font-size:12px;line-height:1.5;color:#758096}@media(max-width:760px){section{padding:52px 20px 64px}h1{font-size:32px}.chart-block{padding:26px 18px 22px}.stat-row{grid-template-columns:1fr}.metrics{grid-template-columns:1fr}.takeaway{grid-template-columns:1fr;gap:8px}}
+</style>
+</head>
+<body>
+<section>
+<div class="kicker">The measurement gap</div>
+<h1>Applied irrigation fell sharply. Did crop water demand fall with it?</h1>
+<p class="lede">BAITSSS provides an independent estimate of expected crop water use and irrigation requirement from vegetation, weather, soil, and water-balance conditions. That reference helps distinguish a change in irrigation management from a change in environmental demand.</p>
+<div class="chart-block">
+<div class="chart-head"><div><div class="chart-title">Share of water-right management units where in-season water supply exceeded expected crop water demand, 2008–2017</div><div class="chart-subtitle">Water supply = reported irrigation + precipitation; crop water demand = BAITSSS-simulated evapotranspiration.</div></div><div class="legend"><span><i class="swatch" style="background:var(--pre)"></i>Pre-LEMA</span><span><i class="swatch" style="background:var(--post)"></i>LEMA</span></div></div>
+<svg viewBox="0 0 1000 420" id="chart" aria-label="Ten-year LEMA comparison chart"></svg>
+<div class="stat-row"><div class="stat applied"><div class="eyebrow">Reported irrigation</div><div class="num">−28%</div><div class="cap">Five-year mean applied irrigation for corn WRMUs fell from <strong>369 mm</strong> pre-LEMA to <strong>263 mm</strong> during LEMA.</div></div><div class="stat"><div class="eyebrow">BAITSSS estimated requirement</div><div class="num">Little change</div><div class="metrics"><div class="metric"><strong>417 → 404 mm</strong><span>Simulated irrigation requirement, about −3%</span></div><div class="metric"><strong>767 → 758 mm</strong><span>Evapotranspiration, about −1%</span></div></div></div></div>
+<div class="takeaway"><div class="takeaway-label">What BAITSSS adds</div><p>Applied irrigation changed far more than the modeled crop water requirement. The decade-long comparison shows that lower water use during LEMA was not accompanied by a comparable decline in BAITSSS-estimated irrigation requirement or evapotranspiration.</p></div>
+<div class="source">Source: Dhungel et al. (2025), <em>Water savings policy in western Kansas: a decade-long satellite-based examination</em>, Irrigation Science 43:1669–1679.</div>
+</div>
+</section>
+<script>
+(function(){
+  const years=[2008,2009,2010,2011,2012,2013,2014,2015,2016,2017];
+  const values=[59,21,4,48,22,5,15,1,4,1];
+  const lemaStart=2013;
+  const svg=document.getElementById('chart');
+  const W=1000,H=420;
+  const margin={top:20,right:24,bottom:44,left:48};
+  const plotW=W-margin.left-margin.right;
+  const plotH=H-margin.top-margin.bottom;
+  const step=plotW/(years.length-1);
+  const xFor=(year,i)=>margin.left+(i/(years.length-1))*plotW;
+  const yMax=65;
+  const yFor=v=>margin.top+plotH-(v/yMax)*plotH;
+  const ns='http://www.w3.org/2000/svg';
+  function el(tag,attrs){const e=document.createElementNS(ns,tag);Object.keys(attrs).forEach(k=>e.setAttribute(k,attrs[k]));return e}
+  const lemaIdx=years.indexOf(lemaStart);
+  const bandX=xFor(lemaStart,lemaIdx)-step/2;
+  svg.appendChild(el('rect',{class:'lema-band',x:bandX,y:margin.top,width:(W-margin.right)-bandX,height:plotH}));
+  [0,20,40,60].forEach(v=>{const y=yFor(v);svg.appendChild(el('line',{class:'grid-line',x1:margin.left,x2:W-margin.right,y1:y,y2:y}));const t=el('text',{class:'axis-label',x:margin.left-10,y:y+4,'text-anchor':'end'});t.textContent=v+'%';svg.appendChild(t)});
+  svg.appendChild(el('line',{class:'lema-marker',x1:bandX,x2:bandX,y1:margin.top,y2:margin.top+plotH}));
+  const tag=el('text',{class:'lema-tag',x:bandX+8,y:margin.top+14});tag.textContent='LEMA BEGINS';svg.appendChild(tag);
+  let d='';
+  years.forEach((yr,i)=>{const x=xFor(yr,i),y=yFor(values[i]);d+=(i===0?'M':'L')+x+','+y+' '});
+  svg.appendChild(el('path',{class:'trend-line',d:d}));
+  years.forEach((yr,i)=>{const x=xFor(yr,i),y=yFor(values[i]);const isPost=yr>=lemaStart;svg.appendChild(el('circle',{class:'dot '+(isPost?'dot-post':'dot-pre'),cx:x,cy:y,r:6}));const lbl=el('text',{class:'value-label',x:x,y:y-14});lbl.textContent=values[i]+'%';svg.appendChild(lbl);const xt=el('text',{class:'axis-label',x:x,y:H-14,'text-anchor':'middle'});xt.textContent=yr;svg.appendChild(xt)});
+
+  /* Self-size the same-origin parent iframe. This is intentionally independent
+     of the homepage load listener so the section cannot remain at height:0. */
+  function fitParentFrame(){
+    try{
+      if(window.frameElement){
+        const h=Math.ceil(Math.max(document.documentElement.scrollHeight,document.body.scrollHeight));
+        if(h>200){
+          window.frameElement.style.height=h+'px';
+          window.frameElement.style.minHeight='0';
+          window.frameElement.style.display='block';
+        }
+      }
+    }catch(e){}
+  }
+  fitParentFrame();
+  window.addEventListener('load',fitParentFrame);
+  window.addEventListener('resize',fitParentFrame);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitParentFrame);
+  [50,150,400,900,1800,3500].forEach(function(delay){setTimeout(fitParentFrame,delay);});
+  if(window.ResizeObserver){
+    const ro=new ResizeObserver(fitParentFrame);
+    ro.observe(document.body);
+  }
+})();
+</script>
+</body>
+</html>
