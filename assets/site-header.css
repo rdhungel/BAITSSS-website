@@ -9,9 +9,13 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video iframe[src*="linkedin.com/embed/feed/update"]{display:block!important}
 
 /* LinkedIn serves the whole post inside the iframe. The hero uses a fixed
-   viewport that is deliberately anchored lower in that document so the
-   visible region is the actual video, not the post header/copy. */
-.hero-video-frame{position:relative!important;overflow:hidden!important}
+   viewport anchored to the media region. The slightly wider-than-16:9 crop
+   trims the LinkedIn reaction strip while retaining the video and controls. */
+.hero-video-frame{
+  position:relative!important;
+  overflow:hidden!important;
+  aspect-ratio:2.08/1!important;
+}
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
   left:0!important;
@@ -36,6 +40,7 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 }
 
 @media(max-width:560px){
+  .hero-video-frame{aspect-ratio:2/1!important}
   .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
     top:-330px!important;
     width:calc(100% + 20px)!important;
