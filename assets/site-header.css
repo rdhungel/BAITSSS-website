@@ -12,7 +12,7 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
    Keep desktop and mobile tuning independent and expose the crop numbers in
    one place so future adjustments do not require rewriting selector rules. */
 .hero-video-frame{
-  --li-top:-150px;
+  --li-top:-190px;
   --li-height:940px;
   --li-extra-width:22px;
   position:relative!important;
