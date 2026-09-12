@@ -14,7 +14,7 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video-frame{
   --li-top:-350px;
   --li-height:900px;
-  --li-extra-width:22px;
+  --li-extra-width:6px;
   position:relative!important;
   overflow:hidden!important;
   aspect-ratio:2.08/1!important;
