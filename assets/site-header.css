@@ -10,8 +10,8 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 
 /* LinkedIn serves the whole post inside the iframe. Preserve the complete
    16:9 media frame first, then anchor the embedded document to the video area.
-   Shift the embedded document downward so the unused white space at the
-   bottom is consumed by the missing upper portion of the video. */
+   Desktop and mobile are tuned independently because LinkedIn serves different
+   responsive post layouts. */
 .hero-video-frame{
   position:relative!important;
   overflow:hidden!important;
@@ -20,7 +20,7 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
   left:0!important;
-  top:-220px!important;
+  top:-150px!important;
   width:calc(100% + 22px)!important;
   height:940px!important;
   max-width:none!important;
