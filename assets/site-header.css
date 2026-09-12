@@ -1,5 +1,13 @@
 @import url("./site-header-base.css");
 
+/* Homepage flagship video: keep exactly one LinkedIn player.
+   Older cached scripts may still inject a legacy copy after page load, so
+   hide every LinkedIn activity iframe by default and explicitly allow only
+   the canonical player inside .hero-video. */
+.hero-flagship-video{display:none!important}
+iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
+.hero-video iframe[src*="linkedin.com/embed/feed/update"]{display:block!important}
+
 /* Mobile navigation hard-state override for iPhone/Safari. */
 @media(max-width:900px){
   .site-header .primary-nav[data-open="false"]{display:none!important;opacity:0!important;pointer-events:none!important;transform:none!important;transition:none!important}
