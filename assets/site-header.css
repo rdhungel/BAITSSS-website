@@ -8,21 +8,21 @@
 iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video iframe[src*="linkedin.com/embed/feed/update"]{display:block!important}
 
-/* LinkedIn serves the whole post inside the iframe. The hero uses a fixed
-   viewport anchored to the media region. Shift the embedded document slightly
-   downward so the top of the video is no longer clipped while preserving the
-   clean crop at the bottom. */
+/* LinkedIn serves the whole post inside the iframe. Preserve the complete
+   16:9 media frame first, then anchor the embedded document to the video area.
+   This intentionally gives the player more vertical room so the top and
+   bottom of the actual video are not cut off. */
 .hero-video-frame{
   position:relative!important;
   overflow:hidden!important;
-  aspect-ratio:2/1!important;
+  aspect-ratio:16/9!important;
 }
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
   left:0!important;
-  top:-320px!important;
+  top:-300px!important;
   width:calc(100% + 22px)!important;
-  height:900px!important;
+  height:940px!important;
   max-width:none!important;
   border:0!important;
 }
@@ -41,10 +41,10 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 }
 
 @media(max-width:560px){
-  .hero-video-frame{aspect-ratio:1.94/1!important}
+  .hero-video-frame{aspect-ratio:16/9!important}
   .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
-    top:-300px!important;
+    top:-280px!important;
     width:calc(100% + 20px)!important;
-    height:850px!important;
+    height:900px!important;
   }
 }
