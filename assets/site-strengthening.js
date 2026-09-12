@@ -25,8 +25,12 @@
   function tuneHomepageFlagshipVideo(hero){
     if(!hero) return;
 
-    /* The flagship player now lives directly in index.html. Do not create a
-       second LinkedIn embed here. This block only tightens the visible anchor. */
+    /* The flagship player now lives directly in index.html. Remove any legacy
+       injected copy left by older cached homepage strengthening code. */
+    Array.prototype.forEach.call(document.querySelectorAll('.hero-flagship-video'),function(node){
+      node.remove();
+    });
+
     var video=hero.querySelector('.hero-video');
     var frame=video&&video.querySelector('.hero-video-frame');
     var iframe=frame&&frame.querySelector('iframe');
