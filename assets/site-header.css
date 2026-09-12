@@ -12,12 +12,12 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
    Keep desktop and mobile tuning independent and expose the crop numbers in
    one place so future adjustments do not require rewriting selector rules. */
 .hero-video-frame{
-  --li-top:-190px;
-  --li-height:940px;
+  --li-top:-350px;
+  --li-height:900px;
   --li-extra-width:22px;
   position:relative!important;
   overflow:hidden!important;
-  aspect-ratio:16/9!important;
+  aspect-ratio:2.08/1!important;
 }
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
