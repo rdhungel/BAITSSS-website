@@ -9,9 +9,9 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video iframe[src*="linkedin.com/embed/feed/update"]{display:block!important}
 
 /* LinkedIn serves the whole post inside the iframe. The hero uses a fixed
-   viewport anchored to the media region. Keep a slightly taller crop so the
-   video has a little more breathing room at the bottom without exposing the
-   full LinkedIn post. */
+   viewport anchored to the media region. Shift the embedded document slightly
+   downward so the top of the video is no longer clipped while preserving the
+   clean crop at the bottom. */
 .hero-video-frame{
   position:relative!important;
   overflow:hidden!important;
@@ -20,7 +20,7 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
   left:0!important;
-  top:-350px!important;
+  top:-320px!important;
   width:calc(100% + 22px)!important;
   height:900px!important;
   max-width:none!important;
@@ -43,7 +43,7 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 @media(max-width:560px){
   .hero-video-frame{aspect-ratio:1.94/1!important}
   .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
-    top:-330px!important;
+    top:-300px!important;
     width:calc(100% + 20px)!important;
     height:850px!important;
   }
