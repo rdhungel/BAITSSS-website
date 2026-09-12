@@ -8,11 +8,13 @@
 iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video iframe[src*="linkedin.com/embed/feed/update"]{display:block!important}
 
-/* LinkedIn serves the whole post inside the iframe. Preserve the complete
-   16:9 media frame first, then anchor the embedded document to the video area.
-   Desktop and mobile are tuned independently because LinkedIn serves different
-   responsive post layouts. */
+/* LinkedIn serves a responsive post document, not a fixed video player.
+   Keep desktop and mobile tuning independent and expose the crop numbers in
+   one place so future adjustments do not require rewriting selector rules. */
 .hero-video-frame{
+  --li-top:-150px;
+  --li-height:940px;
+  --li-extra-width:22px;
   position:relative!important;
   overflow:hidden!important;
   aspect-ratio:16/9!important;
@@ -20,9 +22,9 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
   left:0!important;
-  top:-150px!important;
-  width:calc(100% + 22px)!important;
-  height:940px!important;
+  top:var(--li-top)!important;
+  width:calc(100% + var(--li-extra-width))!important;
+  height:var(--li-height)!important;
   max-width:none!important;
   border:0!important;
 }
@@ -40,11 +42,14 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
   .site-header .more-menu a:hover,.site-header .more-menu a.active{background:transparent!important;color:#c9ee82!important}
 }
 
+/* iPhone/small-mobile authority. LinkedIn reflows the post here, so these
+   values are intentionally independent from desktop. Keep them isolated until
+   the mobile crop is verified visually. */
 @media(max-width:560px){
-  .hero-video-frame{aspect-ratio:16/9!important}
-  .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
-    top:-210px!important;
-    width:calc(100% + 20px)!important;
-    height:900px!important;
+  .hero-video-frame{
+    --li-top:-210px;
+    --li-height:900px;
+    --li-extra-width:20px;
+    aspect-ratio:16/9!important;
   }
 }
