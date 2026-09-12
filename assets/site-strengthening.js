@@ -22,34 +22,26 @@
     }
   }
 
-  function addHomepageFlagshipVideo(hero){
-    if(!hero || hero.querySelector('.hero-flagship-video')) return;
-    var wrap=hero.querySelector('.wrap');
-    var copy=hero.querySelector('.hero-copy');
-    if(!wrap || !copy) return;
+  function tuneHomepageFlagshipVideo(hero){
+    if(!hero) return;
+
+    /* The flagship player now lives directly in index.html. Do not create a
+       second LinkedIn embed here. This block only tightens the visible anchor. */
+    var video=hero.querySelector('.hero-video');
+    var frame=video&&video.querySelector('.hero-video-frame');
+    var iframe=frame&&frame.querySelector('iframe');
+    if(!video || !frame || !iframe) return;
 
     var style=document.createElement('style');
     style.textContent='\
-      .hero.has-flagship-video .wrap{display:grid;grid-template-columns:minmax(0,1.38fr) minmax(390px,.92fr);gap:54px;align-items:center}\
-      .hero.has-flagship-video .hero-copy{max-width:none}\
-      .hero.has-flagship-video .hero-title{font-size:clamp(40px,4.2vw,62px);max-width:900px}\
-      .hero-flagship-video{min-width:0}\
-      .hero-video-frame{position:relative;width:100%;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;background:#02070b;box-shadow:0 22px 58px rgba(0,0,0,.34)}\
-      .hero-video-frame iframe{display:block;width:100%;height:100%;border:0;background:#02070b}\
-      .hero-video-caption{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 3px 0;color:#9db0c2;font-size:12.5px;line-height:1.45}\
-      .hero-video-caption strong{color:#dbe7f2;font-weight:650}\
-      .hero-video-caption a{color:#c9ee82;text-decoration:none;font-weight:700;white-space:nowrap}\
-      .hero-video-caption a:hover{text-decoration:underline;text-underline-offset:3px}\
-      @media(max-width:1040px){.hero.has-flagship-video .wrap{grid-template-columns:1fr;gap:36px}.hero-flagship-video{max-width:820px}.hero.has-flagship-video .hero-title{max-width:940px}}\
-      @media(max-width:560px){.hero.has-flagship-video .wrap{gap:28px}.hero-video-frame{border-radius:12px}.hero-video-caption{display:block}.hero-video-caption a{display:inline-block;margin-top:5px}}';
+      .hero-video-frame{position:relative;isolation:isolate;overflow:hidden!important}\
+      .hero-video-frame iframe{position:absolute!important;left:0!important;top:0!important;width:calc(100% + 20px)!important;height:100%!important;max-width:none!important;border:0!important;overflow:hidden!important}\
+      .hero-video-meta{margin-top:0}\
+      @media(max-width:560px){.hero-video-frame iframe{width:calc(100% + 18px)!important}}';
     document.head.appendChild(style);
 
-    var card=document.createElement('div');
-    card.className='hero-flagship-video';
-    card.setAttribute('aria-label','BAITSSS Desktop V1 flagship video');
-    card.innerHTML='<div class="hero-video-frame"><iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7504650076615786496" title="BAITSSS Desktop V1 flagship video" loading="eager" allowfullscreen></iframe></div><div class="hero-video-caption"><strong>BAITSSS Desktop V1 overview</strong><a href="https://www.linkedin.com/feed/update/urn:li:activity:7504650076615786496" target="_blank" rel="noopener">Watch on LinkedIn ↗</a></div>';
-    wrap.appendChild(card);
-    hero.classList.add('has-flagship-video');
+    iframe.setAttribute('scrolling','no');
+    iframe.setAttribute('frameborder','0');
   }
 
   function strengthen(){
@@ -61,7 +53,7 @@
 
     if(path==='/'){
       setMeta('BAITSSS Desktop V1 is the first release version of a field-scale scientific system for evapotranspiration, soil water, irrigation analysis, and field investigation.','https://baitsss.com/');
-      addHomepageFlagshipVideo(hero);
+      tuneHomepageFlagshipVideo(hero);
     }
 
     if(path==='/software'){
