@@ -60,21 +60,42 @@
 
     var row=document.createElement('div');
     row.style.marginTop='16px';
-    var link=document.createElement('a');
-    link.href='/business-ecosystem/';
-    link.setAttribute('data-baitsss-ecosystem-link','true');
-    link.textContent='Explore the agricultural water technology ecosystem →';
-    link.style.display='inline-flex';
-    link.style.alignItems='center';
-    link.style.justifyContent='center';
-    link.style.padding='10px 15px';
-    link.style.borderRadius='9px';
-    link.style.background='#c9ee82';
-    link.style.color='#07131f';
-    link.style.textDecoration='none';
-    link.style.fontWeight='800';
-    link.style.fontSize='14px';
-    row.appendChild(link);
+    row.style.display='flex';
+    row.style.flexWrap='wrap';
+    row.style.gap='10px';
+
+    var ecosystem=document.createElement('a');
+    ecosystem.href='/business-ecosystem/';
+    ecosystem.setAttribute('data-baitsss-ecosystem-link','true');
+    ecosystem.textContent='Explore the agricultural water technology ecosystem →';
+    ecosystem.style.display='inline-flex';
+    ecosystem.style.alignItems='center';
+    ecosystem.style.justifyContent='center';
+    ecosystem.style.padding='10px 15px';
+    ecosystem.style.borderRadius='9px';
+    ecosystem.style.background='#c9ee82';
+    ecosystem.style.color='#07131f';
+    ecosystem.style.textDecoration='none';
+    ecosystem.style.fontWeight='800';
+    ecosystem.style.fontSize='14px';
+    row.appendChild(ecosystem);
+
+    var industry=document.createElement('a');
+    industry.href='/industry-partnership/';
+    industry.setAttribute('data-baitsss-industry-link','true');
+    industry.textContent='For ag-tech and irrigation companies →';
+    industry.style.display='inline-flex';
+    industry.style.alignItems='center';
+    industry.style.justifyContent='center';
+    industry.style.padding='10px 15px';
+    industry.style.borderRadius='9px';
+    industry.style.border='1px solid rgba(201,238,130,.45)';
+    industry.style.color='#f4f7fa';
+    industry.style.textDecoration='none';
+    industry.style.fontWeight='800';
+    industry.style.fontSize='14px';
+    row.appendChild(industry);
+
     note.appendChild(row);
   }
 
