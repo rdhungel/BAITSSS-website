@@ -36,15 +36,14 @@
     var iframe=frame&&frame.querySelector('iframe[src*="linkedin.com/embed/feed/update"]');
     if(!video || !frame || !iframe) return;
 
-    /* Deterministic LinkedIn crop.
-       The prior desktop framing was visually correct with a ~620 px container,
-       top crop 350 px, and visible height 620/2.08. Normalizing those values to
-       a fixed 504 px LinkedIn layout gives Y0 ~= 285 px and H0 ~= 242 px.
-       LinkedIn therefore always receives a 504 px layout viewport; only the
+    /* Fixed-layout LinkedIn crop.
+       LinkedIn always receives a 504 px layout viewport. The base video block
+       is a full 16:9 frame: H0 = 504 * 9 / 16 = 283.5 px, rounded to 284 px.
+       Y0 is the calibrated document offset to the top of the video. Only the
        visual transform changes with the hero container width. */
     var W0=504;
     var Y0=285;
-    var H0=242;
+    var H0=284;
     var IFRAME_H=900;
 
     iframe.setAttribute('width',String(W0));
