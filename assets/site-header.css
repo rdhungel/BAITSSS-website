@@ -42,14 +42,14 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
   .site-header .more-menu a:hover,.site-header .more-menu a.active{background:transparent!important;color:#c9ee82!important}
 }
 
-/* iPhone/small-mobile authority. LinkedIn reflows the post here, so these
-   values are intentionally independent from desktop. The mobile document is
-   shifted much farther upward so the post text clears the viewport and the
-   actual video occupies the hero frame. */
+/* iPhone/small-mobile authority. Calibrated from the supplied iPhone screenshot:
+   the visible post-text block above the video measured about 315 screenshot px.
+   Using the measured frame-width scale, that is about 130 CSS px, so the prior
+   -210px offset needed roughly 130px more upward shift. */
 @media(max-width:560px){
   .hero-video-frame{
-    --li-top:-480px;
-    --li-height:980px;
+    --li-top:-340px;
+    --li-height:900px;
     --li-extra-width:6px;
     aspect-ratio:16/9!important;
   }
