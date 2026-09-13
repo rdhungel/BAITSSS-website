@@ -8,25 +8,25 @@
 iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 .hero-video iframe[src*="linkedin.com/embed/feed/update"]{display:block!important}
 
-/* LinkedIn serves a responsive post document, not a fixed video player.
-   Keep desktop and mobile tuning independent and expose the crop numbers in
-   one place so future adjustments do not require rewriting selector rules. */
+/* LinkedIn fixed-layout authority.
+   The iframe itself is always 504 CSS px wide, so LinkedIn sees one stable
+   internal layout on desktop, tablet, and phone. JavaScript scales that same
+   504 px document to the available hero width and computes the crop from the
+   calibrated base measurements W0=504, Y0=285, H0=242. */
 .hero-video-frame{
-  --li-top:-350px;
-  --li-height:900px;
-  --li-extra-width:6px;
   position:relative!important;
   overflow:hidden!important;
-  aspect-ratio:2.08/1!important;
+  aspect-ratio:auto!important;
 }
 .hero-video-frame iframe[src*="linkedin.com/embed/feed/update"]{
   position:absolute!important;
   left:0!important;
-  top:var(--li-top)!important;
-  width:calc(100% + var(--li-extra-width))!important;
-  height:var(--li-height)!important;
+  top:0;
+  width:504px!important;
+  height:900px!important;
   max-width:none!important;
   border:0!important;
+  transform-origin:top left!important;
 }
 
 /* Mobile navigation hard-state override for iPhone/Safari. */
@@ -40,17 +40,4 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
   .site-header .more-menu{display:block!important;position:static!important;right:auto!important;top:auto!important;width:100%!important;margin:2px 0 6px!important;padding:4px 0 0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;overflow:visible!important}
   .site-header .more-menu a{padding:12px 4px!important;border-radius:0!important;font-size:14px!important;color:#9db0c2!important}
   .site-header .more-menu a:hover,.site-header .more-menu a.active{background:transparent!important;color:#c9ee82!important}
-}
-
-/* iPhone/small-mobile authority. Calibrated from the supplied iPhone screenshot:
-   the visible post-text block above the video measured about 315 screenshot px.
-   Using the measured frame-width scale, that is about 130 CSS px, so the prior
-   -210px offset needed roughly 130px more upward shift. */
-@media(max-width:560px){
-  .hero-video-frame{
-    --li-top:-340px;
-    --li-height:900px;
-    --li-extra-width:6px;
-    aspect-ratio:16/9!important;
-  }
 }
