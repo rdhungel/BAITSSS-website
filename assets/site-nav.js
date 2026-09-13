@@ -52,18 +52,47 @@
     links.appendChild(flyer);
   }
 
+  function installBusinessEcosystemLink(){
+    var path=window.location.pathname.replace(/\/+$/,'')||'/';
+    if(path!=='/business')return;
+    var note=document.querySelector('.hero .hero-note');
+    if(!note || note.querySelector('[data-baitsss-ecosystem-link]'))return;
+
+    var row=document.createElement('div');
+    row.style.marginTop='16px';
+    var link=document.createElement('a');
+    link.href='/business-ecosystem/';
+    link.setAttribute('data-baitsss-ecosystem-link','true');
+    link.textContent='Explore the agricultural water technology ecosystem →';
+    link.style.display='inline-flex';
+    link.style.alignItems='center';
+    link.style.justifyContent='center';
+    link.style.padding='10px 15px';
+    link.style.borderRadius='9px';
+    link.style.background='#c9ee82';
+    link.style.color='#07131f';
+    link.style.textDecoration='none';
+    link.style.fontWeight='800';
+    link.style.fontSize='14px';
+    row.appendChild(link);
+    note.appendChild(row);
+  }
+
   function installDuplicateGuard(){
     removeDuplicateLinkedInEmbeds();
     installSoftwareFlyerLink();
+    installBusinessEcosystemLink();
     var observer=new MutationObserver(function(){
       removeDuplicateLinkedInEmbeds();
       installSoftwareFlyerLink();
+      installBusinessEcosystemLink();
     });
     observer.observe(document.documentElement,{childList:true,subtree:true});
     [50,150,400,900,1800,3500].forEach(function(delay){
       window.setTimeout(function(){
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
+        installBusinessEcosystemLink();
       },delay);
     });
   }
@@ -84,6 +113,7 @@
       load('/assets/mobile-linkedin-fix.js?v=20260913-1',function(){
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
+        installBusinessEcosystemLink();
       });
     });
   });
