@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LinkedIn Embed Measurement</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#0b1520;color:#eef4f8;font-family:Arial,sans-serif;padding:24px}
+    .panel{max-width:980px;margin:0 auto}
+    h1{font-size:24px;margin:0 0 10px}
+    p{line-height:1.5;color:#b7c5d3}
+    .controls{display:flex;flex-wrap:wrap;gap:14px;margin:20px 0;align-items:end}
+    label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#c7d3de}
+    input{width:110px;padding:8px;border-radius:8px;border:1px solid #415264;background:#101d2a;color:#fff}
+    button{padding:9px 14px;border:0;border-radius:8px;background:#c9ee82;color:#07110c;font-weight:700;cursor:pointer}
+    .readout{margin:12px 0 18px;font-family:Consolas,monospace;color:#c9ee82}
+    .stage-shell{overflow-x:auto;padding-bottom:12px}
+    .stage{position:relative;width:504px;height:900px;overflow:hidden;background:white;border:2px solid #c9ee82;border-radius:12px}
+    iframe{position:absolute;left:0;top:0;width:504px;height:900px;border:0;transform-origin:top left}
+    .crop-line{position:absolute;left:0;width:100%;height:2px;z-index:5;pointer-events:none;background:#ff375f}
+    .crop-line.bottom{background:#00d084}
+    .tag{position:absolute;z-index:6;left:8px;padding:3px 6px;border-radius:4px;font:12px/1.2 Consolas,monospace;background:rgba(0,0,0,.72);pointer-events:none}
+    .tag.bottom{color:#8cffc3}
+    .tag.top{color:#ff9aae}
+    .preview{margin-top:24px}
+    .preview-wrap{position:relative;width:min(100%,760px);overflow:hidden;border-radius:12px;background:#fff;border:1px solid #425264}
+    .preview-wrap iframe{position:absolute;left:0;border:0;transform-origin:top left}
+    .note{margin-top:18px;font-size:13px;color:#92a5b7}
+  </style>
+</head>
+<body>
+<div class="panel">
+  <h1>LinkedIn embed fixed-width measurement</h1>
+  <p>This page freezes the LinkedIn iframe at <strong>504 CSS px</strong>. Adjust Y0 until the red line matches the exact top of the video. Adjust H0 until the green line matches the exact bottom of the video. Those two numbers become the permanent base measurements.</p>
+
+  <div class="controls">
+    <label>Base width W0
+      <input id="w0" type="number" value="504" min="300" max="1000" step="1">
+    </label>
+    <label>Video top Y0
+      <input id="y0" type="number" value="350" min="0" max="1000" step="1">
+    </label>
+    <label>Video height H0
+      <input id="h0" type="number" value="284" min="100" max="700" step="1">
+    </label>
+    <button id="apply">Apply</button>
+  </div>
+
+  <div class="readout" id="readout"></div>
+
+  <div class="stage-shell">
+    <div class="stage" id="stage">
+      <iframe id="measureFrame" src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7504650076615786496" loading="eager" allowfullscreen></iframe>
+      <div class="crop-line" id="topLine"></div>
+      <div class="tag top" id="topTag">video top</div>
+      <div class="crop-line bottom" id="bottomLine"></div>
+      <div class="tag bottom" id="bottomTag">video bottom</div>
+    </div>
+  </div>
+
+  <div class="preview">
+    <p>Scaled responsive preview using the same fixed 504 px internal LinkedIn layout:</p>
+    <div class="preview-wrap" id="previewWrap">
+      <iframe id="previewFrame" src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7504650076615786496" loading="eager" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="note">Desktop homepage is not changed by this test page. Once Y0 and H0 are measured here, the production hero can use exact scale = containerWidth / W0.</div>
+</div>
+<script>
+(function(){
+  const w0=document.getElementById('w0');
+  const y0=document.getElementById('y0');
+  const h0=document.getElementById('h0');
+  const stage=document.getElementById('stage');
+  const measureFrame=document.getElementById('measureFrame');
+  const topLine=document.getElementById('topLine');
+  const bottomLine=document.getElementById('bottomLine');
+  const topTag=document.getElementById('topTag');
+  const bottomTag=document.getElementById('bottomTag');
+  const previewWrap=document.getElementById('previewWrap');
+  const previewFrame=document.getElementById('previewFrame');
+  const readout=document.getElementById('readout');
+
+  function num(el){return Math.max(0,Number(el.value)||0)}
+
+  function render(){
+    const W0=num(w0)||504;
+    const Y0=num(y0);
+    const H0=num(h0);
+    const iframeH=Math.max(900,Y0+H0+250);
+
+    stage.style.width=W0+'px';
+    stage.style.height=iframeH+'px';
+    measureFrame.style.width=W0+'px';
+    measureFrame.style.height=iframeH+'px';
+
+    topLine.style.top=Y0+'px';
+    topTag.style.top=Math.max(0,Y0-24)+'px';
+    bottomLine.style.top=(Y0+H0)+'px';
+    bottomTag.style.top=(Y0+H0+4)+'px';
+
+    const Cw=previewWrap.clientWidth;
+    const scale=Cw/W0;
+    previewWrap.style.height=(H0*scale)+'px';
+    previewFrame.style.width=W0+'px';
+    previewFrame.style.height=iframeH+'px';
+    previewFrame.style.top=(-Y0*scale)+'px';
+    previewFrame.style.transform='scale('+scale+')';
+
+    readout.textContent='W0='+W0+' px   Y0='+Y0+' px   H0='+H0+' px   preview scale='+scale.toFixed(4);
+  }
+
+  document.getElementById('apply').addEventListener('click',render);
+  [w0,y0,h0].forEach(el=>el.addEventListener('input',render));
+  new ResizeObserver(render).observe(previewWrap);
+  window.addEventListener('load',render);
+  render();
+})();
+</script>
+</body>
+</html>
