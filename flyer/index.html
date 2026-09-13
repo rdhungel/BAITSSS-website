@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BAITSSS Desktop V1 Flyer</title>
+<meta name="description" content="One-page BAITSSS Desktop V1 flyer with actual Kansas GMD4 results and NLDAS hourly weather workflow.">
+<style>
+:root{--navy:#07131f;--navy2:#0b1928;--accent:#c9ee82;--blue:#2f7dff;--ink:#0b1724;--muted:#5c6d7d;--line:#d9e3eb;--soft:#f6f8fa}
+*{box-sizing:border-box}html,body{margin:0;background:#dfe6ec;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+.toolbar{position:sticky;top:0;z-index:5;display:flex;justify-content:center;gap:10px;padding:12px;background:rgba(7,19,31,.96);border-bottom:1px solid rgba(255,255,255,.12)}
+.toolbar a,.toolbar button{appearance:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:10px 16px;background:transparent;color:white;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer}.toolbar .primary{background:var(--accent);color:var(--navy);border-color:var(--accent)}
+.sheet{width:8.5in;min-height:11in;margin:24px auto;background:white;box-shadow:0 20px 60px rgba(0,0,0,.16)}
+.header{height:2.42in;background:var(--navy);padding:.38in .46in .24in;color:white;position:relative}.brand{display:flex;align-items:center;justify-content:space-between}.brand img{width:1.9in;max-height:.55in;object-fit:contain;object-position:left center}.tag{background:var(--accent);color:var(--navy);padding:7px 16px;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:.06em}.headline{margin:.22in 0 0;font-size:30px;line-height:1.06;letter-spacing:-.03em;font-weight:800}.headline span{color:var(--accent)}.sub{margin:.12in 0 0;color:#dce7ef;font-size:11px;line-height:1.45;max-width:7.25in}
+.body{padding:.28in .46in .20in}.intro h2{margin:0;font-size:16px}.intro p{margin:7px 0 0;color:var(--muted);font-size:10.5px;line-height:1.5}.result{margin:.18in 0 0;border:1px solid #aebecd;border-radius:9px;overflow:hidden;background:#eaf0f5}.result img{display:block;width:100%;height:2.32in;object-fit:cover}.trust{display:flex;justify-content:space-between;gap:16px;align-items:center;background:var(--navy2);color:white;padding:8px 12px;font-size:9px}.trust strong{color:var(--accent);letter-spacing:.04em}.proofs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:.14in 0}.proof{border:1px solid var(--line);border-radius:7px;background:var(--soft);padding:9px}.proof strong{display:block;color:var(--blue);font-size:8.5px}.proof span{display:block;margin-top:3px;color:var(--muted);font-size:7.5px}.workflow-title{margin:.16in 0 .08in;font-size:16px}.workflow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.step{border:1px solid var(--line);border-radius:8px;background:var(--soft);padding:10px;min-height:.86in}.step .n{color:var(--blue);font-size:8px;font-weight:800}.step h3{display:inline;margin-left:8px;font-size:9.5px}.step p{margin:6px 0 0;color:var(--muted);font-size:7.6px;line-height:1.35}.science{margin:.16in 0 0;background:var(--navy2);border-radius:8px;padding:10px 13px;color:white;display:flex;justify-content:space-between;align-items:flex-end;gap:14px}.science b{display:block;color:var(--accent);font-size:8px;letter-spacing:.05em}.science strong{display:block;margin-top:4px;font-size:10.5px}.science span{color:#afc1d0;font-size:7.7px;text-align:right}.cta{display:grid;grid-template-columns:1fr 1.1in;gap:.2in;align-items:center;margin:.18in 0 0}.cta h2{margin:0;font-size:17px}.cta p{margin:6px 0 9px;color:var(--muted);font-size:9px;line-height:1.45}.links{display:flex;align-items:center;gap:10px}.linkbtn{display:inline-block;background:var(--accent);color:var(--navy);font-weight:800;text-decoration:none;border-radius:99px;padding:9px 16px;font-size:9px}.url{color:var(--blue);font-size:14px;font-weight:800}.contact{color:var(--muted);font-size:8.5px}.qr{width:1.02in;height:1.02in;border:1px solid var(--line);border-radius:8px;padding:5px;background:white}.qr img{width:100%;height:100%;object-fit:contain}.footer{margin-top:.12in;color:#7e8f9f;font-size:7px}
+@media(max-width:900px){.sheet{width:100%;min-height:auto;margin:0;box-shadow:none}.header{height:auto}.result img{height:auto}.toolbar{position:static}}
+@media print{@page{size:Letter;margin:0}.toolbar{display:none!important}html,body{background:white}.sheet{margin:0;box-shadow:none;width:8.5in;height:11in;overflow:hidden}}
+</style>
+</head>
+<body>
+<div class="toolbar"><a href="../software/">← BAITSSS Desktop</a><button class="primary" onclick="window.print()">Save / Print PDF</button></div>
+<main class="sheet">
+<section class="header">
+  <div class="brand"><img src="../assets/published-science/BAITSSS%20Logo.png" alt="BAITSSS"><div class="tag">DESKTOP V1</div></div>
+  <div class="headline">Field-scale water diagnosis,<br>consumptive-use analysis,<br><span>and irrigation simulation.</span></div>
+  <p class="sub">BAITSSS Desktop V1 is the first release version of a scientific desktop system for field-scale evapotranspiration, soil water, irrigation analysis, and field investigation.</p>
+</section>
+<section class="body">
+  <div class="intro"><h2>From satellite and hourly weather inputs to completed scientific results.</h2><p>The desktop workflow combines Landsat observations, terrain, soils, land cover, and NLDAS hourly weather with BAITSSS simulation and result analysis.</p></div>
+  <div class="result"><img src="../assets/published-science/ET_sum_2013-05-10_2013-09-15_website.png" alt="Actual BAITSSS Kansas GMD4 evapotranspiration result"><div class="trust"><strong>ACTUAL KANSAS GMD4 BAITSSS RESULT</strong><span>Seasonal ET result · completed scientific simulation</span></div></div>
+  <div class="proofs"><div class="proof"><strong>NLDAS HOURLY WEATHER</strong><span>Meteorological forcing</span></div><div class="proof"><strong>30 m FIELD ANALYSIS</strong><span>Spatially distributed output</span></div><div class="proof"><strong>PIXEL + TIME SERIES</strong><span>Inspect individual locations</span></div><div class="proof"><strong>REPORT + EXPORT</strong><span>Carry results outside the app</span></div></div>
+  <h2 class="workflow-title">What you do with BAITSSS Desktop</h2>
+  <div class="workflow"><div class="step"><span class="n">01</span><h3>DEFINE</h3><p>Set the AOI, project, and simulation period.</p></div><div class="step"><span class="n">02</span><h3>PREPARE</h3><p>Verify Landsat, DEM, soils, land cover, and NLDAS hourly weather.</p></div><div class="step"><span class="n">03</span><h3>RUN</h3><p>Execute the hourly BAITSSS scientific simulation.</p></div><div class="step"><span class="n">04</span><h3>RESULTS</h3><p>Inspect ET, soil water, weather, irrigation, maps, time series, and exports.</p></div></div>
+  <div class="science"><div><b>SCIENTIFIC FOUNDATION</b><strong>Two-source energy balance + two-layer soil-water balance</strong></div><span>Hourly NLDAS forcing · Landsat · 30 m analysis</span></div>
+  <div class="cta"><div><h2>See the working product</h2><p>Explore capabilities, science, evidence, documentation, access, and contact information.</p><div class="links"><a class="linkbtn" href="https://baitsss.com/">EXPLORE BAITSSS.COM</a><span class="contact">contact@baitsss.com</span></div></div><div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fbaitsss.com" alt="QR code for baitsss.com"></div></div>
+  <div class="footer">Research · Water management · Irrigation · Education · Field investigation</div>
+</section>
+</main>
+</body>
+</html>
