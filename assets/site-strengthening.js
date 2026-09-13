@@ -33,19 +33,52 @@
 
     var video=hero.querySelector('.hero-video');
     var frame=video&&video.querySelector('.hero-video-frame');
-    var iframe=frame&&frame.querySelector('iframe');
+    var iframe=frame&&frame.querySelector('iframe[src*="linkedin.com/embed/feed/update"]');
     if(!video || !frame || !iframe) return;
 
-    var style=document.createElement('style');
-    style.textContent='\
-      .hero-video-frame{position:relative;isolation:isolate;overflow:hidden!important}\
-      .hero-video-frame iframe{position:absolute!important;left:0!important;top:0!important;width:calc(100% + 20px)!important;height:100%!important;max-width:none!important;border:0!important;overflow:hidden!important}\
-      .hero-video-meta{margin-top:0}\
-      @media(max-width:560px){.hero-video-frame iframe{width:calc(100% + 18px)!important}}';
-    document.head.appendChild(style);
+    /* Deterministic LinkedIn crop.
+       The prior desktop framing was visually correct with a ~620 px container,
+       top crop 350 px, and visible height 620/2.08. Normalizing those values to
+       a fixed 504 px LinkedIn layout gives Y0 ~= 285 px and H0 ~= 242 px.
+       LinkedIn therefore always receives a 504 px layout viewport; only the
+       visual transform changes with the hero container width. */
+    var W0=504;
+    var Y0=285;
+    var H0=242;
+    var IFRAME_H=900;
 
+    iframe.setAttribute('width',String(W0));
+    iframe.setAttribute('height',String(IFRAME_H));
     iframe.setAttribute('scrolling','no');
     iframe.setAttribute('frameborder','0');
+
+    function applyFixedLinkedInCrop(){
+      var containerWidth=frame.clientWidth;
+      if(!containerWidth) return;
+      var scale=containerWidth/W0;
+
+      frame.style.setProperty('height',(H0*scale)+'px','important');
+      frame.style.setProperty('aspect-ratio','auto','important');
+
+      iframe.style.setProperty('position','absolute','important');
+      iframe.style.setProperty('left','0','important');
+      iframe.style.setProperty('top',(-Y0*scale)+'px','important');
+      iframe.style.setProperty('width',W0+'px','important');
+      iframe.style.setProperty('height',IFRAME_H+'px','important');
+      iframe.style.setProperty('max-width','none','important');
+      iframe.style.setProperty('transform-origin','top left','important');
+      iframe.style.setProperty('transform','scale('+scale+')','important');
+      iframe.style.setProperty('border','0','important');
+    }
+
+    applyFixedLinkedInCrop();
+    window.addEventListener('resize',applyFixedLinkedInCrop,{passive:true});
+    if(window.ResizeObserver){
+      var observer=new ResizeObserver(applyFixedLinkedInCrop);
+      observer.observe(frame);
+    }
+    window.setTimeout(applyFixedLinkedInCrop,100);
+    window.setTimeout(applyFixedLinkedInCrop,500);
   }
 
   function strengthen(){
