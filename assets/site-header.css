@@ -43,13 +43,14 @@ iframe[src*="linkedin.com/embed/feed/update"]{display:none!important}
 }
 
 /* iPhone/small-mobile authority. LinkedIn reflows the post here, so these
-   values are intentionally independent from desktop. Keep them isolated until
-   the mobile crop is verified visually. */
+   values are intentionally independent from desktop. The mobile document is
+   shifted much farther upward so the post text clears the viewport and the
+   actual video occupies the hero frame. */
 @media(max-width:560px){
   .hero-video-frame{
-    --li-top:-210px;
-    --li-height:900px;
-    --li-extra-width:20px;
+    --li-top:-480px;
+    --li-height:980px;
+    --li-extra-width:6px;
     aspect-ratio:16/9!important;
   }
 }
