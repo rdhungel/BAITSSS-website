@@ -129,6 +129,22 @@
       if(lede) text(lede,'BAITSSS is both a scientific model and desktop software. Results depend on the inputs, assumptions, and uncertainty in each application.');
     }
 
+    if(path==='/faq'){
+      var faqWrap=document.querySelector('.faqs .wrap');
+      if(faqWrap && !document.getElementById('faq-weather-routes-parallel')){
+        var article=document.createElement('article');
+        article.className='faq';
+        article.id='faq-weather-routes-parallel';
+        article.innerHTML='<h2>Can I run the Weather Station and gridded NLDAS routes at the same time?</h2><p>Yes. The <strong>Weather Station route and gridded NLDAS route are independent</strong>, so they can run at the same time. Running one does not restrict or block the other.</p>';
+        var anchor=Array.prototype.find.call(faqWrap.querySelectorAll('.faq'),function(node){
+          var title=node.querySelector('h2');
+          return title && title.textContent.indexOf('Can I use my own satellite or weather data?')===0;
+        });
+        if(anchor) faqWrap.insertBefore(article,anchor);
+        else faqWrap.appendChild(article);
+      }
+    }
+
     if(path==='/origins-publications'){
       setMeta('BAITSSS scientific history and publications trace the development of the model through evapotranspiration, energy-balance, soil-water, irrigation, remote-sensing, and desktop-software research.','https://baitsss.com/origins-publications/');
       if(lede) text(lede,'BAITSSS developed through research on evapotranspiration, surface energy balance, soil-water accounting, irrigation, remote sensing, and later computational and desktop software development.');
