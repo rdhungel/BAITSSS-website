@@ -52,33 +52,17 @@
     links.appendChild(flyer);
   }
 
-  function installBusinessEcosystemLink(){
+  function installBusinessIndustryLink(){
     var path=window.location.pathname.replace(/\/+$/,'')||'/';
     if(path!=='/business')return;
     var note=document.querySelector('.hero .hero-note');
-    if(!note || note.querySelector('[data-baitsss-ecosystem-link]'))return;
+    if(!note || note.querySelector('[data-baitsss-industry-link]'))return;
 
     var row=document.createElement('div');
     row.style.marginTop='16px';
     row.style.display='flex';
     row.style.flexWrap='wrap';
     row.style.gap='10px';
-
-    var ecosystem=document.createElement('a');
-    ecosystem.href='/business-ecosystem/';
-    ecosystem.setAttribute('data-baitsss-ecosystem-link','true');
-    ecosystem.textContent='Explore the agricultural water technology ecosystem →';
-    ecosystem.style.display='inline-flex';
-    ecosystem.style.alignItems='center';
-    ecosystem.style.justifyContent='center';
-    ecosystem.style.padding='10px 15px';
-    ecosystem.style.borderRadius='9px';
-    ecosystem.style.background='#c9ee82';
-    ecosystem.style.color='#07131f';
-    ecosystem.style.textDecoration='none';
-    ecosystem.style.fontWeight='800';
-    ecosystem.style.fontSize='14px';
-    row.appendChild(ecosystem);
 
     var industry=document.createElement('a');
     industry.href='/industry-partnership/';
@@ -102,18 +86,18 @@
   function installDuplicateGuard(){
     removeDuplicateLinkedInEmbeds();
     installSoftwareFlyerLink();
-    installBusinessEcosystemLink();
+    installBusinessIndustryLink();
     var observer=new MutationObserver(function(){
       removeDuplicateLinkedInEmbeds();
       installSoftwareFlyerLink();
-      installBusinessEcosystemLink();
+      installBusinessIndustryLink();
     });
     observer.observe(document.documentElement,{childList:true,subtree:true});
     [50,150,400,900,1800,3500].forEach(function(delay){
       window.setTimeout(function(){
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
-        installBusinessEcosystemLink();
+        installBusinessIndustryLink();
       },delay);
     });
   }
@@ -134,7 +118,7 @@
       load('/assets/mobile-linkedin-fix.js?v=20260913-1',function(){
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
-        installBusinessEcosystemLink();
+        installBusinessIndustryLink();
       });
     });
   });
