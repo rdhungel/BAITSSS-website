@@ -33,12 +33,25 @@ When duplication is found:
 - `/science/` — Scientific Stewardship and BAITSSS model science
 - `/research-education/` — research and education
 - `/access-participation/` — access and collaboration
+- `/business/` — public business value, organizational use cases, licensing, integration, partnership, sponsored development, and acquisition pathways
 - `/software-development/` — Software Development & Verification
 - `/people/` — Team & Current Stewardship
 - `/origins-publications/` — Scientific History & Publications
 - `/faq/` — Frequently Asked Questions
 - `/documentation/` — documentation index
 - `/contact/` — contact
+
+## Business authority and public-strategy boundary
+
+`/business/` is the only editable live authority for public business communication. It may explain what BAITSSS provides, who can use it, organizational use cases, licensing, integration, partnership, sponsored development, and acquisition pathways.
+
+Internal commercial research does not become public website content merely because its sources are public. Prospect lists, named outreach targets, "likely role / door" tables, priority rankings, acquisition-target lists, contact strategy, negotiation posture, market-penetration plans, and other business-development working material must remain internal unless an explicit public-content decision approves a specific item for publication.
+
+Public pages should explain BAITSSS value and legitimate ways organizations can engage with BAITSSS. They should not reveal who BAITSSS plans to approach, how targets are ranked, or what internal path is expected to reach them.
+
+Legacy route:
+
+- `/business-ecosystem/` → redirect only to `/business/`
 
 ## Scientific stewardship authority
 
@@ -104,5 +117,6 @@ For every website change:
 4. Preserve earlier states through commits.
 5. If a legacy URL must remain, make it a redirect only.
 6. Verify navigation points to the canonical route.
+7. Before publishing business-development material, ask whether the content explains BAITSSS to an external visitor or exposes BAITSSS internal targeting strategy. Only the first category belongs on the public site by default.
 
 This is the release-stage website rule going forward.
