@@ -83,6 +83,22 @@
     note.appendChild(row);
   }
 
+  function installResearchInquiryCta(){
+    var path=window.location.pathname.replace(/\/+$/,'')||'/';
+    if(path!=='/research-education')return;
+    var main=document.querySelector('main');
+    if(!main || main.querySelector('[data-baitsss-research-inquiry]'))return;
+
+    var section=document.createElement('section');
+    section.className='section';
+    section.setAttribute('data-baitsss-research-inquiry','true');
+    section.innerHTML='<div class="wrap"><div class="section-head"><div class="section-kicker">Start a research inquiry</div><div><h2>Have a research or field-water question? Start with four things.</h2><p class="section-intro">You do not need to request software first. Send the place, period, question, and available evidence so we can determine whether BAITSSS is a reasonable fit and what kind of support makes sense.</p></div></div><div class="grid three"><article class="card research"><div class="tag">01 · PLACE</div><h3>Where?</h3><p>Field, farm, district, basin, research site, or study area.</p></article><article class="card research"><div class="tag">02 · PERIOD</div><h3>When?</h3><p>Event, growing season, year, multi-year period, or another time window.</p></article><article class="card research"><div class="tag">03 · QUESTION</div><h3>What needs an answer?</h3><p>What do you need to understand, compare, estimate, investigate, or support?</p></article></div><div class="package" style="margin-top:16px"><article class="panel"><div class="label">04 · EVIDENCE</div><p>Tell us what already exists: irrigation, weather, soil, field observations, remote sensing, or other project data.</p><div class="cta-row"><a class="button button-primary" href="/research-education/inquiry/">Describe Your Project</a><a class="button" href="/assets/docs/BAITSSS_Project_and_Research_Inquiry_Guide.pdf" target="_blank" rel="noopener">Inquiry Guide (PDF)</a></div></article><aside class="notice"><strong>Student or source-code request?</strong><p>Student projects are welcome. When a request involves substantial technical support, software access, or source code, the advisor or supervisor should join the discussion so the research objective, responsibilities, and appropriate pathway can be defined together. Source-code transfer is not automatic.</p></aside></div></div>';
+
+    var target=main.lastElementChild;
+    if(target) main.insertBefore(section,target);
+    else main.appendChild(section);
+  }
+
   function releaseButton(label){
     var a=document.createElement('a');
     a.href='/downloads/';
@@ -150,11 +166,13 @@
     removeDuplicateLinkedInEmbeds();
     installSoftwareFlyerLink();
     installBusinessIndustryLink();
+    installResearchInquiryCta();
     installReleaseDownloadLinks();
     var observer=new MutationObserver(function(){
       removeDuplicateLinkedInEmbeds();
       installSoftwareFlyerLink();
       installBusinessIndustryLink();
+      installResearchInquiryCta();
       installReleaseDownloadLinks();
     });
     observer.observe(document.documentElement,{childList:true,subtree:true});
@@ -163,6 +181,7 @@
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
         installBusinessIndustryLink();
+        installResearchInquiryCta();
         installReleaseDownloadLinks();
       },delay);
     });
@@ -185,6 +204,7 @@
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
         installBusinessIndustryLink();
+        installResearchInquiryCta();
         installReleaseDownloadLinks();
       });
     });
