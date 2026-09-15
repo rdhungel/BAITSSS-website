@@ -83,14 +83,79 @@
     note.appendChild(row);
   }
 
+  function releaseButton(label){
+    var a=document.createElement('a');
+    a.href='/downloads/';
+    a.textContent=label;
+    a.style.display='inline-flex';
+    a.style.alignItems='center';
+    a.style.justifyContent='center';
+    a.style.minHeight='46px';
+    a.style.padding='0 17px';
+    a.style.borderRadius='9px';
+    a.style.background='#c9ee82';
+    a.style.color='#07131f';
+    a.style.textDecoration='none';
+    a.style.fontWeight='800';
+    a.style.fontSize='14px';
+    return a;
+  }
+
+  function installReleaseDownloadLinks(){
+    var path=window.location.pathname.replace(/\/+$/,'')||'/';
+
+    if(path==='/software'){
+      var heroLinks=document.querySelector('.hero .release-links');
+      if(heroLinks && !heroLinks.querySelector('[data-baitsss-download-link]')){
+        var heroDownload=document.createElement('a');
+        heroDownload.href='/downloads/';
+        heroDownload.setAttribute('data-baitsss-download-link','true');
+        heroDownload.textContent='Authorized Downloads →';
+        heroLinks.appendChild(heroDownload);
+      }
+
+      var main=document.querySelector('main');
+      if(main && !main.querySelector('[data-baitsss-download-section]')){
+        var section=document.createElement('section');
+        section.className='section';
+        section.id='downloads';
+        section.setAttribute('data-baitsss-download-section','true');
+        section.innerHTML='<div class="wrap"><div class="section-head"><div class="section-kicker">Release access</div><div><h2>Download BAITSSS Desktop V1</h2><p class="section-intro">The Windows installer and BAITSSS Desktop V1 User Manual will be distributed through an authorized download area after final release validation. The public website does not host the protected release files.</p></div></div><div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px"><article style="padding:26px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.02)"><div class="dev-label">Windows desktop software</div><h3 style="margin:12px 0 10px;font-size:22px">BAITSSS Desktop V1</h3><p style="margin:0 0 20px;color:var(--text-dim);font-size:14.5px;line-height:1.7">Final installer identity, build information, and release file will be activated only after the frozen release candidate passes final validation.</p><span style="display:inline-flex;padding:7px 10px;border-radius:999px;border:1px solid rgba(233,183,102,.28);color:var(--amber);font-size:12px;font-weight:800">Release validation in progress</span></article><article style="padding:26px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.02)"><div class="dev-label">Documentation</div><h3 style="margin:12px 0 10px;font-size:22px">BAITSSS Desktop V1 User Manual</h3><p style="margin:0 0 20px;color:var(--text-dim);font-size:14.5px;line-height:1.7">The final PDF manual will be released with the validated software so the documentation matches the frozen product build.</p><span style="display:inline-flex;padding:7px 10px;border-radius:999px;border:1px solid rgba(233,183,102,.28);color:var(--amber);font-size:12px;font-weight:800">Final validation pending</span></article></div><div style="margin-top:22px"></div></div>';
+        var buttonWrap=section.querySelector('.wrap > div:last-child');
+        buttonWrap.appendChild(releaseButton('Open Authorized Download Area →'));
+        var sections=main.querySelectorAll(':scope > section.section');
+        var lastSection=sections.length?sections[sections.length-1]:null;
+        if(lastSection) main.insertBefore(section,lastSection);
+        else main.appendChild(section);
+      }
+    }
+
+    if(path==='/access-participation'){
+      var accessMain=document.querySelector('main');
+      if(accessMain && !accessMain.querySelector('[data-baitsss-access-downloads]')){
+        var accessSection=document.createElement('section');
+        accessSection.className='section';
+        accessSection.setAttribute('data-baitsss-access-downloads','true');
+        accessSection.innerHTML='<div class="wrap"><div class="request-box"><div><div class="section-kicker">Authorized downloads</div><h2>Software and manual access</h2><p>BAITSSS Desktop V1 will be distributed through a protected download area after final release validation. Approved users will receive access credentials for the validated Windows installer and the matching User Manual. Protected release files are not stored on the public GitHub Pages site.</p></div><div class="cta-row" data-baitsss-access-download-button></div></div></div>';
+        var target=accessMain.lastElementChild;
+        if(target) accessMain.insertBefore(accessSection,target);
+        else accessMain.appendChild(accessSection);
+        var accessButton=accessSection.querySelector('[data-baitsss-access-download-button]');
+        accessButton.appendChild(releaseButton('Authorized Download Area →'));
+      }
+    }
+  }
+
   function installDuplicateGuard(){
     removeDuplicateLinkedInEmbeds();
     installSoftwareFlyerLink();
     installBusinessIndustryLink();
+    installReleaseDownloadLinks();
     var observer=new MutationObserver(function(){
       removeDuplicateLinkedInEmbeds();
       installSoftwareFlyerLink();
       installBusinessIndustryLink();
+      installReleaseDownloadLinks();
     });
     observer.observe(document.documentElement,{childList:true,subtree:true});
     [50,150,400,900,1800,3500].forEach(function(delay){
@@ -98,6 +163,7 @@
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
         installBusinessIndustryLink();
+        installReleaseDownloadLinks();
       },delay);
     });
   }
@@ -119,6 +185,7 @@
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
         installBusinessIndustryLink();
+        installReleaseDownloadLinks();
       });
     });
   });
