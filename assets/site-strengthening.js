@@ -22,6 +22,12 @@
     }
   }
 
+  function setExact(selector,from,to){
+    Array.prototype.forEach.call(document.querySelectorAll(selector),function(el){
+      if((el.textContent||'').trim()===from) el.textContent=to;
+    });
+  }
+
   function installValidationBoundary(){
     var path=window.location.pathname.replace(/\/+$/,'')||'/';
     if(path!=='/access-participation' && path!=='/research-education') return;
@@ -31,11 +37,45 @@
     var section=document.createElement('section');
     section.className='section';
     section.setAttribute('data-baitsss-validation-boundary','true');
-    section.innerHTML='<div class="wrap"><div style="padding:28px 30px;border:1px solid rgba(201,238,130,.24);border-radius:15px;background:linear-gradient(145deg,rgba(201,238,130,.055),rgba(255,255,255,.012))"><div class="section-kicker" style="margin-bottom:8px">Independent evaluation and validation</div><h2 style="margin:0 0 12px">Validation is a defined project, not a reason for free software or source-code access.</h2><p style="margin:0;color:var(--text-dim);font-size:15px;line-height:1.72;max-width:980px">BAITSSS does not depend on outside users taking a free copy in order to validate the system. Researchers who want to use BAITSSS to evaluate, benchmark, or validate their own method are welcome to propose that work, but the analysis, software access, technical support, and any required BAITSSS participation must be scoped like other research or professional work. Source-code transfer is a separate decision and is never automatic.</p></div></div>';
+    section.innerHTML='<div class="wrap"><div style="padding:28px 30px;border:1px solid rgba(201,238,130,.24);border-radius:15px;background:linear-gradient(145deg,rgba(201,238,130,.055),rgba(255,255,255,.012))"><div class="section-kicker" style="margin-bottom:8px">Independent evaluation and validation</div><h2 style="margin:0 0 12px">Validation and benchmarking can be discussed as defined project work.</h2><p style="margin:0;color:var(--text-dim);font-size:15px;line-height:1.72;max-width:980px">Researchers interested in evaluating, benchmarking, or comparing methods are welcome to contact us. Because this work may involve software access, model execution, technical support, or interpretation, the appropriate scope and access arrangement are considered together with the project team. Source-code access, where relevant, is considered separately in the context of the project and institutional arrangement.</p></div></div>';
 
     var target=main.lastElementChild;
     if(target) main.insertBefore(section,target);
     else main.appendChild(section);
+  }
+
+  function applyNeutralTone(path){
+    if(path==='/access-participation'){
+      setExact('h2','Different projects can enter at different levels.','Different projects may call for different forms of participation.');
+      setExact('p','The goal is not to force every visitor into software access. Some projects may need only guidance, some need a defined analysis, some become research collaborations, and some organizations may want the software or a larger technical integration.','Different projects may be best served by different forms of participation. Some may benefit from a brief discussion or defined analysis, while others may develop into research collaboration, software use, training, or a larger technical arrangement.');
+      setExact('p','Start with the research question rather than a request for the model itself. We can discuss whether BAITSSS fits the scientific problem and whether the useful next step is guidance, a defined analysis, training, or a broader research collaboration.','For student work, it is usually most helpful to begin with the research question and study context. We can then discuss whether BAITSSS is a reasonable fit and whether guidance, a defined analysis, training, software use, or a broader collaboration would be appropriate.');
+      setExact('p','If the project is not yet fully defined, that is still a valid starting point. Review the public science and software, request a demonstration, or contact us with the problem so we can determine whether a more substantial pathway is justified.','If a project is still being developed, an early discussion can still be useful. The public science and software materials may provide a starting point, and a demonstration or short conversation can help clarify whether a more substantial pathway would be useful.');
+    }
+
+    if(path==='/research-education'){
+      var inquiry=document.querySelector('[data-baitsss-research-inquiry]');
+      if(inquiry){
+        var intro=inquiry.querySelector('.section-intro');
+        if(intro) text(intro,'A useful starting point is to send the place, period, question, and available evidence. From there, we can consider whether BAITSSS is a reasonable fit and what kind of support may be appropriate.');
+        var noticeStrong=inquiry.querySelector('.notice strong');
+        if(noticeStrong) text(noticeStrong,'For student projects and access questions');
+        var noticeP=inquiry.querySelector('.notice p');
+        if(noticeP) text(noticeP,'Student projects are welcome. When a request involves substantial technical support, software access, validation, benchmarking, or source-code questions, including the advisor or project lead helps us understand the research objective and discuss an appropriate arrangement. Access options are considered in the context of the project.');
+      }
+    }
+
+    if(path==='/business'){
+      var businessHero=document.querySelector('main .hero');
+      var businessH1=businessHero&&businessHero.querySelector('h1');
+      var businessLede=businessHero&&first(businessHero,['.lede','.hero-lede']);
+      if(businessH1) text(businessH1,'Bring the water problem. We can explore whether BAITSSS can support the analysis.');
+      if(businessLede) text(businessLede,'For a defined field, study area, research question, or water-management need, BAITSSS may provide a useful framework for project-specific analysis. An initial discussion can help clarify the question, available evidence, possible outputs, and an appropriate level of technical involvement.');
+      setExact('h2','You do not have to become the software operator first.','A project can begin with the question rather than with software operation.');
+      setExact('p','A useful project begins with the decision, research question, field, district, or technical problem. We can determine whether BAITSSS is appropriate, what data are needed, what can be analyzed defensibly, and what form of result is useful.','A useful project often begins with the decision, research question, field, district, or technical problem. An initial discussion can help determine whether BAITSSS is appropriate, what information may be needed, and what form of analysis or result would be useful.');
+      setExact('h3','Use BAITSSS as the analysis environment, not as the research question','Use BAITSSS as a possible analysis environment around a defined research question');
+      setExact('p','Support university, agency, consulting, and collaborative studies that need a reproducible satellite-to-field workflow without rebuilding the complete scientific software stack for every project.','For university, agency, consulting, and collaborative studies, BAITSSS may provide a reproducible satellite-to-field workflow when that approach is suitable for the project.');
+      setExact('p','Define the study area, period, available information, and question. We perform the agreed analysis and provide the resulting maps, time series, exports, interpretation, and technical record appropriate to the scope.','After the study area, period, available information, and question are defined, a project scope may include analysis, maps, time series, exports, interpretation, and a technical record appropriate to the agreed work.');
+    }
   }
 
   function tuneHomepageFlagshipVideo(hero){
@@ -110,17 +150,21 @@
     }
 
     if(path==='/access-participation'){
-      setMeta('BAITSSS participation is organized around defined scientific, educational, institutional, project, or professional purposes rather than general software distribution. Evaluation or validation work is handled as a scoped project, not as a basis for free software or source-code access.','https://baitsss.com/access-participation/');
-      text(h1,'Start with the work you want to do.');
-      if(lede) text(lede,'BAITSSS participation is organized around a defined scientific, educational, institutional, project, or professional purpose rather than general software distribution. Evaluation and validation requests follow the same scoped-project pathway.');
+      setMeta('BAITSSS participation can take different forms depending on the scientific, educational, institutional, project, or professional context. Evaluation and validation work can be discussed as part of an appropriately defined project.','https://baitsss.com/access-participation/');
+      text(h1,'Start with the question or project you would like to explore.');
+      if(lede) text(lede,'Students, advisors, researchers, universities, agencies, professionals, and organizations are welcome to begin with the problem, study context, or intended use. From there, we can discuss whether BAITSSS is a reasonable fit and what form of participation may be appropriate.');
       installValidationBoundary();
     }
 
     if(path==='/research-education'){
-      setMeta('BAITSSS supports research and education built around field experiments, monitoring sites, independent datasets, teaching objectives, and defined research questions. Validation and benchmarking projects are scoped research work, not a route to free software or source code.','https://baitsss.com/research-education/');
-      text(h1,'Bring the scientific question. Use BAITSSS as the modeling environment.');
-      if(lede) text(lede,'BAITSSS can support research built around a field experiment, monitoring site, independent dataset, teaching objective, or defined research question.');
+      setMeta('BAITSSS supports research and education built around field experiments, monitoring sites, independent datasets, teaching objectives, and defined research questions. Evaluation and benchmarking work can be discussed within an appropriately scoped project.','https://baitsss.com/research-education/');
+      text(h1,'Bring the scientific question. We can explore whether BAITSSS fits the work.');
+      if(lede) text(lede,'BAITSSS may support research built around a field experiment, monitoring site, independent dataset, teaching objective, or defined research question. The first step is to understand the scientific need and available evidence.');
       installValidationBoundary();
+    }
+
+    if(path==='/business'){
+      setMeta('BAITSSS can support project-specific field-water, evapotranspiration, soil-water, irrigation, and satellite-analysis work where the scientific and technical fit is appropriate.','https://baitsss.com/business/');
     }
 
     if(path==='/contact'){
@@ -160,6 +204,8 @@
       setMeta('BAITSSS scientific history and publications trace the development of the model through evapotranspiration, energy-balance, soil-water, irrigation, remote-sensing, and desktop-software research.','https://baitsss.com/origins-publications/');
       if(lede) text(lede,'BAITSSS developed through research on evapotranspiration, surface energy balance, soil-water accounting, irrigation, remote sensing, and later computational and desktop software development.');
     }
+
+    applyNeutralTone(path);
 
     Array.prototype.forEach.call(document.querySelectorAll('h1,h2,h3,p,span,div'),function(el){
       if(el.children.length) return;
