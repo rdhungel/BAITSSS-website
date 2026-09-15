@@ -44,6 +44,23 @@
     else main.appendChild(section);
   }
 
+  function installHomepageAudienceValue(){
+    var path=window.location.pathname.replace(/\/+$/,'')||'/';
+    if(path!=='/') return;
+    var section=document.querySelector('main .user-value');
+    if(!section || section.getAttribute('data-baitsss-audience-value')==='true') return;
+
+    section.setAttribute('data-baitsss-audience-value','true');
+    section.innerHTML='<div class="wrap"><div class="user-value-head"><div class="eyebrow">Why this matters in practice</div><h2 class="user-value-title">A scientific model becomes useful when it helps move real work forward.</h2><p class="user-value-copy">BAITSSS is designed for projects where field-scale water analysis must become a report, research result, proposal, management decision, technical record, or repeatable workflow. The value is not a single ET number; it is the scientific and computational framework around the analysis.</p></div><div class="home-audience-list"><article class="home-audience-row"><div class="home-audience-role">Water managers &amp; districts</div><div><h3>Support reporting and management questions with a reproducible field record.</h3><p>When a report, allocation review, or management decision is due, BAITSSS can bring ET, soil-water, irrigation, spatial patterns, and time-series evidence into one documented project workflow.</p></div></article><article class="home-audience-row"><div class="home-audience-role">Students</div><div><h3>Keep limited research time focused on the scientific question.</h3><p>Graduate and student projects often have fixed deadlines. BAITSSS provides a working environment for data preparation, hourly simulation, Results, and provenance so a project does not have to rebuild the full modeling infrastructure before analysis can begin.</p></div></article><article class="home-audience-row"><div class="home-audience-role">Faculty &amp; researchers</div><div><h3>Use an established workflow inside proposals, funded studies, and collaborative research.</h3><p>BAITSSS can provide a defined modeling environment for studies that need field-scale water analysis, reproducible execution, documented assumptions, and outputs that can be carried into interpretation and publication work.</p></div></article><article class="home-audience-row"><div class="home-audience-role">State &amp; federal programs</div><div><h3>Connect technical analysis with program questions and field-level outcomes.</h3><p>Program teams often need to explain how technical work relates to agricultural water use, irrigation behavior, and field conditions. BAITSSS can support documented analyses and interpretable outputs that help communicate those relationships to leadership, partners, and producers.</p></div></article><article class="home-audience-row"><div class="home-audience-role">Consulting &amp; technology organizations</div><div><h3>Add a scientific modeling component without rebuilding the entire workflow.</h3><p>For projects that need field-scale ET, soil-water, irrigation analysis, repeatable runs, and technical documentation, BAITSSS can serve as a scientific component within a broader consulting, engineering, or data pipeline.</p></div></article></div><div class="user-actions"><a class="btn btn-primary" href="business/">Projects &amp; Services</a><a class="btn btn-secondary" href="research-education/">Research &amp; Education</a><a class="btn btn-secondary" href="contact/">Discuss a Project</a></div></div>';
+
+    if(!document.getElementById('baitsss-home-audience-style')){
+      var style=document.createElement('style');
+      style.id='baitsss-home-audience-style';
+      style.textContent='.home-audience-list{border-top:1px solid var(--line-strong)}.home-audience-row{display:grid;grid-template-columns:minmax(180px,.34fr) minmax(0,1fr);gap:34px;padding:25px 0;border-bottom:1px solid var(--line)}.home-audience-role{padding-top:4px;color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.home-audience-row h3{margin:0 0 8px;font-size:20px;line-height:1.35}.home-audience-row p{margin:0;max-width:870px;color:var(--text-dim);font-size:14.5px;line-height:1.68}@media(max-width:760px){.home-audience-row{grid-template-columns:1fr;gap:8px;padding:21px 0}}';
+      document.head.appendChild(style);
+    }
+  }
+
   function applyNeutralTone(path){
     if(path==='/access-participation'){
       setExact('h2','Different projects can enter at different levels.','Different projects may call for different forms of participation.');
@@ -137,8 +154,9 @@
     var eyebrow=hero&&first(hero,['.eyebrow','.hero-kicker']);
 
     if(path==='/'){
-      setMeta('BAITSSS Desktop V1 is the first release version of a field-scale scientific system for evapotranspiration, soil water, irrigation analysis, and field investigation.','https://baitsss.com/');
+      setMeta('BAITSSS Desktop V1 supports field-scale water analysis for research, reporting, management, public programs, and professional technical workflows.','https://baitsss.com/');
       tuneHomepageFlagshipVideo(hero);
+      installHomepageAudienceValue();
     }
 
     if(path==='/software'){
