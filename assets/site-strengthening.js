@@ -22,11 +22,25 @@
     }
   }
 
+  function installValidationBoundary(){
+    var path=window.location.pathname.replace(/\/+$/,'')||'/';
+    if(path!=='/access-participation' && path!=='/research-education') return;
+    var main=document.querySelector('main');
+    if(!main || main.querySelector('[data-baitsss-validation-boundary]')) return;
+
+    var section=document.createElement('section');
+    section.className='section';
+    section.setAttribute('data-baitsss-validation-boundary','true');
+    section.innerHTML='<div class="wrap"><div style="padding:28px 30px;border:1px solid rgba(201,238,130,.24);border-radius:15px;background:linear-gradient(145deg,rgba(201,238,130,.055),rgba(255,255,255,.012))"><div class="section-kicker" style="margin-bottom:8px">Independent evaluation and validation</div><h2 style="margin:0 0 12px">Validation is a defined project, not a reason for free software or source-code access.</h2><p style="margin:0;color:var(--text-dim);font-size:15px;line-height:1.72;max-width:980px">BAITSSS does not depend on outside users taking a free copy in order to validate the system. Researchers who want to use BAITSSS to evaluate, benchmark, or validate their own method are welcome to propose that work, but the analysis, software access, technical support, and any required BAITSSS participation must be scoped like other research or professional work. Source-code transfer is a separate decision and is never automatic.</p></div></div>';
+
+    var target=main.lastElementChild;
+    if(target) main.insertBefore(section,target);
+    else main.appendChild(section);
+  }
+
   function tuneHomepageFlagshipVideo(hero){
     if(!hero) return;
 
-    /* The flagship player now lives directly in index.html. Remove any legacy
-       injected copy left by older cached homepage strengthening code. */
     Array.prototype.forEach.call(document.querySelectorAll('.hero-flagship-video'),function(node){
       node.remove();
     });
@@ -36,11 +50,6 @@
     var iframe=frame&&frame.querySelector('iframe[src*="linkedin.com/embed/feed/update"]');
     if(!video || !frame || !iframe) return;
 
-    /* Fixed-layout LinkedIn crop.
-       LinkedIn always receives a 504 px layout viewport. The base video block
-       is a full 16:9 frame: H0 = 504 * 9 / 16 = 283.5 px, rounded to 284 px.
-       Y0 is the calibrated document offset to the top of the video. Only the
-       visual transform changes with the hero container width. */
     var W0=504;
     var Y0=285;
     var H0=284;
@@ -101,15 +110,17 @@
     }
 
     if(path==='/access-participation'){
-      setMeta('BAITSSS participation is organized around defined scientific, educational, evaluation, institutional, or professional purposes rather than general software distribution.','https://baitsss.com/access-participation/');
+      setMeta('BAITSSS participation is organized around defined scientific, educational, institutional, project, or professional purposes rather than general software distribution. Evaluation or validation work is handled as a scoped project, not as a basis for free software or source-code access.','https://baitsss.com/access-participation/');
       text(h1,'Start with the work you want to do.');
-      if(lede) text(lede,'BAITSSS participation is organized around a defined scientific, educational, evaluation, institutional, or professional purpose rather than general software distribution.');
+      if(lede) text(lede,'BAITSSS participation is organized around a defined scientific, educational, institutional, project, or professional purpose rather than general software distribution. Evaluation and validation requests follow the same scoped-project pathway.');
+      installValidationBoundary();
     }
 
     if(path==='/research-education'){
-      setMeta('BAITSSS supports research and education built around field experiments, monitoring sites, independent datasets, teaching objectives, and model-evaluation questions.','https://baitsss.com/research-education/');
+      setMeta('BAITSSS supports research and education built around field experiments, monitoring sites, independent datasets, teaching objectives, and defined research questions. Validation and benchmarking projects are scoped research work, not a route to free software or source code.','https://baitsss.com/research-education/');
       text(h1,'Bring the scientific question. Use BAITSSS as the modeling environment.');
-      if(lede) text(lede,'BAITSSS can support research built around a field experiment, monitoring site, independent dataset, teaching objective, or model-evaluation question.');
+      if(lede) text(lede,'BAITSSS can support research built around a field experiment, monitoring site, independent dataset, teaching objective, or defined research question.');
+      installValidationBoundary();
     }
 
     if(path==='/contact'){
@@ -150,7 +161,6 @@
       if(lede) text(lede,'BAITSSS developed through research on evapotranspiration, surface energy balance, soil-water accounting, irrigation, remote sensing, and later computational and desktop software development.');
     }
 
-    /* Keep language consistent where the same concepts appear in visible text. */
     Array.prototype.forEach.call(document.querySelectorAll('h1,h2,h3,p,span,div'),function(el){
       if(el.children.length) return;
       var t=el.textContent;
