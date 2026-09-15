@@ -1,0 +1,1 @@
+Temporary marker; binary PDF replacement will be committed through Git data.
