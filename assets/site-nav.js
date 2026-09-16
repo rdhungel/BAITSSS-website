@@ -199,7 +199,7 @@
   else installDuplicateGuard();
 
   load('/assets/site-nav-core.js?v=20260911-1',function(){
-    load('/assets/site-strengthening.js?v=20260912-fixed504-2',function(){
+    load('/assets/site-strengthening.js?v=20260915-water-positioning-1',function(){
       load('/assets/mobile-linkedin-fix.js?v=20260913-1',function(){
         removeDuplicateLinkedInEmbeds();
         installSoftwareFlyerLink();
