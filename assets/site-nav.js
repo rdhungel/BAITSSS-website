@@ -201,13 +201,15 @@
   load('/assets/site-nav-core.js?v=20260911-1',function(){
     load('/assets/site-strengthening.js?v=20260915-water-1',function(){
       load('/assets/water-management-context.js?v=20260915-1',function(){
-        load('/assets/site-coherence.js?v=20260915-1',function(){
-          load('/assets/mobile-linkedin-fix.js?v=20260913-1',function(){
-            removeDuplicateLinkedInEmbeds();
-            installSoftwareFlyerLink();
-            installBusinessIndustryLink();
-            installResearchInquiryCta();
-            installReleaseDownloadLinks();
+        load('/assets/site-coherence.js?v=20260915-2',function(){
+          load('/assets/evidence-history-coherence.js?v=20260915-1',function(){
+            load('/assets/mobile-linkedin-fix.js?v=20260913-1',function(){
+              removeDuplicateLinkedInEmbeds();
+              installSoftwareFlyerLink();
+              installBusinessIndustryLink();
+              installResearchInquiryCta();
+              installReleaseDownloadLinks();
+            });
           });
         });
       });
