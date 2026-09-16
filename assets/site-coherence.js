@@ -91,7 +91,6 @@
     if(path!=='/origins-publications') return;
     var h1=hero&&hero.querySelector('h1');
     if(h1 && /history|origins/i.test(h1.textContent||'')){
-      // Keep the historical title, but make the role of the history explicit in the lead.
       var lede=first(hero,['.hero-lede','.lede']);
       if(lede) txt(lede,'The BAITSSS record traces how field-scale water analysis developed through evapotranspiration, energy balance, soil-water accounting, irrigation, remote sensing, field evaluation, and later computational and desktop-software work across different agricultural water settings.');
     }
@@ -111,6 +110,14 @@
     var lede=first(hero,['.hero-lede','.lede']);
     if(lede) txt(lede,'Current stewardship covers the scientific continuity, desktop software, verification, documentation, release preparation, and collaboration pathways needed to maintain BAITSSS as a field-scale water-analysis system.');
   }
+  function loadProblemPathways(){
+    if(document.querySelector('script[data-baitsss-problem-pathways-loader]')) return;
+    var s=document.createElement('script');
+    s.src='/assets/problem-pathways.js?v=20260915-1';
+    s.async=false;
+    s.setAttribute('data-baitsss-problem-pathways-loader','true');
+    document.head.appendChild(s);
+  }
 
   function apply(){
     var path=window.location.pathname.replace(/\/+$/,'')||'/';
@@ -127,6 +134,7 @@
     tuneDocumentation(path,hero);
     tunePeople(path,hero);
     installFooterPositioning();
+    loadProblemPathways();
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',apply,{once:true});
