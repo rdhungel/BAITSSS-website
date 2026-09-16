@@ -8,6 +8,32 @@ The live BAITSSS website must have one active authority for each public subject.
 
 A legacy URL may remain only as a redirect to the current authority. It must not contain a second editable copy of the page.
 
+## Site-wide positioning rule
+
+Every public page, downloadable writeup, project description, outreach page, technical summary, and future public document should tell the same underlying story, while still serving its own purpose.
+
+BAITSSS is a field-scale water analysis and scientific decision-support system. It is not presented as a stand-alone evapotranspiration product looking for a use. Evapotranspiration is one part of a broader field-process system that includes soil-water state, irrigation behavior, vegetation, spatial variability, seasonal dynamics, scenario analysis, comparison with independent evidence, and reproducible technical interpretation.
+
+The public story should begin from water-management, research, or technical questions and then explain how BAITSSS contributes. The software is the working environment that makes the science repeatable, traceable, recoverable, and usable; the software itself is not the full public identity.
+
+The site should make clear that BAITSSS can work alongside existing measurements and systems, including weather networks, irrigation and delivery records, field measurements, satellite products, GIS, agency data, groundwater models, planning models, reporting systems, and other established technical tools. Those systems may be inputs, references, comparison sources, or neighboring components. BAITSSS generally does not replace the physical measurement itself.
+
+The documented development and application record across California, Kansas, Arizona, and Texas should be described as experience with different but closely related water problems. California provides a broad water-management context involving agricultural demand, conservation, groundwater pressure, salinity, spatial variability, remote sensing, accounting, regulation, and multi-layer planning. Kansas provides experience with restricted groundwater supply, irrigation allocation, seasonal water use, and comparison of modeled and reported irrigation. Yuma provides a hot desert agricultural setting with high evaporative demand for testing continuous hourly field behavior. Bushland provides strong independent field observations in a semiarid, advective environment for evaluating model behavior. These settings should be connected by the common questions they share rather than presented as unrelated case studies.
+
+Public language may state implemented capabilities directly. Neutral language does not require weakening factual statements with unnecessary qualifiers. Use careful qualifiers for project fit, future outcomes, uncertain interpretation, or capabilities that are still under development.
+
+Examples of direct capability language that are appropriate when technically accurate:
+
+- BAITSSS simulates field-scale evapotranspiration, surface and root-zone soil-water states, vegetation behavior, and irrigation through continuous hourly calculations.
+- BAITSSS supports spatial analysis, scenario comparison, selected-pixel time series, project reruns, scientific export, and reproducible run records.
+- BAITSSS can support conservation analysis, irrigation-management questions, agricultural-demand studies, method comparison, verification, drought and management scenarios, research, and technical planning where the field-process layer is relevant.
+
+Avoid language that makes BAITSSS sound isolated, tentative about its established capabilities, or dependent on replacing another system. Avoid presenting "ET" as the sole product identity. Avoid unsupported superiority claims such as "better" or "more accurate" unless a specific published or verified comparison supports the statement under defined conditions.
+
+For external audiences, use human water-resources language first: conservation, allocation, irrigation management, demand, verification, field response, drought, groundwater-demand inputs, recycled-water questions, research, planning, and technical interpretation. Technical model terminology belongs underneath that problem framing.
+
+Internal organization intelligence, prospect rankings, relationship history, contact strategy, and identified weaknesses of named organizations remain internal. Public pages may use the general lessons learned from that work, but should not expose the internal dossiers or targeting logic.
+
 ## Cross-page duplication rule
 
 Each subject has one page that owns the complete explanation. Other pages, especially Home, may show a short preview, one representative example, or a small fragment that helps a visitor understand what is available elsewhere.
@@ -113,10 +139,11 @@ For every website change:
 
 1. Identify the canonical page first.
 2. Edit only that authority page.
-3. Do not create a second live copy for testing or transition.
-4. Preserve earlier states through commits.
-5. If a legacy URL must remain, make it a redirect only.
-6. Verify navigation points to the canonical route.
-7. Before publishing business-development material, ask whether the content explains BAITSSS to an external visitor or exposes BAITSSS internal targeting strategy. Only the first category belongs on the public site by default.
+3. Check the change against the site-wide positioning rule before publishing.
+4. Do not create a second live copy for testing or transition.
+5. Preserve earlier states through commits.
+6. If a legacy URL must remain, make it a redirect only.
+7. Verify navigation points to the canonical route.
+8. Before publishing business-development material, ask whether the content explains BAITSSS to an external visitor or exposes BAITSSS internal targeting strategy. Only the first category belongs on the public site by default.
 
 This is the release-stage website rule going forward.
