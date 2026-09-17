@@ -29,23 +29,23 @@
     section.innerHTML='\
 <div class="wrap wm-wrap">\
   <div class="wm-head">\
-    <div class="eyebrow">Experience across different water problems</div>\
-    <h2>Different places, different pressures, closely related questions.</h2>\
-    <p>BAITSSS did not grow from one field or one type of evapotranspiration study. The work has moved through very different agricultural water settings. Those settings matter because they expose different parts of the same water-management problem: what is happening in the field, what can be measured, what must be estimated, how management changes the result, and how that field-scale evidence connects to a larger decision.</p>\
+    <div class="eyebrow">Experience across agricultural water settings</div>\
+    <h2>Different agricultural settings, connected water-management questions.</h2>\
+    <p>BAITSSS has been applied across agricultural water settings in California, Kansas, Arizona, and Texas. Each setting has helped examine a different part of the same field-scale problem: crop water use, soil-water status, irrigation, management response, measurement, and how field evidence can inform larger water-management decisions.</p>\
   </div>\
   <div class="wm-regions">\
     <article class="wm-region"><div class="wm-place">California</div><h3>Complex water management around high-value irrigated agriculture.</h3><p>California brings together specialty crops, groundwater pressure, salinity, soil variability, remote sensing, water accounting, conservation programs, recycled water, and multiple levels of planning. BAITSSS work here has included citrus water use, comparison with independent observations and OpenET, and the effect of soil information on evapotranspiration and irrigation modeling. It is an important setting for connecting field-process analysis with the broader water-management system.</p></article>\
-    <article class="wm-region"><div class="wm-place">Kansas</div><h3>Groundwater limits make the management question immediate.</h3><p>In western Kansas, the problem is not simply estimating ET. It is understanding crop water use and irrigation when groundwater is limited and allocations are reduced. BAITSSS has been used to examine field and seasonal water use, modeled irrigation, reported irrigation, and the response of irrigated agriculture under restricted supply.</p></article>\
+    <article class="wm-region"><div class="wm-place">Kansas</div><h3>Groundwater limits bring irrigation decisions into focus.</h3><p>In western Kansas, BAITSSS has been used to examine crop water use and irrigation under limited groundwater and reduced allocations. The work connects field and seasonal water use, modeled irrigation, reported irrigation, and the response of irrigated agriculture under restricted supply.</p></article>\
     <article class="wm-region"><div class="wm-place">Yuma, Arizona</div><h3>Desert agriculture tests the system under strong evaporative demand.</h3><p>Yuma represents a hot, arid irrigated environment where atmospheric demand is high and irrigation is central to crop production. It has been used as a desert-system test setting for continuous hourly simulation and for checking that the scientific and computational workflow remains stable under conditions very different from the central Great Plains.</p></article>\
-    <article class="wm-region"><div class="wm-place">Bushland, Texas</div><h3>Field observations provide a demanding scientific test.</h3><p>Bushland provided a semiarid, advective field environment with strong independent observations for evaluating crop water use and energy-balance behavior. That work helped test BAITSSS against field evidence rather than treating a completed model run as proof by itself.</p></article>\
+    <article class="wm-region"><div class="wm-place">Bushland, Texas</div><h3>Field observations provide a demanding scientific test.</h3><p>Bushland provided a semiarid, advective field environment with strong independent observations for evaluating crop water use and energy-balance behavior. That work helped evaluate BAITSSS against field evidence and examine crop-water and energy-balance behavior under semiarid, advective conditions.</p></article>\
   </div>\
   <div class="wm-common">\
-    <div><div class="wm-mini">What connects these places</div><h3>The same management questions keep returning.</h3></div>\
+    <div><div class="wm-mini">What connects these places</div><h3>Questions shared across the study settings.</h3></div>\
     <p>How much water is being consumed? How is the root zone changing between irrigation events? What part of the signal comes from vegetation and what part from the soil? How does a field respond when supply, timing, soil conditions, or management change? How do modeled results compare with meters, field observations, satellite products, or reported irrigation? And when the field answer is understood, how can it inform conservation, allocation, planning, research, or another technical decision?</p>\
   </div>\
   <div class="wm-collab-head">\
     <div class="eyebrow">Who can work together around these problems</div>\
-    <h2>Water management is rarely one organization doing one calculation.</h2>\
+    <h2>Water management often brings several organizations and systems together.</h2>\
     <p>Different projects may involve different combinations of people and systems. BAITSSS can provide the field-scale process and scenario layer while other partners contribute measurement, operations, engineering, groundwater analysis, regulation, remote sensing, agronomy, or local knowledge.</p>\
   </div>\
   <div class="wm-collab">\
@@ -57,7 +57,7 @@
     <article><strong>Remote-sensing and technology groups</strong><span>Comparison, integration, difficult-field diagnosis, process interpretation, and complementary data products.</span></article>\
   </div>\
   <div class="wm-close">\
-    <strong>BAITSSS does not need every part of the water system to be replaced.</strong> Measurements, delivery systems, weather networks, remote-sensing products, agency records, GIS, and larger groundwater or planning models can remain in place. BAITSSS adds a field-scale scientific layer for understanding processes through time, testing scenarios, comparing evidence, and carrying that analysis into a reproducible technical record.\
+    <strong>BAITSSS works alongside the wider water-management system.</strong> Measurements, delivery systems, weather networks, remote-sensing products, agency records, GIS, and larger groundwater or planning models can remain part of the same project. BAITSSS adds a field-scale scientific layer for understanding processes through time, testing scenarios, comparing evidence, and carrying that analysis into a reproducible technical record.\
   </div>\
 </div>';
 
