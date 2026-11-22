@@ -162,7 +162,38 @@
     }
   }
 
+  // Single source of truth for the public website content-revision date.
+  // Update this date only when the associated website content changes are published.
+  // This is NOT a BAITSSS Desktop build, science-validation, or software-release date.
+  var WEBSITE_CONTENT_UPDATED_ISO = '2026-11-22';
+  var WEBSITE_CONTENT_UPDATED_LABEL = 'November 22, 2026';
+
+  function installWebsiteUpdatedStamp(){
+    var footer=document.querySelector('footer');
+    if(!footer || footer.querySelector('[data-baitsss-site-updated]'))return;
+    var stamp=document.createElement('div');
+    stamp.setAttribute('data-baitsss-site-updated','true');
+    stamp.style.cssText='flex-basis:100%;width:100%;margin-top:12px;padding-top:12px;border-top:1px solid rgba(148,163,184,.22);font-size:12px;line-height:1.6;color:inherit;opacity:.84;';
+    var label=document.createElement('span');
+    label.textContent='Website content last updated: ';
+    var date=document.createElement('time');
+    date.dateTime=WEBSITE_CONTENT_UPDATED_ISO;
+    date.textContent=WEBSITE_CONTENT_UPDATED_LABEL;
+    var separator=document.createTextNode(' · ');
+    var details=document.createElement('a');
+    details.href='/release-notes/';
+    details.textContent='Release and development notes';
+    details.style.color='inherit';
+    details.style.textDecoration='underline';
+    stamp.appendChild(label);
+    stamp.appendChild(date);
+    stamp.appendChild(separator);
+    stamp.appendChild(details);
+    (footer.querySelector('.footer-inner')||footer.querySelector('.wrap')||footer).appendChild(stamp);
+  }
+
   function installDuplicateGuard(){
+    installWebsiteUpdatedStamp();
     removeDuplicateLinkedInEmbeds();
     installSoftwareFlyerLink();
     installBusinessIndustryLink();
