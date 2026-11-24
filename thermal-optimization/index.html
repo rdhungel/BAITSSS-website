@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thermal Observations &amp; Optimization | BAITSSS</title>
+<meta name="description" content="Technical documentation for experimental BAITSSS Landsat thermal evidence, independent Upper and Lower optimization routes, chained simulations, validation, and research limitations.">
+<link rel="canonical" href="https://baitsss.com/thermal-optimization/">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.thermo-nav{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 30px}.thermo-nav a{font-size:13px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;color:var(--ink);background:#fff}
+.thermo-table{width:100%;border-collapse:collapse;font-size:14px;margin:20px 0}.thermo-table th,.thermo-table td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.thermo-table th{background:var(--soft)}.thermo-table td:first-child{font-weight:650}
+.thermo-code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;background:var(--soft);padding:3px 5px;border-radius:4px}
+.thermo-note{border-left:3px solid var(--green);padding:14px 18px;background:var(--soft);margin:20px 0;line-height:1.65}
+.thermo-steps{counter-reset:step;padding:0;list-style:none}.thermo-steps li{counter-increment:step;margin:0 0 14px;padding:14px 16px;border:1px solid var(--line);border-radius:8px}.thermo-steps li:before{content:counter(step) ". ";font-weight:800;color:var(--green)}
+.thermo-metric{font-size:25px;font-weight:750;color:var(--ink);line-height:1.3}.thermo-label{color:var(--muted);font-size:13px}
+.thermo-small{font-size:13px;color:var(--muted)}.thermo-section{scroll-margin-top:90px}.thermo-fig{margin:16px 0}.thermo-fig figcaption{font-size:13px;color:var(--muted)}
+@media(max-width:680px){.thermo-table{font-size:12px}.thermo-table th,.thermo-table td{padding:9px}}
+</style>
+</head>
+<body><div class="site-shell">
+<header class="site-header"><a class="brand" href="../"><img src="../assets/brand-mark.svg" alt=""><span class="brand-name">BAITSSS</span></a><nav class="primary-nav"><a href="../">Home</a><a href="../science/">Science</a><a href="../software/">Software</a><a href="../access-participation/">Access &amp; Participation</a><a href="../contact/">Contact</a><details class="menu"><summary>Menu ⌄</summary><div class="menu-panel"><a href="../evidence/">Evidence</a><a href="../research-education/">Research &amp; Education</a><a href="../development-status/">Development Status</a><a href="../scientific-stewardship/">Scientific Stewardship</a><a href="../origins-publications/">Origins &amp; Publications</a></div></details></nav></header>
+<main>
+<section class="hero compact"><div class="eyebrow"><span class="eyebrow-dot"></span>Technical documentation · Research development · Updated November 24, 2026</div>
+<h1 class="page-title">Thermal observations and experimental optimization in BAITSSS</h1>
+<p class="page-lede">How Landsat land-surface temperature is being connected to a continuous hourly energy–water balance—and what the experiments can and cannot yet establish about evapotranspiration and irrigation.</p>
+<div class="cta-row"><a class="button button-primary" href="#workflow">Explore the workflow</a><a class="button" href="#evidence">See the evidence status</a><a class="button" href="../development-status/">Development status</a></div></section>
+<div class="thermo-nav" aria-label="On this page"><a href="#principle">Scientific question</a><a href="#workflow">Workflow</a><a href="#routes">Upper vs Lower</a><a href="#methods">Optimization methods</a><a href="#evidence">Site evidence</a><a href="#interpretation">Interpretation</a><a href="#validation">Ground validation</a><a href="#limitations">Limitations</a><a href="#next">Research roadmap</a></div>
+<section class="section thermo-section" id="principle">
+<div class="kicker">Purpose and boundary</div><h2>Does observed temperature make simulated water use more accurate?</h2>
+<p class="readable">The maintained BAITSSS model integrates hourly meteorology, vegetation, surface energy exchange, two-layer soil water, and modeled irrigation. Landsat thermal observations are an independent check on simulated surface-energy behavior. The new Optimize workflows are <strong>optional experiments</strong> and do not overwrite Original simulation results.</p>
+<div class="thermo-note"><strong>The decisive test is independent ground ET.</strong> A closer fit between modeled temperature and Landsat land-surface temperature (LST) does not, by itself, prove improved evapotranspiration, transpiration, evaporation, or irrigation. Ground-based lysimeter and eddy-covariance measurements, after quality control and footprint/time matching, are the intended validation evidence. METRIC or another thermal ET product is not used as ground truth in this research plan.</div>
+<p class="readable">Physically, surface temperature is influenced by the partitioning of net available energy among sensible and latent heat fluxes. It is also influenced by canopy geometry, soil exposure, atmospheric forcing, emissivity, aerodynamic resistance, advection, and measurement scale. Multiple parameter combinations can reproduce similar temperatures yet different ET or irrigation histories.</p>
+</section>
+<section class="section thermo-section" id="workflow">
+<div class="kicker">Process</div><h2>From a preserved Original run to a thermally evaluated candidate</h2>
+<ol class="thermo-steps">
+<li><strong>Complete and preserve Original BAITSSS.</strong> A run-specific manifest freezes the simulation period, model grid, meteorological inputs, vegetation, static fields, and settings. Original ET, E, T, irrigation, and soil states remain available for audit.</li>
+<li><strong>Prepare independent Landsat scenes.</strong> The project records scene provenance, the surface-temperature raster, exact acquisition date/time from Landsat metadata, valid-pixel masks, and geographic alignment.</li>
+<li><strong>Reconstruct modeled temperature at overpasses.</strong> The Optimize-only thermal exporter reads saved Original hourly inputs and previous soil-water states, evaluates the required hours, and checks ET replay against saved Original output. An audited PASS export is required; reconstructed combined temperature remains unvalidated as a Landsat-equivalent radiometric observation.</li>
+<li><strong>Choose one experimental route.</strong> Upper consumes explicit user-provided pixel weather/vegetation/thermal data; Lower operates against a completed spatial Original run and its frozen prepared inputs. They remain separate scientific workflows.</li>
+<li><strong>Define parameters, bounds, method, and objective.</strong> Parameter bounds are research hypotheses, not proof of physical plausibility. Each candidate has a separate identity and its own outputs.</li>
+<li><strong>Execute independent candidate hours.</strong> In a full-period chained run, a candidate begins with the authorized Original initial state and carries <em>its own</em> surface/root soil-water state forward hour by hour. Weather, vegetation, spatial grid, and ordinary static inputs remain those of the selected Original run unless an explicitly documented experiment changes an input.</li>
+<li><strong>Compare observed and modeled quantities.</strong> Match Landsat and model temperatures at the same acquisition instant/model hour and valid spatial support. Examine seasonal ET, E, T, simulated irrigation, and soil-water storage before interpreting any improvement.</li>
+<li><strong>Validate independently.</strong> Compare against measured lysimeter/EC ET and measured irrigation where available, with withheld dates, model-versus-measurement uncertainty, and a complete water-budget audit.</li>
+</ol>
+<p class="thermo-small">A full-season preflight passing is not the same as a candidate completing. Software execution, temperature score, and scientific accuracy are separate claims.</p>
+</section>
+<section class="section thermo-section" id="routes">
+<div class="kicker">Independent pathways</div><h2>Upper Route and Lower Route are not interchangeable</h2>
+<table class="thermo-table"><thead><tr><th>Aspect</th><th>Upper Route — experimental pixel/CSV</th><th>Lower Route — spatial Original-run optimization</th></tr></thead><tbody>
+<tr><td>Input authority</td><td>User-supplied hourly/pixel CSV with location, weather, vegetation, and observed thermal values. No automatic Lower lookup.</td><td>Frozen prepared data and run manifest from a completed spatial Original BAITSSS simulation.</td></tr>
+<tr><td>Primary purpose</td><td>Fast, controlled sensitivity and optimizer comparisons for a supplied pixel or small set of pixels.</td><td>Independent full-period, spatially referenced candidate simulation on the Original model grid.</td></tr>
+<tr><td>Soil water / irrigation</td><td>Recomputed within each explicitly configured experimental trajectory.</td><td>Candidate-owned hourly soil-state chaining and simulated irrigation response must be audited.</td></tr>
+<tr><td>Thermal comparison</td><td>Observed acquisition LST against Original and candidate modeled temperatures; combined-temperature proxy is experimental.</td><td>Run-matched verified Original export, scene/time provenance, and candidate/model-grid matched observations.</td></tr>
+<tr><td>Output maturity</td><td>Diagnostic series and comparisons; not a replacement for maintained Original.</td><td>Read-only preflight demonstrated for Citrus; full-period candidate execution and independent validation must complete.</td></tr>
+</tbody></table>
+</section>
+<section class="section thermo-section" id="methods">
+<div class="kicker">Methods and parameters</div><h2>What the optimization schemes actually do</h2>
+<div class="grid three">
+<article class="card"><h3>Gaussian-process Bayesian optimization</h3><p>Uses prior evaluated candidates to propose subsequent parameter combinations intended to reduce a specified loss. One candidate is an execution test, not evidence of a converged optimum.</p></article>
+<article class="card"><h3>Random search</h3><p>Provides a simple stochastic benchmark. A GP method must demonstrate more than a favorable result on one run to claim a systematic advantage.</p></article>
+<article class="card"><h3>Sensitivity and structured exploration</h3><p>Varies selected controls and examines responses, interactions, stability, and physical plausibility. Method availability and automatic end-to-end execution differ by route and build.</p></article>
+</div>
+<p class="readable">Common experimental controls include minimum canopy resistance, management allowed depletion (MAD), rooting depth, canopy albedo, and soil albedo. All other settings should remain traceable to their recorded authority. Apparent thermal gains must be examined jointly with ET, irrigation, and soil moisture.</p>
+<div class="thermo-note"><strong>Simulated irrigation is not observed irrigation.</strong> Changes in root depth, MAD, resistance, and soil state can change replenishment and ET even under identical rainfall and weather. A model-generated seasonal irrigation total must not be treated as measured water applied. Independent water records are essential, particularly when a candidate produces very large ET differences.</div>
+</section>
+<section class="section thermo-section" id="evidence">
+<div class="kicker">Research evidence · November 2026</div><h2>What has been observed, and what remains unproved</h2>
+<div class="grid three">
+<article class="card"><div class="thermo-metric">Kansas corn · 2013</div><p>Upper Route pixel trials and Lower Route thermal comparisons have been explored for the 3,096-hour season. Thermal agreement and parameter rankings differ by method and training/holdout selection. In one Lower Route comparison, the GP thermal RMSE was slightly worse than Original (about 5.350°C versus 5.218°C), rather than establishing improvement.</p><p class="thermo-small">These outcomes are exploratory; they do not independently validate seasonal ET.</p></article>
+<article class="card"><div class="thermo-metric">California citrus · 2021</div><p>The completed Original spatial run contains 8,737 hours. A verified Original thermal replay was generated for 16 MTL-timed Landsat acquisitions; the AOI temperature comparison rendered. The Lower GP full-period read-only preflight passed with the 163×128 Original grid and 53,164 referenced unique rasters; one full-period candidate began executing.</p><p class="thermo-small">A successful preflight or partial candidate run is not a completed ET validation result.</p></article>
+<article class="card"><div class="thermo-metric">Yuma lettuce</div><p>The thermal export and experimental analysis workflow has been exercised in a short Yuma case. Seasonal ground-ET comparisons, irrigation validation, and transferable optimization conclusions are not established here.</p><p class="thermo-small">Site-specific lysimeter/EC availability and periods require confirmation.</p></article>
+</div>
+<p class="readable">Earlier Upper Route Kansas GP7 pixel experiments produced both improved and worsened thermal scores depending on fitting and holdout criteria; in another experiment, a random-search candidate had better training RMSE than the GP-selected candidate. These observations motivate systematic multi-method comparison rather than a premature claim that one optimizer is superior.</p>
+<p class="readable">The California citrus observation workflow also exposed genuine software-integration defects—legacy saved-state paths, different hour-selection conventions, and a strict all-scene common-valid-pixel requirement. These were addressed in the development build while preserving the Original run and keeping provenance and per-scene masks explicit. The publication-grade release still requires regression and reproducibility checks.</p>
+</section>
+<section class="section thermo-section" id="interpretation">
+<div class="kicker">Scientific interpretation</div><h2>Similar optimized outcomes can mean different things</h2>
+<table class="thermo-table"><thead><tr><th>Observed pattern</th><th>Possible interpretation</th><th>Evidence needed</th></tr></thead><tbody>
+<tr><td>Multiple methods agree in temperature and water budget</td><td>Potential robustness under tested assumptions.</td><td>Independent starts, broader bounds, withheld scenes, ground ET, and other sites.</td></tr>
+<tr><td>Multiple methods agree in temperature but disagree in ET/irrigation</td><td>Non-identifiability or compensating errors.</td><td>ET partitioning, water balance, soil states, observed water application.</td></tr>
+<tr><td>All methods retain the same thermal bias</td><td>Possible structural, forcing, representation, or observation-operator deficiency.</td><td>Bias diagnosis across time, scene quality, canopy fraction, radiometric vs aerodynamic temperature, flux observations.</td></tr>
+<tr><td>Temperature improves but independent ET worsens</td><td>Thermal fit alone is not an adequate calibration objective.</td><td>Withheld lysimeter/EC ET, irrigation and storage closure.</td></tr>
+<tr><td>Temperature and independent ET both improve</td><td>Evidence that thermal information adds predictive skill.</td><td>Repeatable site-by-site and holdout improvements with quantified uncertainty.</td></tr>
+</tbody></table>
+<h3>What about ET between satellite acquisitions?</h3>
+<p class="readable">BAITSSS simulates hourly ET and soil-water states between overpasses; it does not need to create ET by drawing a line between satellite dates. A separate research test can compare (a) uninterrupted Original simulation, (b) parameter-optimized simulation, and (c) an overpass-informed ET correction applied to the existing trajectory. The latter must be labeled retrospective and evaluated against ground ET; a corrected ET series without updated soil-water states is not automatically a closed water balance.</p>
+<p class="readable">A Landsat temperature residual is measured in degrees Celsius, not millimeters of ET. It cannot simply be linearly interpolated into an ET correction. Such an experiment first needs a defensible observation-to-ET relationship, independent performance testing, and rules governing irrigation and state updates.</p>
+</section>
+<section class="section thermo-section" id="validation">
+<div class="kicker">Research design</div><h2>Independent lysimeter and eddy-covariance validation</h2>
+<p class="readable">The intended evaluation spans Kansas corn, California citrus, and Yuma lettuce, conditional on verifying the available lysimeter and/or eddy-covariance datasets for each site. Independent observations are evaluation evidence; they should not silently enter the thermal-only training objective.</p>
+<table class="thermo-table"><thead><tr><th>Test</th><th>Design</th></tr></thead><tbody>
+<tr><td>Baseline</td><td>Original BAITSSS with recorded forcing and management assumptions; no thermal calibration.</td></tr>
+<tr><td>Thermal-only</td><td>Fit selected parameters on designated Landsat acquisition training dates; evaluate on withheld dates and ground ET.</td></tr>
+<tr><td>Water-constrained</td><td>Separate experiment using measured irrigation and/or soil-water constraints; distinguish observed inputs from optimized management.</td></tr>
+<tr><td>Comparisons</td><td>Hourly/daily and seasonal ET bias, RMSE/MAE, cumulative ET, E/T components, irrigation totals and timing, soil-water storage and water-budget residuals.</td></tr>
+<tr><td>Measurement compatibility</td><td>Match EC footprint, lysimeter surface, land cover, geolocation, averaging period, quality flags, and energy-balance closure uncertainty.</td></tr>
+</tbody></table>
+</section>
+<section class="section thermo-section" id="limitations">
+<div class="kicker">Interpretive safeguards</div><h2>What BAITSSS does not yet claim</h2>
+<ul>
+<li>The combined modeled temperature diagnostic is <strong>not validated</strong> as a physically equivalent Landsat radiometric LST operator.</li>
+<li>Successful optimization execution does <strong>not</strong> establish improved independent ET or irrigation accuracy.</li>
+<li>An observed thermal overpass is not itself an observed daily or seasonal ET measurement.</li>
+<li>Cloud masking, atmospheric effects, emissivity, vegetation/soil mixture, footprint mismatch, and forcing uncertainty can alter thermal residuals.</li>
+<li>Full-period modeled irrigation is a scenario prediction unless calibrated or constrained by actual application records.</li>
+<li>Upper CSV experiments and Lower spatial chained simulations must not be merged or presented as the same tested implementation.</li>
+<li>Results from one crop, year, or small pixel sample must not be generalized to all crops or climates.</li>
+</ul>
+</section>
+<section class="section thermo-section" id="next">
+<div class="kicker">Next phase</div><h2>Three linked outputs from the development program</h2>
+<div class="grid three">
+<article class="card"><h3>1 · Software release</h3><p>Package a stable, reproducible BAITSSS Desktop build, preserve Original science, distinguish experimental modules, document dependencies and input contracts, and run Kansas/Citrus/Yuma regression checks.</p></article>
+<article class="card"><h3>2 · Scientific manuscript</h3><p>Test whether thermal constraints improve ET and irrigation predictions against independently measured lysimeter/EC fluxes and water records; report positive, neutral, or negative results.</p></article>
+<article class="card"><h3>3 · Public documentation</h3><p>Maintain the model history, thermal methods, verified evidence, interpretation boundaries, and research status on this website as the experiments develop.</p></article>
+</div>
+<p class="readable"><strong>Current conclusion:</strong> The software can connect observed thermal scenes to independently reconstructed BAITSSS temperatures and experimental optimizer runs. Whether this additional thermal information improves continuous ET and irrigation prediction remains a testable, open research question.</p>
+<div class="cta-row"><a class="button button-primary" href="../science/">Read BAITSSS science</a><a class="button" href="../evidence/">Research evidence</a><a class="button" href="../development-status/">Release status</a></div>
+</section>
+</main>
+<footer class="footer"><div><strong>BAITSSS</strong> · Thermal observations and experimental optimization · Updated November 24, 2026.</div><div class="footer-links"><a href="../">Home</a><a href="../science/">Science</a><a href="../contact/">Contact</a></div></footer>
+</div><script src="../menu.js"></script></body></html>
